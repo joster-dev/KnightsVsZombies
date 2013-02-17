@@ -7,7 +7,10 @@ public class ScreenPanel {
 	
 	public static int shopWidth = 5;
 	public static int shopButtonSize = ((3 * (Opening.myHeight / 5)) / 4);			//shop buttons take up 3/4 (6/8) of the of the vertical space allocated at the bottom of the screen. 
-	public static int shopCellSpace = cellSpaceFromRoom;				
+	public static int shopCellSpace = cellSpaceFromRoom;
+	public static int[] shopButtonId = {0, 1, 2, 3, 7};
+	public static int holdItemId;
+	public static boolean holdItem = false;
 	
 	public static int menuLength = 3;
 	public static int menuButtonSizeX = ((3 * (Opening.myHeight / 5)) / 4);			//menu buttons take up 3/4 (6/8) of allocated space horizontally. 
@@ -57,6 +60,47 @@ public class ScreenPanel {
 		}
 	}
 	
+	public void click(int mouseClick) {
+		if(mouseClick == 1) {										//Left click.
+			for(int i = 0; i < shop.length; i++) {
+				if(shop[i].contains(Opening.mse)) {
+					if(i == 0) {
+						shopButtonId[1] -= 1;
+						shopButtonId[2] -= 1;
+						shopButtonId[3] -= 1;
+						if(shopButtonId[1] == 0) {
+							shopButtonId[1] = 6;
+						}
+						if(shopButtonId[2] == 0) {
+							shopButtonId[2] = 6;
+						}
+						if(shopButtonId[3] == 0) {
+							shopButtonId[3] = 6;
+						}
+					}
+					else if (i == 4) {
+						shopButtonId[1] += 1;
+						shopButtonId[2] += 1;
+						shopButtonId[3] += 1;
+						if(shopButtonId[1] == 7) {
+							shopButtonId[1] = 1;
+						}
+						if(shopButtonId[2] == 7) {
+							shopButtonId[2] = 1;
+						}
+						if(shopButtonId[3] == 7) {
+							shopButtonId[3] = 1;
+						}
+					}
+					else {
+						holdItemId = shopButtonId[i];
+						holdItem = true;
+					}
+				}
+			}
+		}
+	}
+	
 	public void draw(Graphics g) {
 		
 		g.setFont(new Font("Arial", Font.BOLD, 15));
@@ -66,6 +110,13 @@ public class ScreenPanel {
 			g.fillRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
 			g.setColor(Color.BLACK);
 			g.drawRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
+			try {
+				g.drawImage(new ImageIcon("res/Towers/tower" + shopButtonId[i] + ".png").getImage(), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
+			} catch (Exception e) {}
+			if(i == 0 || i == shop.length-1) {
+				g.setColor(Color.BLACK);
+				g.fillOval(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
+			}
 			if(shop[i].contains(Opening.mse)) {
 				g.setColor(new Color(255, 255, 255, 100));
 				g.fillRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);

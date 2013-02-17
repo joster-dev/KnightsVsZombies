@@ -27,8 +27,8 @@ public class Opening extends JPanel {
 		}
 	}
 	
-	public void click(int mouseclick) {
-		if (mouseclick == 1) {
+	public void click(int mouseClick) {
+		if (mouseClick == 1) {
 			for(int i = 0; i < mainChoices.length; i++) {
 				if (mainChoices[i].contains(mse)) {
 					if(i == 0) {

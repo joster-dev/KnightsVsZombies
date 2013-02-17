@@ -41,14 +41,14 @@ public class Frame extends JFrame {
 		if(openingScreen.newGame) {
 			remove(openingScreen);
 			openingScreen.setVisible(false);
-			openingScreen.mse.setLocation(0, 0);
+			Opening.mse.setLocation(0, 0);
 			
 			add(chooseGame);
 			chooseGame.setVisible(true);
 			
 			if(chooseGame.storyMode) {
 				remove(chooseGame);
-				chooseGame.setVisible(true);
+				chooseGame.setVisible(false);
 				
 				add(gameScreen);
 				gameScreen.setVisible(true);
@@ -58,12 +58,12 @@ public class Frame extends JFrame {
 			}
 			else if(chooseGame.infiniteMode) {
 				remove(chooseGame);
-				chooseGame.setVisible(true);
+				chooseGame.setVisible(false);
 				
 				add(gameScreen);
 				gameScreen.setVisible(true);
 				
-				chooseGame.storyMode = false;
+				chooseGame.infiniteMode = false;
 				openingScreen.newGame = false;
 			}
 		}

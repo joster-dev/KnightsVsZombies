@@ -2,7 +2,9 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class KeyHandler implements MouseMotionListener, MouseListener {
-
+	
+	private int count = 0;
+	
 	public void mouseClicked(MouseEvent e) {
 		
 	}
@@ -24,12 +26,14 @@ public class KeyHandler implements MouseMotionListener, MouseListener {
 			Frame.openingScreen.click(e.getButton());
 			//System.out.println("O" + e.getClickCount());
 		}
-		else if(Frame.chooseGame.isShowing()) {
+		else if(Frame.chooseGame.isVisible()) {
 			Frame.chooseGame.click(e.getButton());
 			//System.out.println("C" + e.getClickCount());
 		}
-		else if(Frame.gameScreen.isVisible()) {
-			
+		if(Frame.gameScreen.isVisible()) {
+			System.out.println("Boop" + count);
+			count++;
+			Frame.gameScreen.gamePanel.click(e.getButton());
 		}
 	}
 
