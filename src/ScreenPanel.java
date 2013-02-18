@@ -1,4 +1,5 @@
 import java.awt.*;
+
 import javax.swing.*;
 
 public class ScreenPanel {
@@ -96,23 +97,56 @@ public class ScreenPanel {
 						holdItemId = shopButtonId[i];
 						holdItem = true;
 					}
+					if (holdItem == true) {
+						if (Screen.myGold >= Value.getTowerStats("cost", shopButtonId[holdItemId])) {
+							for (int y = 0; y < Screen.room.block.length; y++) {
+								for (int x = 0; x < Screen.room.block[0].length; x++) {
+									if (Screen.room.block[y][x].contains(Opening.mse)) {
+										System.out.println("Yea");
+										if (Screen.room.block[y][x].groundId == Value.groundOpen && Screen.room.block[y][x].airId == Value.airOpen) {
+											System.out.println("Something");
+											Screen.room.block[y][x].addTower(holdItemId);
+											Screen.myGold -= Value.getTowerStats("cost", holdItemId);
+											holdItemId = -1;
+											holdItem = false;
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
+		}
+		else if (mouseClick == 3) {
+			holdItemId = -1;
+			holdItem = false;
 		}
 	}
 	
 	public void draw(Graphics g) {
 		
-		g.setFont(new Font("Arial", Font.BOLD, 15));
+		//*Info Box*//
+		
+		g.setColor(Color.WHITE);
+		g.fillRect(info.x, info.y, info.width, info.height);
+		g.setColor(Color.BLACK);
+		g.drawRect(info.x, info.y, info.width, info.height);
+		
+		//*//
+		
+		//*Shop*//
 		
 		for(int i = 0; i < shop.length; i++) {
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
 			g.setColor(Color.BLACK);
 			g.drawRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
-			try {
+			if(shopButtonId[i] != 0 && shopButtonId[i] != 7) {
 				g.drawImage(new ImageIcon("res/Towers/tower" + shopButtonId[i] + ".png").getImage(), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
-			} catch (Exception e) {}
+				g.setFont(new Font("Arial", Font.BOLD, 13));
+				g.drawString(Integer.toString(Value.getTowerStats("cost", shopButtonId[i])), shop[i].x + (shopCellSpace / 4), shop[i].y + ((shopCellSpace * 5) / 4));
+			}
 			if(i == 0 || i == shop.length-1) {
 				g.setColor(Color.BLACK);
 				g.fillOval(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
@@ -120,14 +154,47 @@ public class ScreenPanel {
 			if(shop[i].contains(Opening.mse)) {
 				g.setColor(new Color(255, 255, 255, 100));
 				g.fillRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
+				g.setColor(Color.BLACK);
+				
+				//*Info Box information*//
+				if(shopButtonId[i] != 0 && shopButtonId[i] != 7) {
+					for(int l = 0; l < infoIcon.length; l++) {
+						if(l == 0) {
+							g.drawImage(new ImageIcon("res/Graphics/Attack.png").getImage(), infoIcon[l].x, infoIcon[l].y, infoIcon[l].width, infoIcon[l].height, null);
+						}
+						else if(l == 1) {
+							g.drawImage(new ImageIcon("res/Graphics/Speed.png").getImage(), infoIcon[l].x, infoIcon[l].y, infoIcon[l].width, infoIcon[l].height, null);
+						}
+						else if(l == 2) {
+							g.drawImage(new ImageIcon("res/Graphics/Range.png").getImage(), infoIcon[l].x, infoIcon[l].y, infoIcon[l].width, infoIcon[l].height, null);
+						}
+					}
+					g.drawString(Integer.toString(Value.getTowerStats("attack", shopButtonId[i])), infoIcon[0].x + (shopCellSpace / 2) + infoIconSize, infoIcon[0].y + ((infoIconSize * 3)/ 4));
+					g.drawString(Integer.toString(Value.getTowerStats("speed", shopButtonId[i])), infoIcon[1].x + (shopCellSpace / 2) + infoIconSize, infoIcon[1].y + ((infoIconSize * 3)/ 4));
+					g.drawString(Integer.toString(Value.getTowerStats("range", shopButtonId[i])), infoIcon[2].x + (shopCellSpace / 2) + infoIconSize, infoIcon[2].y + ((infoIconSize * 3)/ 4));
+				}
+				//*//
 			}
 		}
+		if(holdItem) {
+			g.drawImage(new ImageIcon("res/Towers/tower" + holdItemId + ".png").getImage(), Opening.mse.x - (Room.blockSize / 2), Opening.mse.y - (Room.blockSize / 2), Room.blockSize, Room.blockSize, null);
+		}
+		
+		//*//
+		
+		//*Menu (Fast Forward, Options, Save)*//
 		
 		for(int j = 0; j < menu.length; j++) {
-			g.setColor(Color.LIGHT_GRAY);
-			g.fillRect(menu[j].x, menu[j].y, menu[j].width, menu[j].height);
-			g.setColor(Color.BLACK);
-			g.drawRect(menu[j].x, menu[j].y, menu[j].width, menu[j].height);
+			
+			if(j == 0) {
+				g.drawImage(new ImageIcon("res/Graphics/MenuFF.png").getImage(), menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
+			}
+			else if(j == 1) {
+				g.drawImage(new ImageIcon("res/Graphics/MenuPause.png").getImage(), menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
+			}
+			else if(j == 2) {
+				g.drawImage(new ImageIcon("res/Graphics/MenuSave.png").getImage(), menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
+			}
 				
 			if(menu[j].contains(Opening.mse)) {
 				g.setColor(new Color(255, 255, 255, 100));
@@ -135,48 +202,31 @@ public class ScreenPanel {
 			}
 		}
 		
+		//*//
+		
+		//*Status (Health, Gold, Waves Remaining)*//
+		
 		for(int k = 0; k < status.length; k++) {
 			g.setColor(Color.WHITE);
 			g.fillRect(status[k].x, status[k].y, status[k].width, status[k].height);
+			
 			g.setColor(Color.BLACK);
-			g.drawRect(status[k].x, status[k].y, status[k].width, status[k].height);
-		}
-		
-		for(int m = 0; m < status.length; m++) {
-			if(m == 0) {
-				g.setColor(Color.RED);
-				g.fillRect(statusIcon[m].x, statusIcon[m].y, statusIcon[m].width, statusIcon[m].height);
-				g.setColor(Color.BLACK);
-				g.drawRect(statusIcon[m].x, statusIcon[m].y, statusIcon[m].width, statusIcon[m].height);
-				g.drawString("" + Screen.myHealth, statusIcon[m].x + (statusButtonSizeX / 3), statusIcon[m].y + ((3 * statusIconSize) / 4));
+			g.setFont(new Font("Arial", Font.BOLD, 15));
+			
+			if(k == 0) {
+				g.drawString("" + Screen.myHealth, statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
+				g.drawImage(new ImageIcon("res/Graphics/Health.png").getImage(), statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
 			} 
-			else if(m == 1) {
-				g.setColor(Color.YELLOW);
-				g.fillRect(statusIcon[m].x, statusIcon[m].y, statusIcon[m].width, statusIcon[m].height);
-				g.setColor(Color.BLACK);
-				g.drawRect(statusIcon[m].x, statusIcon[m].y, statusIcon[m].width, statusIcon[m].height);
-				g.drawString("" + Screen.myGold, statusIcon[m].x + (statusButtonSizeX / 3), statusIcon[m].y + ((3 * statusIconSize) / 4));
+			else if(k == 1) {
+				g.drawString("" + Screen.myGold, statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
+				g.drawImage(new ImageIcon("res/Graphics/Gold.png").getImage(), statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
 			} 
-			else if(m == 2) {
-				g.setColor(Color.GREEN);
-				g.fillRect(statusIcon[m].x, statusIcon[m].y, statusIcon[m].width, statusIcon[m].height);
-				g.setColor(Color.BLACK);
-				g.drawRect(statusIcon[m].x, statusIcon[m].y, statusIcon[m].width, statusIcon[m].height);
-				g.drawString("" + Screen.myWaves, statusIcon[m].x + (statusButtonSizeX / 3), statusIcon[m].y + ((3 * statusIconSize) / 4));
+			else if(k == 2) {
+				g.drawString("" + Screen.myWaves, statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
+				g.drawImage(new ImageIcon("res/Graphics/Waves.png").getImage(), statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
 			}
 		}
 		
-		g.setColor(Color.WHITE);
-		g.fillRect(info.x, info.y, info.width, info.height);
-		g.setColor(Color.BLACK);
-		g.drawRect(info.x, info.y, info.width, info.height);
-		
-		for(int l = 0; l < infoIcon.length; l++) {
-			g.setColor(Color.MAGENTA);
-			g.fillRect(infoIcon[l].x, infoIcon[l].y, infoIcon[l].width, infoIcon[l].height);
-			g.setColor(Color.BLACK);
-			g.drawRect(infoIcon[l].x, infoIcon[l].y, infoIcon[l].width, infoIcon[l].height);
-		}
 			/*g.drawImage(new ImageIcon("res/knights/tower" + buttonId[i] + ".png").getImage(), button[i].x + itemIn, button[i].y + itemIn, button[i].width - (itemIn*2), button[i].height - (itemIn*2), null);
 			
 			if (buttonPrice[buttonId[i]] > 0) {

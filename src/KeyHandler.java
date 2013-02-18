@@ -30,10 +30,10 @@ public class KeyHandler implements MouseMotionListener, MouseListener {
 			Frame.chooseGame.click(e.getButton());
 			//System.out.println("C" + e.getClickCount());
 		}
-		if(Frame.gameScreen.isVisible()) {
-			System.out.println("Boop" + count);
-			count++;
-			Frame.gameScreen.gamePanel.click(e.getButton());
+		else if(Frame.gameScreen.isVisible()) {
+			try {
+				Screen.gamePanel.click(e.getButton());
+			} catch (Exception e1) {}
 		}
 	}
 

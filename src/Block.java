@@ -7,11 +7,20 @@ public class Block extends Rectangle {
 	public int groundId;
 	public int airId;
 	
+	public boolean hasTower = false;
+	public Tower tower;
+	
 	public Block(int x, int y, int width, int height, int groundID, int airID) {
 		setBounds(x, y, width, height);
 		
 		this.groundId = groundID;
 		this.airId = airID;
+	}
+	
+	public void addTower(int towerId) {
+		this.hasTower = true;
+		this.airId = towerId;
+		this.tower = new Tower(towerId);
 	}
 	
 	public void physic() {
@@ -42,7 +51,9 @@ public class Block extends Rectangle {
 			g.fillRect(x, y, width, height);
 			g.setColor(Color.BLACK);
 			g.drawRect(x, y, width, height);
-			//g.drawImage(new ImageIcon("res/knights/tower" + airId + ".png").getImage(),x, y, width, height, null);
+		}
+		else if(airId == Value.knightTower) {
+			g.drawImage(new ImageIcon("res/Towers/tower" + airId + ".png").getImage(),x, y, width, height, null);
 		}
 	}	
 }
