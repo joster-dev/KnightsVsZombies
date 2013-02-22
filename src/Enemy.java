@@ -3,27 +3,110 @@ import javax.swing.ImageIcon;
 
 
 public class Enemy extends Rectangle {
-	public int xC, yC;
-	public int walkFrame = 0, walkSpeed = 15;
+	/**
+	 * @uml.property  name="xC"
+	 */
+	public int xC;
+	/**
+	 * @uml.property  name="yC"
+	 */
+	public int yC;
+	/**
+	 * @uml.property  name="walkFrame"
+	 */
+	public int walkFrame = 0;
+	/**
+	 * @uml.property  name="walkSpeed"
+	 */
+	public int walkSpeed = 15;
+	/**
+	 * @uml.property  name="health"
+	 */
 	public int health;
+	/**
+	 * @uml.property  name="armor"
+	 */
 	public int armor;
 	
+	/**
+	 * @uml.property  name="enemySize"
+	 */
 	public int enemySize = Room.blockSize;
+	/**
+	 * @uml.property  name="enemyId"
+	 */
 	public int enemyId;
+	/**
+	 * @uml.property  name="enemyWalk"
+	 */
 	public int enemyWalk = 0;
 	
+	/**
+	 * @uml.property  name="enemyHealth"
+	 */
 	public int enemyHealth;
+	/**
+	 * @uml.property  name="enemyDmg"
+	 */
 	public int enemyDmg;
+	/**
+	 * @uml.property  name="enemyRange"
+	 */
 	public int enemyRange;
+	/**
+	 * @uml.property  name="enemyFireRange"
+	 */
 	public int enemyFireRange;
+	/**
+	 * @uml.property  name="enemyCost"
+	 */
 	public int enemyCost;
 	
-	public int down = 0, left = 1, right = 2, up = 3;
+	/**
+	 * @uml.property  name="down"
+	 */
+	public int down = 0;
+	/**
+	 * @uml.property  name="left"
+	 */
+	public int left = 1;
+	/**
+	 * @uml.property  name="right"
+	 */
+	public int right = 2;
+	/**
+	 * @uml.property  name="up"
+	 */
+	public int up = 3;
+	/**
+	 * @uml.property  name="direction"
+	 */
 	public int direction = right;
 	
+	/**
+	 * @uml.property  name="inGame"
+	 */
 	public boolean inGame = false;
+	/**
+	 * @uml.property  name="isDead"
+	 */
 	public boolean isDead = false;
-	public boolean wasDown = false, wasUp = false, wasRight = false, wasLeft = false;
+	/**
+	 * @uml.property  name="wasDown"
+	 */
+	public boolean wasDown = false;
+	/**
+	 * @uml.property  name="wasUp"
+	 */
+	public boolean wasUp = false;
+	/**
+	 * @uml.property  name="wasRight"
+	 */
+	public boolean wasRight = false;
+	/**
+	 * @uml.property  name="wasLeft"
+	 */
+	public boolean wasLeft = false;
 
 	
 	public void spawnEnemy(int enemyId) {

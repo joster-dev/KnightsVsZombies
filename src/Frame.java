@@ -5,7 +5,9 @@ public class Frame extends JFrame {
 	
 	public static String title = "Knights vs. Zombies TD";
 	
-	public static int x = 896, y = 512;
+	public static int x = 896;
+
+	public static int y = 512;
 	
 	public static Dimension size = new Dimension(x, y);
 	

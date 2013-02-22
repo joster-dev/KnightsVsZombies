@@ -4,11 +4,24 @@ import javax.swing.*;
 
 public class GameMode extends JPanel {
 	
+	/**
+	 * @uml.property  name="storyMode"
+	 */
 	public boolean storyMode = false;
+	/**
+	 * @uml.property  name="infiniteMode"
+	 */
 	public boolean infiniteMode = false;
 	
+	/**
+	 * @uml.property  name="choose" multiplicity="(0 -1)" dimension="1"
+	 */
 	public Rectangle[] choose = new Rectangle[2];
 	
+	/**
+	 * @uml.property  name="myFrame"
+	 * @uml.associationEnd  multiplicity="(1 1)"
+	 */
 	public Frame myFrame;
 	
 	public GameMode(Frame frame) {

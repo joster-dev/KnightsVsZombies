@@ -3,6 +3,9 @@ import java.awt.*;
 
 public class KeyHandler implements MouseMotionListener, MouseListener {
 	
+	/**
+	 * @uml.property  name="count"
+	 */
 	private int count = 0;
 	
 	public void mouseClicked(MouseEvent e) {

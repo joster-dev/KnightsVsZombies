@@ -30,11 +30,29 @@ public class ScreenPanel {
 	public static int infoIconCellSpace = menuCellSpace;							//space between the infoIcon buttons and info Rectangle is equal to 1/16 (3/48) of info Rectangle.
 	public static int infoIconBetweenSpace = (menuCellSpace * (1/2) - (1/32));		//space between the infoIcon buttons and each other is equal to 1/32 of info of info Rectangle. 
 	
+	/**
+	 * @uml.property  name="shop" multiplicity="(0 -1)" dimension="1"
+	 */
 	public Rectangle[] shop = new Rectangle[shopWidth];
+	/**
+	 * @uml.property  name="menu" multiplicity="(0 -1)" dimension="1"
+	 */
 	public Rectangle[] menu = new Rectangle[menuLength];
+	/**
+	 * @uml.property  name="status" multiplicity="(0 -1)" dimension="1"
+	 */
 	public Rectangle[] status = new Rectangle[statusLength];
+	/**
+	 * @uml.property  name="statusIcon" multiplicity="(0 -1)" dimension="1"
+	 */
 	public Rectangle[] statusIcon = new Rectangle[statusLength];
+	/**
+	 * @uml.property  name="info"
+	 */
 	public Rectangle info;
+	/**
+	 * @uml.property  name="infoIcon" multiplicity="(0 -1)" dimension="1"
+	 */
 	public Rectangle[] infoIcon = new Rectangle[infoIconLength];
 	
 	public ScreenPanel() {

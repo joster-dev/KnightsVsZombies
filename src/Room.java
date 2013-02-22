@@ -7,6 +7,9 @@ public class Room {
 	public static int worldHeight = 6;
 	public static int blockSize = ((2 * Opening.myHeight) / 15);				//Room size equal to 4/5 of the height of the screen.
 	
+	/**
+	 * @uml.property  name="block" multiplicity="(0 -1)" dimension="2"
+	 */
 	public Block[][] block;
 	
 	public Room() {

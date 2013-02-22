@@ -7,7 +7,11 @@ public class Screen extends JPanel implements Runnable {
 	
 	public Thread gameLoop = new Thread(this);
 	
-	public static int myHealth = 100, myGold = 100, myWaves;
+	public static int myHealth = 100;
+
+	public static int myGold = 100;
+
+	public static int myWaves;
 	boolean[] newWave;
 	
 	public boolean createStaticElements = false;
@@ -74,7 +78,9 @@ public class Screen extends JPanel implements Runnable {
 		}
 	}
 	
-	public int spawnTime = 1750, spawnFrame = 0;    //spawnFrame -> spawnTime. When spawnFrame == spawnTime, enemySpawner is called.
+	public int spawnTime = 1750;    //spawnFrame -> spawnTime. When spawnFrame == spawnTime, enemySpawner is called.
+
+	public int spawnFrame = 0;
 	public void enemySpawner() {
 		if(spawnFrame >= spawnTime) {
 			outerLoop:																//Label so we can break from both loops.
