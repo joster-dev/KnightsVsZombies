@@ -1,0 +1,5 @@
+This is a simple text file for everyone to sign and verify the commit process:
+
+	Make a modification to this file, like adding your name, then push this file Upstream to the repository.
+
+	Kevin - made test commit file, hope the directions were easy as pie.
