@@ -3,47 +3,17 @@ import javax.swing.ImageIcon;
 
 
 public class Enemy extends Rectangle {
-	/**
-	 * @uml.property  name="xC"
-	 */
 	public int xC;
-	/**
-	 * @uml.property  name="yC"
-	 */
 	public int yC;
-	/**
-	 * @uml.property  name="walkFrame"
-	 */
 	public int walkFrame = 0;
-	/**
-	 * @uml.property  name="walkSpeed"
-	 */
 	public int walkSpeed = 15;
-	/**
-	 * @uml.property  name="health"
-	 */
 	public int health;
-	/**
-	 * @uml.property  name="armor"
-	 */
 	public int armor;
 	
-	/**
-	 * @uml.property  name="enemySize"
-	 */
 	public int enemySize = Room.blockSize;
-	/**
-	 * @uml.property  name="enemyId"
-	 */
 	public int enemyId;
-	/**
-	 * @uml.property  name="enemyWalk"
-	 */
 	public int enemyWalk = 0;
 	
-	/**
-	 * @uml.property  name="enemyHealth"
-	 */
 	public int enemyHealth;
 	/**
 	 * @uml.property  name="enemyDmg"
@@ -152,7 +122,7 @@ public class Enemy extends Rectangle {
 			
 			enemyWalk += 1;
 			
-			if(enemyWalk == Screen.room.blockSize) {
+			if(enemyWalk == Room.blockSize) {
 				if(direction == down) {
 					yC += 1;
 					wasDown = true;

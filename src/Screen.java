@@ -22,6 +22,10 @@ public class Screen extends JPanel implements Runnable {
 	public static Room room;
 	public static ScreenPanel gamePanel;
 	public static Save save;
+	public static int level = 1;
+	
+	public boolean gameover = false;
+	public boolean won = false;
 	
 	public Screen(Frame frame) {
 
@@ -62,7 +66,7 @@ public class Screen extends JPanel implements Runnable {
 		gamePanel = new ScreenPanel();
 		save = new Save();
 		
-		save.loadSave(new File("Save/StoryQuest1"));
+		save.loadSave(new File("Save/StoryQuest" + level));
 		
 		for(int i = 0; i < levelEnemyType.size(); i++) {
 			levelEnemyList.add(new Enemy[levelEnemyType.get(i).length]);
@@ -109,6 +113,23 @@ public class Screen extends JPanel implements Runnable {
 		}
 	}
 	
+	public void levelClear(boolean w) {
+		gameover = true;
+		if(w == true) {
+			myHealth = 100;
+			myGold = 100;
+			won = true;
+			level += 1;
+			define();
+		} 
+		else {
+			myHealth = 100;
+			myGold = 100;
+			won = false;
+			define();
+		}
+	}
+	
 	public void run() {
 		while(true) {
 			if(createStaticElements) {
@@ -121,6 +142,13 @@ public class Screen extends JPanel implements Runnable {
 						}
 					}
 				}
+			}
+			if(myHealth <= 0) {
+				levelClear(false);
+				try {
+					Thread.sleep(1500);
+				} catch (Exception e) {}
+				System.out.println("new level");
 			}
 			repaint();
 			
