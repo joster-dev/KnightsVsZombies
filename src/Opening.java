@@ -9,32 +9,13 @@ public class Opening extends JPanel {
 	
 	public static Point mse = new Point(0, 0);
 	
-	/**
-	 * @uml.property  name="newGame"
-	 */
 	public boolean newGame = false;
-	/**
-	 * @uml.property  name="loadGame"
-	 */
 	public boolean loadGame = false;
-	/**
-	 * @uml.property  name="highScores"
-	 */
 	public boolean highScores = false;
-	/**
-	 * @uml.property  name="settings"
-	 */
 	public boolean settings = false;
-	
-	/**
-	 * @uml.property  name="mainChoices" multiplicity="(0 -1)" dimension="1"
-	 */
+
 	public Rectangle[] mainChoices = new Rectangle[4];
 	
-	/**
-	 * @uml.property  name="myFrame"
-	 * @uml.associationEnd  multiplicity="(1 1)"
-	 */
 	public Frame myFrame;
 	
 	public Opening (Frame frame) {
