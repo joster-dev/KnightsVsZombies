@@ -3,11 +3,6 @@ import java.awt.*;
 
 public class KeyHandler implements MouseMotionListener, MouseListener {
 	
-	/**
-	 * @uml.property  name="count"
-	 */
-	private int count = 0;
-	
 	public void mouseClicked(MouseEvent e) {
 		
 	}
@@ -34,9 +29,9 @@ public class KeyHandler implements MouseMotionListener, MouseListener {
 			//System.out.println("C" + e.getClickCount());
 		}
 		else if(Frame.gameScreen.isVisible()) {
-			try {
+			try{
 				Screen.gamePanel.click(e.getButton());
-			} catch (Exception e1) {}
+			} catch(Exception i) {}
 		}
 	}
 

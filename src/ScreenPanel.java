@@ -1,5 +1,4 @@
 import java.awt.*;
-
 import javax.swing.*;
 
 public class ScreenPanel {
@@ -30,29 +29,11 @@ public class ScreenPanel {
 	public static int infoIconCellSpace = menuCellSpace;							//space between the infoIcon buttons and info Rectangle is equal to 1/16 (3/48) of info Rectangle.
 	public static int infoIconBetweenSpace = (menuCellSpace * (1/2) - (1/32));		//space between the infoIcon buttons and each other is equal to 1/32 of info of info Rectangle. 
 	
-	/**
-	 * @uml.property  name="shop" multiplicity="(0 -1)" dimension="1"
-	 */
 	public Rectangle[] shop = new Rectangle[shopWidth];
-	/**
-	 * @uml.property  name="menu" multiplicity="(0 -1)" dimension="1"
-	 */
 	public Rectangle[] menu = new Rectangle[menuLength];
-	/**
-	 * @uml.property  name="status" multiplicity="(0 -1)" dimension="1"
-	 */
 	public Rectangle[] status = new Rectangle[statusLength];
-	/**
-	 * @uml.property  name="statusIcon" multiplicity="(0 -1)" dimension="1"
-	 */
 	public Rectangle[] statusIcon = new Rectangle[statusLength];
-	/**
-	 * @uml.property  name="info"
-	 */
 	public Rectangle info;
-	/**
-	 * @uml.property  name="infoIcon" multiplicity="(0 -1)" dimension="1"
-	 */
 	public Rectangle[] infoIcon = new Rectangle[infoIconLength];
 	
 	public ScreenPanel() {
@@ -115,20 +96,18 @@ public class ScreenPanel {
 						holdItemId = shopButtonId[i];
 						holdItem = true;
 					}
-					if (holdItem == true) {
-						if (Screen.myGold >= Value.getTowerStats("cost", shopButtonId[holdItemId])) {
-							for (int y = 0; y < Screen.room.block.length; y++) {
-								for (int x = 0; x < Screen.room.block[0].length; x++) {
-									if (Screen.room.block[y][x].contains(Opening.mse)) {
-										System.out.println("Yea");
-										if (Screen.room.block[y][x].groundId == Value.groundOpen && Screen.room.block[y][x].airId == Value.airOpen) {
-											System.out.println("Something");
-											Screen.room.block[y][x].addTower(holdItemId);
-											Screen.myGold -= Value.getTowerStats("cost", holdItemId);
-											holdItemId = -1;
-											holdItem = false;
-										}
-									}
+				}
+			}
+			if (holdItem) {
+				if (Screen.myGold >= Value.getTowerStats("cost", holdItemId)) {
+					for (int y = 0; y < Screen.room.block.length; y++) {
+						for (int x = 0; x < Screen.room.block[0].length; x++) {
+							if (Screen.room.block[y][x].contains(Opening.mse)) {
+								if (Screen.room.block[y][x].groundId == Value.groundOpen && Screen.room.block[y][x].airId == Value.airOpen) {
+									Screen.room.block[y][x].addTower(holdItemId);
+									Screen.myGold -= Value.getTowerStats("cost", holdItemId);
+									holdItemId = -1;
+									holdItem = false;
 								}
 							}
 						}
@@ -195,9 +174,6 @@ public class ScreenPanel {
 				//*//
 			}
 		}
-		if(holdItem) {
-			g.drawImage(new ImageIcon("res/Towers/tower" + holdItemId + ".png").getImage(), Opening.mse.x - (Room.blockSize / 2), Opening.mse.y - (Room.blockSize / 2), Room.blockSize, Room.blockSize, null);
-		}
 		
 		//*//
 		
@@ -246,16 +222,10 @@ public class ScreenPanel {
 			}
 		}
 		
-			/*g.drawImage(new ImageIcon("res/knights/tower" + buttonId[i] + ".png").getImage(), button[i].x + itemIn, button[i].y + itemIn, button[i].width - (itemIn*2), button[i].height - (itemIn*2), null);
-			
-			if (buttonPrice[buttonId[i]] > 0) {
-				g.setColor(new Color(255,255,255));
-				g.setFont(new Font("Courier New", Font.BOLD, 14));
-				g.drawString(buttonPrice[buttonId[i]] + "", button[i].x + itemIn, button[i].y + itemIn + 10);
-			}*/
-			
-			/*if (holdsItem) {
-				g.drawImage(new ImageIcon("res/knights/tower" + heldId + ".png").getImage(), Screen.mse.x - ((button[i].width + (itemIn*2))/2), Screen.mse.y - ((button[i].height + (itemIn*2))/2), button[i].width, button[i].height - 18, null);
-			}*/
+		//*//
+		
+		if(holdItem) {
+			g.drawImage(new ImageIcon("res/Towers/tower" + holdItemId + ".png").getImage(), Opening.mse.x - (Room.blockSize / 2), Opening.mse.y - (Room.blockSize / 2), Room.blockSize, Room.blockSize, null);
+		}
 	}
 }

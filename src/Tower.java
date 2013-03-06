@@ -1,10 +1,12 @@
+import java.awt.Rectangle;
+
 
 public class Tower {
 	
-	public static int towerCost;
-	public static int towerDamage;
-	public static int towerRate;
-	public static int towerRange;
+	public int towerCost;
+	public int towerDamage;
+	public int towerRate;
+	public int towerRange;
 	
 	public Tower(int towerId) {
 		
@@ -12,6 +14,5 @@ public class Tower {
 		towerDamage = Value.getTowerStats("damage", towerId);
 		towerRate = Value.getTowerStats("speed", towerId);
 		towerRange = Value.getTowerStats("range", towerId);
-		
 	}
 }

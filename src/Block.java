@@ -29,30 +29,17 @@ public class Block extends Rectangle {
 	
 	public void draw(Graphics g) {
 		if(groundId == Value.groundOpen) {
-			g.setColor(Color.GREEN);
-			g.fillRect(x, y, width, height);
-			g.setColor(Color.BLACK);
-			g.drawRect(x, y, width, height);
+			g.drawImage(new ImageIcon("res/Graphics/grass.png").getImage(),x, y, width, height, null);
 		}
 		else if(groundId == Value.pathOpen) {
-			g.setColor(Color.GRAY);
-			g.fillRect(x, y, width, height);
-			g.setColor(Color.BLACK);
-			g.drawRect(x, y, width, height);
+			g.drawImage(new ImageIcon("res/Graphics/path.png").getImage(),x, y, width, height, null);
 		}
+		
 		if(airId == Value.airCastle) {
 			g.setColor(Color.CYAN);
 			g.fillRect(x, y, width, height);
-			g.setColor(Color.BLACK);
-			g.drawRect(x, y, width, height);
 		}
 		else if(airId > Value.airCastle) {
-			g.setColor(Color.GREEN);
-			g.fillRect(x, y, width, height);
-			g.setColor(Color.BLACK);
-			g.drawRect(x, y, width, height);
-		}
-		else if(airId == Value.knightTower) {
 			g.drawImage(new ImageIcon("res/Towers/tower" + airId + ".png").getImage(),x, y, width, height, null);
 		}
 	}	

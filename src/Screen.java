@@ -39,12 +39,12 @@ public class Screen extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		if(!createStaticElements) {
 			
-			g.setColor(Color.ORANGE);
-			g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
-			
 			define();
 			createStaticElements = true;
 		}
+		
+		g.setColor(Color.ORANGE);
+		g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
 		
 		room.draw(g);
 		gamePanel.draw(g);

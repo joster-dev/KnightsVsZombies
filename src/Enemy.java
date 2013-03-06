@@ -1,7 +1,6 @@
 import java.awt.*;
 import javax.swing.ImageIcon;
 
-
 public class Enemy extends Rectangle {
 	public int xC;
 	public int yC;
@@ -33,13 +32,10 @@ public class Enemy extends Rectangle {
 	public boolean wasUp = false;
 	public boolean wasRight = false;
 	public boolean wasLeft = false;
-
 	
 	public void spawnEnemy(int enemyId) {
-		System.out.println(Screen.room.block.length);
 		for(int y = 0; y < Screen.room.block.length; y++) {
 			if(Screen.room.block[y][0].groundId == Value.pathOpen) {
-				System.out.println(y);
 				setBounds(Screen.room.block[y][0].x, Screen.room.block[y][0].y, enemySize, enemySize);
 				xC = 0;
 				yC = y;
