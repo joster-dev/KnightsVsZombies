@@ -7,6 +7,7 @@ public class Enemy extends Rectangle {
 	public int yC;
 	public int walkFrame = 0;
 	public int walkSpeed = 15;
+	
 	public int health;
 	public int armor;
 	
@@ -15,73 +16,30 @@ public class Enemy extends Rectangle {
 	public int enemyWalk = 0;
 	
 	public int enemyHealth;
-	/**
-	 * @uml.property  name="enemyDmg"
-	 */
 	public int enemyDmg;
-	/**
-	 * @uml.property  name="enemyRange"
-	 */
 	public int enemyRange;
-	/**
-	 * @uml.property  name="enemyFireRange"
-	 */
 	public int enemyFireRange;
-	/**
-	 * @uml.property  name="enemyCost"
-	 */
 	public int enemyCost;
 	
-	/**
-	 * @uml.property  name="down"
-	 */
 	public int down = 0;
-	/**
-	 * @uml.property  name="left"
-	 */
 	public int left = 1;
-	/**
-	 * @uml.property  name="right"
-	 */
 	public int right = 2;
-	/**
-	 * @uml.property  name="up"
-	 */
 	public int up = 3;
-	/**
-	 * @uml.property  name="direction"
-	 */
 	public int direction = right;
 	
-	/**
-	 * @uml.property  name="inGame"
-	 */
 	public boolean inGame = false;
-	/**
-	 * @uml.property  name="isDead"
-	 */
 	public boolean isDead = false;
-	/**
-	 * @uml.property  name="wasDown"
-	 */
 	public boolean wasDown = false;
-	/**
-	 * @uml.property  name="wasUp"
-	 */
 	public boolean wasUp = false;
-	/**
-	 * @uml.property  name="wasRight"
-	 */
 	public boolean wasRight = false;
-	/**
-	 * @uml.property  name="wasLeft"
-	 */
 	public boolean wasLeft = false;
 
 	
 	public void spawnEnemy(int enemyId) {
-		for(int y = 0; x < Screen.room.block.length; x++) {
+		System.out.println(Screen.room.block.length);
+		for(int y = 0; y < Screen.room.block.length; y++) {
 			if(Screen.room.block[y][0].groundId == Value.pathOpen) {
+				System.out.println(y);
 				setBounds(Screen.room.block[y][0].x, Screen.room.block[y][0].y, enemySize, enemySize);
 				xC = 0;
 				yC = y;
@@ -98,6 +56,7 @@ public class Enemy extends Rectangle {
 	public void deleteEnemy() {
 		inGame = true;
 		isDead = true;
+		Screen.numEnemiesDead += 1;
 	}
 	
 	public void looseHealth() {
@@ -200,11 +159,7 @@ public class Enemy extends Rectangle {
 	
 	public void draw(Graphics g) {
 		if(inGame && !isDead) {
-			g.setColor(Color.PINK);
-			g.fillRect(x, y, width, height);
-			g.setColor(Color.BLACK);
-			g.drawRect(x, y, width, height);
-			//g.drawImage(new ImageIcon("res/enemies/zombie/z_base.png").getImage(),x, y, width, height, null);
+			g.drawImage(new ImageIcon("res/Enemys/enemy" + enemyId + ".png").getImage(),x, y, width, height, null);
 		}
 	}
 	

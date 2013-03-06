@@ -161,9 +161,10 @@ public class ScreenPanel {
 			g.setColor(Color.BLACK);
 			g.drawRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
 			if(shopButtonId[i] != 0 && shopButtonId[i] != 7) {
-				g.drawImage(new ImageIcon("res/Towers/tower" + shopButtonId[i] + ".png").getImage(), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
+				g.drawImage(new ImageIcon("res/Graphics/Gold.png").getImage(), shop[i].x, shop[i].y, statusIconSize, statusIconSize, null);
 				g.setFont(new Font("Arial", Font.BOLD, 13));
 				g.drawString(Integer.toString(Value.getTowerStats("cost", shopButtonId[i])), shop[i].x + (shopCellSpace / 4), shop[i].y + ((shopCellSpace * 5) / 4));
+				g.drawImage(new ImageIcon("res/Towers/tower" + shopButtonId[i] + ".png").getImage(), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
 			}
 			if(i == 0 || i == shop.length-1) {
 				g.setColor(Color.BLACK);

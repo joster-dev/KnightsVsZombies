@@ -8,10 +8,9 @@ public class Screen extends JPanel implements Runnable {
 	public Thread gameLoop = new Thread(this);
 	
 	public static int myHealth = 100;
-
 	public static int myGold = 100;
-
 	public static int myWaves;
+	
 	boolean[] newWave;
 	
 	public boolean createStaticElements = false;
@@ -19,13 +18,15 @@ public class Screen extends JPanel implements Runnable {
 	public static ArrayList<int[]> levelEnemyType = new ArrayList<int[]>();
 	public ArrayList<Enemy[]> levelEnemyList = new ArrayList<Enemy[]>();
 	
+	public static int numEnemies = 1;
+	public static int numEnemiesDead = 0;
+	
 	public static Room room;
 	public static ScreenPanel gamePanel;
 	public static Save save;
 	public static int level = 1;
 	
 	public boolean gameover = false;
-	public boolean won = false;
 	
 	public Screen(Frame frame) {
 
@@ -38,12 +39,12 @@ public class Screen extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		if(!createStaticElements) {
 			
+			g.setColor(Color.ORANGE);
+			g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
+			
 			define();
 			createStaticElements = true;
 		}
-		
-		g.setColor(Color.ORANGE);
-		g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
 		
 		room.draw(g);
 		gamePanel.draw(g);
@@ -55,9 +56,6 @@ public class Screen extends JPanel implements Runnable {
 				}
 			}
 		}
-		
-		repaint();
-	
 	}
 	
 	public void define() {
@@ -92,7 +90,6 @@ public class Screen extends JPanel implements Runnable {
 				for (int j = 0; j < levelEnemyList.get(i).length; j++) {
 					if(!levelEnemyList.get(i)[j].inGame) {
 						levelEnemyList.get(i)[j].spawnEnemy(levelEnemyType.get(i)[j]);
-						levelEnemyList.get(i)[j].physic();
 						if(j == levelEnemyList.get(i).length - 1) {
 							if(!newWave[i]) {
 								myWaves -= 1;
@@ -118,14 +115,21 @@ public class Screen extends JPanel implements Runnable {
 		if(w == true) {
 			myHealth = 100;
 			myGold = 100;
-			won = true;
-			level += 1;
+			if(level < 5) {
+				level += 1;
+			}
+			
+			numEnemiesDead = 0;
+			levelEnemyType = new ArrayList<int[]>();
+			levelEnemyList = new ArrayList<Enemy[]>();
+			
 			define();
 		} 
 		else {
 			myHealth = 100;
 			myGold = 100;
-			won = false;
+			numEnemiesDead = 0;
+			
 			define();
 		}
 	}
@@ -143,12 +147,23 @@ public class Screen extends JPanel implements Runnable {
 					}
 				}
 			}
+			
+			//*Disable this block of code to show level progression*//
+			
 			if(myHealth <= 0) {
-				levelClear(false);
 				try {
 					Thread.sleep(1500);
 				} catch (Exception e) {}
-				System.out.println("new level");
+				levelClear(false);
+			}
+			
+			//*//
+			
+			if(numEnemies == numEnemiesDead) {
+				try {
+					Thread.sleep(1500);
+				} catch (Exception e) {}
+				levelClear(true);
 			}
 			repaint();
 			
