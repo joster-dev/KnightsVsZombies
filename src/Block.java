@@ -36,6 +36,7 @@ public class Block extends Rectangle {
 		}
 		
 		if(airId == Value.airCastle) {
+			//g.drawImage(new ImageIcon("res/Graphics/towr_base.png").getImage(),x, y, width, height, null);
 			g.setColor(Color.CYAN);
 			g.fillRect(x, y, width, height);
 		}

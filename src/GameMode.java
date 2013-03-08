@@ -4,30 +4,15 @@ import javax.swing.*;
 
 public class GameMode extends JPanel {
 	
-	/**
-	 * @uml.property  name="storyMode"
-	 */
 	public boolean storyMode = false;
-	/**
-	 * @uml.property  name="infiniteMode"
-	 */
 	public boolean infiniteMode = false;
 	
-	/**
-	 * @uml.property  name="choose" multiplicity="(0 -1)" dimension="1"
-	 */
 	public Rectangle[] choose = new Rectangle[2];
 	
-	/**
-	 * @uml.property  name="myFrame"
-	 * @uml.associationEnd  multiplicity="(1 1)"
-	 */
 	public Frame myFrame;
 	
 	public GameMode(Frame frame) {
 		myFrame = frame;
-		frame.addMouseListener(new KeyHandler());
-		frame.addMouseMotionListener(new KeyHandler());
 		
 		for(int i = 0; i < choose.length; i++) {
 			choose[i] = new Rectangle((Frame.x / 4), ((Frame.y / 3) * i) + (Frame.y / 4), Frame.x / 2, Frame.y / 8);
@@ -40,14 +25,15 @@ public class GameMode extends JPanel {
 				if (choose[i].contains(Opening.mse)) {
 					if(i == 0) {
 						storyMode = true;
+						myFrame.updateFrame();
 					}
 					else if(i == 1) {
 						infiniteMode = true;
+						myFrame.updateFrame();
 					}
 				}
 			}
 		}
-		myFrame.updateFrame();
 	}
 	
 	public void paintComponent(Graphics g) {

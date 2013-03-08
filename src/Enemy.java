@@ -50,13 +50,20 @@ public class Enemy extends Rectangle {
 	}
 	
 	public void deleteEnemy() {
-		inGame = true;
+		inGame = false;
 		isDead = true;
 		Screen.numEnemiesDead += 1;
 	}
 	
 	public void looseHealth() {
 		Screen.myHealth -= health;
+	}
+	
+	public void looseEnemyHealth(int towerDmg) {
+		health -= towerDmg;
+		if(health <= 0) {
+			deleteEnemy();
+		}
 	}
 	
 	public void physic() {

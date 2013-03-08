@@ -72,7 +72,6 @@ public class Opening extends JPanel {
 				g.fillRect(mainChoices[i].x, mainChoices[i].y, mainChoices[i].width, mainChoices[i].height);
 			}
 		}
-		
 		repaint();
 	}
 }

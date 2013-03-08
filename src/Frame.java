@@ -6,14 +6,14 @@ public class Frame extends JFrame {
 	public static String title = "Knights vs. Zombies TD";
 	
 	public static int x = 896;
-
 	public static int y = 512;
-	
 	public static Dimension size = new Dimension(x, y);
 	
 	public static Opening openingScreen;
 	public static GameMode chooseGame;
 	public static Screen gameScreen;
+	public static HighScore highScores;
+	public static Settings settings;
 	
 	public Frame() {
 		setTitle(title);
@@ -31,10 +31,14 @@ public class Frame extends JFrame {
 		openingScreen = new Opening(this);
 		chooseGame = new GameMode(this);
 		gameScreen = new Screen(this);
+		highScores = new HighScore(this);
+		settings = new Settings(this);
 		
 		add(openingScreen);
 		chooseGame.setVisible(false);
 		gameScreen.setVisible(false);
+		highScores.setVisible(false);
+		settings.setVisible(false);
 		
 		setVisible(true);
 	}
@@ -43,7 +47,6 @@ public class Frame extends JFrame {
 		if(openingScreen.newGame) {
 			remove(openingScreen);
 			openingScreen.setVisible(false);
-			Opening.mse.setLocation(0, 0);
 			
 			add(chooseGame);
 			chooseGame.setVisible(true);
@@ -79,10 +82,32 @@ public class Frame extends JFrame {
 			openingScreen.loadGame = false;
 		}
 		else if(openingScreen.highScores) {
+			remove(openingScreen);
+			openingScreen.setVisible(false);
 			
+			add(highScores);
+			highScores.setVisible(true);
+			
+			if(highScores.back) {
+				System.out.println("Beep");
+				remove(highScores);
+				highScores.setVisible(false);
+				
+				add(openingScreen);
+				openingScreen.setVisible(true);
+				
+				highScores.back = false;
+				openingScreen.highScores = false;
+			}
 		}
 		else if(openingScreen.settings) {
+			remove(openingScreen);
+			openingScreen.setVisible(false);
 			
+			add(settings);
+			settings.setVisible(true);
+			
+			openingScreen.settings = false;
 		}
 	}
 	

@@ -28,10 +28,10 @@ public class Screen extends JPanel implements Runnable {
 	
 	public boolean gameover = false;
 	
+	public Frame myFrame;
+	
 	public Screen(Frame frame) {
-
-		frame.addMouseListener(new KeyHandler());
-		frame.addMouseMotionListener(new KeyHandler());
+		myFrame = frame;
 		
 		gameLoop.start();
 	}
@@ -115,6 +115,7 @@ public class Screen extends JPanel implements Runnable {
 		if(w == true) {
 			myHealth = 100;
 			myGold = 100;
+			ScreenPanel.holdItem = false;
 			if(level < 5) {
 				level += 1;
 			}
@@ -128,6 +129,8 @@ public class Screen extends JPanel implements Runnable {
 		else {
 			myHealth = 100;
 			myGold = 100;
+			ScreenPanel.holdItem = false;
+			
 			numEnemiesDead = 0;
 			
 			define();

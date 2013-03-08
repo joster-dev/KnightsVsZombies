@@ -22,11 +22,12 @@ public class KeyHandler implements MouseMotionListener, MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		if(Frame.openingScreen.isVisible()) {
 			Frame.openingScreen.click(e.getButton());
-			//System.out.println("O" + e.getClickCount());
 		}
 		else if(Frame.chooseGame.isVisible()) {
 			Frame.chooseGame.click(e.getButton());
-			//System.out.println("C" + e.getClickCount());
+		}
+		else if(Frame.highScores.isVisible()) {
+			Frame.highScores.click(e.getButton());
 		}
 		else if(Frame.gameScreen.isVisible()) {
 			try{
