@@ -16,7 +16,7 @@ public class Screen extends JPanel implements Runnable {
 	public boolean createStaticElements = false;
 	
 	public static ArrayList<int[]> levelEnemyType = new ArrayList<int[]>();
-	public ArrayList<Enemy[]> levelEnemyList = new ArrayList<Enemy[]>();
+	public static ArrayList<Enemy[]> levelEnemyList = new ArrayList<Enemy[]>();
 	
 	public static int numEnemies = 1;
 	public static int numEnemiesDead = 0;
@@ -88,7 +88,7 @@ public class Screen extends JPanel implements Runnable {
 			outerLoop:																//Label so we can break from both loops.
 			for (int i = 0; i < levelEnemyList.size(); i++) {
 				for (int j = 0; j < levelEnemyList.get(i).length; j++) {
-					if(!levelEnemyList.get(i)[j].inGame) {
+					if(!levelEnemyList.get(i)[j].inGame && !levelEnemyList.get(i)[j].isDead) {
 						levelEnemyList.get(i)[j].spawnEnemy(levelEnemyType.get(i)[j]);
 						if(j == levelEnemyList.get(i).length - 1) {
 							if(!newWave[i]) {
@@ -140,8 +140,8 @@ public class Screen extends JPanel implements Runnable {
 	public void run() {
 		while(true) {
 			if(createStaticElements) {
-				room.physic();
 				enemySpawner();
+				room.physic();
 				for(int i = 0; i < levelEnemyList.size(); i++) {
 					for(int j = 0; j < levelEnemyList.get(i).length; j++) {
 						if(levelEnemyList.get(i)[j].inGame && !levelEnemyList.get(i)[j].isDead) {
@@ -151,8 +151,6 @@ public class Screen extends JPanel implements Runnable {
 				}
 			}
 			
-			//*Disable this block of code to show level progression*//
-			
 			if(myHealth <= 0) {
 				try {
 					Thread.sleep(1500);
@@ -160,9 +158,8 @@ public class Screen extends JPanel implements Runnable {
 				levelClear(false);
 			}
 			
-			//*//
-			
-			if(numEnemies == numEnemiesDead) {
+			System.out.println(numEnemiesDead);
+			if(numEnemiesDead >= numEnemies) {
 				try {
 					Thread.sleep(1500);
 				} catch (Exception e) {}

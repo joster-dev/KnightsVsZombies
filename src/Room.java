@@ -33,13 +33,10 @@ public class Room {
 				block[y][x].draw(g);
 			}
 		}
-		g.setColor(Color.BLACK);
 		for(int y = 0; y < block.length; y++) {
 			for(int x = 0; x < block[0].length; x++) {
-				if(block[y][x].contains(Opening.mse) && block[y][x].hasTower) {
-					g.drawRect(block[y][x].x - (blockSize * block[y][x].tower.towerRange), block[y][x].y - (blockSize * block[y][x].tower.towerRange), blockSize + (blockSize * (2 * block[y][x].tower.towerRange)), blockSize + (blockSize * (2 * block[y][x].tower.towerRange)));
-				}
+				block[y][x].fight(g);
 			}
-		}	
+		}
 	}
 }

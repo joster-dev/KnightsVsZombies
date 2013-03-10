@@ -26,8 +26,13 @@ public class ScreenPanel {
 	public static int infoSize = shopButtonSize;
 	public static int infoIconLength = 3;
 	public static int infoIconSize = menuButtonSizeY;
-	public static int infoIconCellSpace = menuCellSpace;							//space between the infoIcon buttons and info Rectangle is equal to 1/16 (3/48) of info Rectangle.
-	public static int infoIconBetweenSpace = (menuCellSpace * (1/2) - (1/32));		//space between the infoIcon buttons and each other is equal to 1/32 of info of info Rectangle. 
+	public static int infoIconCellSpace = menuCellSpace;							//space between the infoIcon buttons and info Rectangle is equal to 1/16 of info Rectangle.
+	public static int infoIconBetweenSpace = (menuCellSpace * (1/2));		//space between the infoIcon buttons and each other is equal to 1/32 of info Rectangle. 
+	public static int enemyInfoIconLength = 2;
+	public static int enemyInfoIconBetweenSpace = (11 * infoIconSize) / 24;
+	public static int enemyInfoHealth;
+	public static int enemyInfoArmor;
+	public static boolean showEnemyInfo = false;
 	
 	public Rectangle[] shop = new Rectangle[shopWidth];
 	public Rectangle[] menu = new Rectangle[menuLength];
@@ -35,6 +40,7 @@ public class ScreenPanel {
 	public Rectangle[] statusIcon = new Rectangle[statusLength];
 	public Rectangle info;
 	public Rectangle[] infoIcon = new Rectangle[infoIconLength];
+	public Rectangle[] enemyInfoIcon = new Rectangle[enemyInfoIconLength];
 	
 	public ScreenPanel() {
 		for(int i = 0; i < shop.length; i++) {
@@ -55,8 +61,12 @@ public class ScreenPanel {
 		
 		info = new Rectangle( ((Opening.myWidth) / 2) + ((shopWidth * (shopButtonSize+shopCellSpace)) / 2) + cellSpaceFromRoom * 3 + shopCellSpace / 2 + menuButtonSizeX, (4 * (Opening.myHeight / 5)) + shopCellSpace, infoSize, infoSize);
 	
-		for(int l = 0; l < status.length; l++) {
-			infoIcon[l] = new Rectangle( ((Opening.myWidth) / 2) + ((shopWidth*(shopButtonSize+shopCellSpace)) / 2) + (cellSpaceFromRoom * 3) + (shopCellSpace / 2) + menuButtonSizeX + infoIconCellSpace, ((4 * (Opening.myHeight / 5)) + cellSpaceFromRoom) + ((infoIconSize + infoIconBetweenSpace)*l) + infoIconCellSpace, infoIconSize, infoIconSize);
+		for(int l = 0; l < infoIcon.length; l++) {
+			infoIcon[l] = new Rectangle( ((Opening.myWidth) / 2) + ((shopWidth*(shopButtonSize+shopCellSpace)) / 2) + (cellSpaceFromRoom * 3) + (shopCellSpace / 2) + menuButtonSizeX + infoIconCellSpace, ((4 * (Opening.myHeight / 5)) + cellSpaceFromRoom) + ((infoIconSize + infoIconBetweenSpace) * l) + infoIconCellSpace, infoIconSize, infoIconSize);
+		}
+		
+		for(int n = 0; n < enemyInfoIcon.length; n++) {
+			enemyInfoIcon[n] = new Rectangle( ((Opening.myWidth) / 2) + ((shopWidth*(shopButtonSize+shopCellSpace)) / 2) + (cellSpaceFromRoom * 3) + (shopCellSpace / 2) + menuButtonSizeX + infoIconCellSpace, ((4 * (Opening.myHeight / 5)) + cellSpaceFromRoom) + ((infoIconSize + enemyInfoIconBetweenSpace) * n) + infoIconCellSpace, infoIconSize, infoIconSize);
 		}
 	}
 	
@@ -130,6 +140,14 @@ public class ScreenPanel {
 		g.setColor(Color.BLACK);
 		g.drawRect(info.x, info.y, info.width, info.height);
 		
+		//System.out.println(showEnemyInfo);
+		if(showEnemyInfo && !holdItem) {
+			g.drawRect(enemyInfoIcon[0].x, enemyInfoIcon[0].y, enemyInfoIcon[0].width, enemyInfoIcon[0].height);
+			g.drawRect(enemyInfoIcon[1].x, enemyInfoIcon[1].y, enemyInfoIcon[1].width, enemyInfoIcon[1].height);
+			g.drawString(Integer.toString(enemyInfoHealth), infoIcon[0].x + (shopCellSpace / 2) + infoIconSize, infoIcon[0].y + ((infoIconSize * 3)/ 4));
+			g.drawString(Integer.toString(enemyInfoArmor), infoIcon[1].x + (shopCellSpace / 2) + infoIconSize, infoIcon[1].y + ((infoIconSize * 3)/ 4));
+		}
+		
 		//*//
 		
 		//*Shop*//
@@ -155,7 +173,7 @@ public class ScreenPanel {
 				g.setColor(Color.BLACK);
 				
 				//*Info Box information*//
-				if(shopButtonId[i] != 0 && shopButtonId[i] != 7) {
+				if(shopButtonId[i] != 0 && shopButtonId[i] != 7 && !holdItem) {
 					for(int l = 0; l < infoIcon.length; l++) {
 						if(l == 0) {
 							g.drawImage(new ImageIcon("res/Graphics/Attack.png").getImage(), infoIcon[l].x, infoIcon[l].y, infoIcon[l].width, infoIcon[l].height, null);

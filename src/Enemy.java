@@ -14,12 +14,6 @@ public class Enemy extends Rectangle {
 	public int enemyId;
 	public int enemyWalk = 0;
 	
-	public int enemyHealth;
-	public int enemyDmg;
-	public int enemyRange;
-	public int enemyFireRange;
-	public int enemyCost;
-	
 	public int down = 0;
 	public int left = 1;
 	public int right = 2;
@@ -42,10 +36,10 @@ public class Enemy extends Rectangle {
 			}
 		}
 		this.enemyId = enemyId;
-		if(enemyId == 0) {
-			health = Value.basicZombieHealth;
-			armor = Value.basicZombieArmor;
-		}
+		
+		health = Value.getZombieStats("health", enemyId);
+		armor = Value.getZombieStats("armor", enemyId);
+
 		inGame = true;
 	}
 	
@@ -60,14 +54,10 @@ public class Enemy extends Rectangle {
 	}
 	
 	public void looseEnemyHealth(int towerDmg) {
-		health -= towerDmg;
-		if(health <= 0) {
-			deleteEnemy();
-		}
+		health -= towerDmg - armor;
 	}
 	
 	public void physic() {
-		
 		if(walkFrame >= walkSpeed) {
 			if(direction == down) {
 				y += 1;
@@ -158,6 +148,12 @@ public class Enemy extends Rectangle {
 		else {
 			walkFrame += 2;
 		}
+		
+		if(health <= 0) {
+			deleteEnemy();
+			
+			Screen.myGold += 3;
+		}
 	}
 	
 	public void draw(Graphics g) {
@@ -165,5 +161,4 @@ public class Enemy extends Rectangle {
 			g.drawImage(new ImageIcon("res/Enemys/enemy" + enemyId + ".png").getImage(),x, y, width, height, null);
 		}
 	}
-	
 }

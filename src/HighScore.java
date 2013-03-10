@@ -20,7 +20,6 @@ public class HighScore extends JPanel {
 	public Frame myFrame;
 	
 	public HighScore (Frame frame) {
-		
 		myFrame = frame;
 		
 		highScoreListSpace = new Rectangle(Frame.x / 9, Frame.y / 9, Frame.x / 3, (Frame.y * 7) / 9);
@@ -40,7 +39,6 @@ public class HighScore extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
-		
 		g.setColor(Color.YELLOW);
 		g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
 		
