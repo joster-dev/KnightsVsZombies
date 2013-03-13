@@ -6,6 +6,7 @@ public class Block extends Rectangle {
 
 	public int groundId;
 	public int airId;
+	public int randomId;
 	
 	public boolean hasTower = false;
 	public Tower tower;
@@ -22,6 +23,7 @@ public class Block extends Rectangle {
 		
 		this.groundId = groundID;
 		this.airId = airID;
+		this.randomId = (int)(Math.random()*100);
 	}
 	
 	public void addTower(int towerId) {
@@ -64,7 +66,14 @@ public class Block extends Rectangle {
 	
 	public void draw(Graphics g) {
 		if(groundId == Value.groundOpen) {
-			g.drawImage(new ImageIcon("res/Graphics/grass.png").getImage(),x, y, width, height, null);
+			if(this.randomId < 40)
+				g.drawImage(new ImageIcon("res/Graphics/grass.png").getImage(),x, y, width, height, null);
+			else if(this.randomId < 70)
+				g.drawImage(new ImageIcon("res/Graphics/grass_2.png").getImage(),x, y, width, height, null);
+			else if(this.randomId < 90)
+				g.drawImage(new ImageIcon("res/Graphics/grass_3.png").getImage(),x, y, width, height, null);
+			else if(this.randomId < 100)
+				g.drawImage(new ImageIcon("res/Graphics/grass_4.png").getImage(),x, y, width, height, null);
 		}
 		else if(groundId == Value.pathOpen) {
 			g.drawImage(new ImageIcon("res/Graphics/path.png").getImage(),x, y, width, height, null);

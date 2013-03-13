@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -43,8 +44,10 @@ public class Screen extends JPanel implements Runnable {
 			createStaticElements = true;
 		}
 		
-		g.setColor(Color.ORANGE);
-		g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
+		//g.setColor(Color.ORANGE);
+		//g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
+		
+		g.drawImage(new ImageIcon("res/Graphics/hud_frame.png").getImage(),0, 0, Opening.myWidth, Opening.myHeight, null);
 		
 		room.draw(g);
 		gamePanel.draw(g);
