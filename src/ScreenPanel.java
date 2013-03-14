@@ -42,7 +42,7 @@ public class ScreenPanel {
 	public Rectangle[] infoIcon = new Rectangle[infoIconLength];
 	public Rectangle[] enemyInfoIcon = new Rectangle[enemyInfoIconLength];
 	
-	public SpriteSheet sprites = new SpriteSheet();	
+	public static SpriteSheet sprites = new SpriteSheet();	
 	
 	public ScreenPanel() {
 		for(int i = 0; i < shop.length; i++) {

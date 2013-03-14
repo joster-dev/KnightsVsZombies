@@ -158,7 +158,8 @@ public class Enemy extends Rectangle {
 	
 	public void draw(Graphics g) {
 		if(inGame && !isDead) {
-			g.drawImage(new ImageIcon("res/Enemys/enemy" + enemyId + ".png").getImage(),x, y, width, height, null);
+			//g.drawImage(new ImageIcon("res/Enemys/enemy" + enemyId + ".png").getImage(),x, y, width, height, null);
+			g.drawImage(ScreenPanel.sprites.getSprite("enemy", enemyId, 0), x, y, width, height, null);
 		}
 	}
 }
