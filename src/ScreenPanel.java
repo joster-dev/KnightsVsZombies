@@ -42,6 +42,8 @@ public class ScreenPanel {
 	public Rectangle[] infoIcon = new Rectangle[infoIconLength];
 	public Rectangle[] enemyInfoIcon = new Rectangle[enemyInfoIconLength];
 	
+	public SpriteSheet sprites = new SpriteSheet();	
+	
 	public ScreenPanel() {
 		for(int i = 0; i < shop.length; i++) {
 			shop[i] = new Rectangle( ((Opening.myWidth) / 2) - ((shopWidth * (shopButtonSize+shopCellSpace)) / 2) + ((shopButtonSize+shopCellSpace) * i) + (shopCellSpace / 2), (4 * (Opening.myHeight / 5)) + shopCellSpace, shopButtonSize, shopButtonSize); //(Screen.room.block[Screen.room.worldHeight-1][0].y)
@@ -161,7 +163,8 @@ public class ScreenPanel {
 				g.drawImage(new ImageIcon("res/Graphics/Gold.png").getImage(), shop[i].x, shop[i].y, statusIconSize, statusIconSize, null);
 				g.setFont(new Font("Arial", Font.BOLD, 13));
 				g.drawString(Integer.toString(Value.getTowerStats("cost", shopButtonId[i])), shop[i].x + (shopCellSpace / 4), shop[i].y + ((shopCellSpace * 5) / 4));
-				g.drawImage(new ImageIcon("res/Towers/tower" + shopButtonId[i] + ".png").getImage(), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
+				//g.drawImage(new ImageIcon("res/Towers/tower" + shopButtonId[i] + ".png").getImage(), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
+				g.drawImage(sprites.getSprite("tower", (shopButtonId[i] - 1), 0), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
 			}
 			if(i == 0 || i == shop.length-1) {
 				g.setColor(Color.BLACK);
@@ -243,7 +246,8 @@ public class ScreenPanel {
 		//*//
 		
 		if(holdItem) {
-			g.drawImage(new ImageIcon("res/Towers/tower" + holdItemId + ".png").getImage(), Opening.mse.x - (Room.blockSize / 2), Opening.mse.y - (Room.blockSize / 2), Room.blockSize, Room.blockSize, null);
+			//g.drawImage(new ImageIcon("res/Towers/tower" + holdItemId + ".png").getImage(), Opening.mse.x - (Room.blockSize / 2), Opening.mse.y - (Room.blockSize / 2), Room.blockSize, Room.blockSize, null);
+			g.drawImage(sprites.getSprite("tower", (holdItemId - 1), 0), Opening.mse.x - (Room.blockSize / 2), Opening.mse.y - (Room.blockSize / 2), Room.blockSize, Room.blockSize, null);
 		}
 	}
 }

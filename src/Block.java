@@ -16,6 +16,8 @@ public class Block extends Rectangle {
 	public boolean shoting = false;
 	public int shotFrame = 0, fire = 1000;
 	
+	public SpriteSheet sprites = new SpriteSheet();
+	
 	public Rectangle towerHitBox = new Rectangle();
 	
 	public Block(int x, int y, int width, int height, int groundID, int airID) {
@@ -80,12 +82,13 @@ public class Block extends Rectangle {
 		}
 		
 		if(airId == Value.airCastle) {
-			//g.drawImage(new ImageIcon("res/Graphics/towr_base.png").getImage(),x, y, width, height, null);
-			g.setColor(Color.CYAN);
-			g.fillRect(x, y, width, height);
+			g.drawImage(new ImageIcon("res/Graphics/towr_base.png").getImage(),x-32, y-64, width+64, height+64, null);
+			//g.setColor(Color.CYAN);
+			//g.fillRect(x, y, width, height);
 		}
 		else if(airId > Value.airCastle) {
-			g.drawImage(new ImageIcon("res/Towers/tower" + airId + ".png").getImage(),x, y, width, height, null);
+			//g.drawImage(new ImageIcon("res/Towers/tower" + airId + ".png").getImage(),x, y, width, height, null);
+			g.drawImage(sprites.getSprite("tower", (airId - 1), 0) ,x, y, width, height, null);
 		}
 	}
 	
