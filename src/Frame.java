@@ -89,7 +89,6 @@ public class Frame extends JFrame {
 			highScores.setVisible(true);
 			
 			if(highScores.back) {
-				System.out.println("Beep");
 				remove(highScores);
 				highScores.setVisible(false);
 				
@@ -107,7 +106,16 @@ public class Frame extends JFrame {
 			add(settings);
 			settings.setVisible(true);
 			
-			openingScreen.settings = false;
+			if(settings.back) {
+				remove(settings);
+				settings.setVisible(false);
+				
+				add(openingScreen);
+				openingScreen.setVisible(true);
+				
+				settings.back = false;
+				openingScreen.settings = false;
+			}
 		}
 	}
 	

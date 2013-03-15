@@ -15,7 +15,7 @@ public class Value {
 	
 	public static int knightTower = 1;
 	public static int knightCost = 20;
-	public static int knightAtk = 15;
+	public static int knightAtk = 10;
 	public static int knightSpd = 1;
 	public static int knightRng = 1;
 	
@@ -77,6 +77,15 @@ public class Value {
 			else if(zombieId == skeletonZombie) {
 				return skeletonZombieHealth;
 			}
+			else if(zombieId == ghost) {
+				return ghostHealth;
+			}
+			else if(zombieId == swampZombie) {
+				return swampZombieHealth;
+			}
+			else if(zombieId == bombZombie) {
+				return bombZombieHealth;
+			}
 			else {
 				return 0;
 			}
@@ -87,6 +96,15 @@ public class Value {
 			}
 			else if(zombieId == skeletonZombie) {
 				return skeletonZombieArmor;
+			}
+			else if(zombieId == ghost) {
+				return ghostArmor;
+			}
+			else if(zombieId == swampZombie) {
+				return swampZombieArmor;
+			}
+			else if(zombieId == bombZombie) {
+				return bombZombieArmor;
 			}
 			else {
 				return 0;

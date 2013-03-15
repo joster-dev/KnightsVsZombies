@@ -29,10 +29,11 @@ public class KeyHandler implements MouseMotionListener, MouseListener {
 		else if(Frame.highScores.isVisible()) {
 			Frame.highScores.click(e.getButton());
 		}
+		else if(Frame.settings.isVisible()) {
+			Frame.settings.click(e.getButton());
+		}
 		else if(Frame.gameScreen.isVisible()) {
-			try{
-				Screen.gamePanel.click(e.getButton());
-			} catch(Exception i) {}
+			Screen.gamePanel.click(e.getButton());
 		}
 	}
 

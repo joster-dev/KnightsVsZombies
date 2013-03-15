@@ -14,12 +14,6 @@ public class Enemy extends Rectangle {
 	public int enemyId;
 	public int enemyWalk = 0;
 	
-	public int enemyHealth;
-	public int enemyDmg;
-	public int enemyRange;
-	public int enemyFireRange;
-	public int enemyCost;
-	
 	public int down = 0;
 	public int left = 1;
 	public int right = 2;
@@ -33,6 +27,16 @@ public class Enemy extends Rectangle {
 	public boolean wasRight = false;
 	public boolean wasLeft = false;
 	
+	public int animationId = 0;					// The index of the next sprite to get in an animation
+	public int animationUpdatesPerFrame = 60;	// The number of screen updates it takes to update a the frame of an
+												// 	animation (Set this to 2 for vibrating zombies)
+	public int animationUpdateIndex = 1;		// Keeps track of how many screen updates have passed since the last 
+												//	animation frame was drawn
+	
+	public static final int animationBase = 0;	// The index of the base animation frame
+	public int animationWalkStart;				// The index of the first frame of the walking animation
+	public int animationWalkEnd;				// The index of the last frame of the walking animation
+	
 	public void spawnEnemy(int enemyId) {
 		for(int y = 0; y < Screen.room.block.length; y++) {
 			if(Screen.room.block[y][0].groundId == Value.pathOpen) {
@@ -42,11 +46,21 @@ public class Enemy extends Rectangle {
 			}
 		}
 		this.enemyId = enemyId;
-		if(enemyId == 0) {
-			health = Value.basicZombieHealth;
-			armor = Value.basicZombieArmor;
-		}
+		
+		health = Value.getZombieStats("health", enemyId);
+		armor = Value.getZombieStats("armor", enemyId);
+		
 		inGame = true;
+		
+		if (this.enemyId == 0){
+			this.animationWalkStart = 1;
+			this.animationWalkEnd = 4;
+		}
+		else{
+			this.animationWalkStart = 0;
+			this.animationWalkEnd = 0;
+		}
+		
 	}
 	
 	public void deleteEnemy() {
@@ -60,14 +74,10 @@ public class Enemy extends Rectangle {
 	}
 	
 	public void looseEnemyHealth(int towerDmg) {
-		health -= towerDmg;
-		if(health <= 0) {
-			deleteEnemy();
-		}
+		health -= towerDmg - armor;
 	}
 	
 	public void physic() {
-		
 		if(walkFrame >= walkSpeed) {
 			if(direction == down) {
 				y += 1;
@@ -158,12 +168,46 @@ public class Enemy extends Rectangle {
 		else {
 			walkFrame += 2;
 		}
+		
+		if(health <= 0) {
+			deleteEnemy();
+			
+			Screen.myGold += 3;
+		}
 	}
 	
 	public void draw(Graphics g) {
 		if(inGame && !isDead) {
-			g.drawImage(new ImageIcon("res/Enemys/enemy" + enemyId + ".png").getImage(),x, y, width, height, null);
+			
+			if(direction == left)
+				g.drawImage(ScreenPanel.sprites.getSprite("enemy", enemyId, this.animationId), x, y, x+64, y+64, 64, 0, 0, 64, null);
+			else
+				g.drawImage(ScreenPanel.sprites.getSprite("enemy", enemyId, this.animationId), x, y, width, height, null);
+			
+			if(this.animationUpdateIndex == this.animationUpdatesPerFrame){
+				this.animationId = nextAnimationFrame();
+				this.animationUpdateIndex = 1;
+			}
+			
+			this.animationUpdateIndex++;
 		}
 	}
 	
+	public int nextAnimationFrame() {
+				
+		// If idle, start the walking this.animation
+		if (this.animationId == animationBase)
+			return this.animationWalkStart;
+	
+		// Go through each frame of the walking this.animation
+		else if(this.animationWalkStart <= this.animationId && this.animationId < this.animationWalkEnd)  
+			return (this.animationId + 1);
+		
+		// Repeat the walking this.animation
+		else if (this.animationId == this.animationWalkEnd)
+			return this.animationWalkStart;;
+		
+		// If all else fails, return the base sprite
+		return 0;
+	}
 }

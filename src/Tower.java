@@ -1,6 +1,3 @@
-import java.awt.Rectangle;
-
-
 public class Tower {
 	
 	public int towerCost;
@@ -9,9 +6,8 @@ public class Tower {
 	public int towerRange;
 	
 	public Tower(int towerId) {
-		
 		towerCost = Value.getTowerStats("cost", towerId);
-		towerDamage = Value.getTowerStats("damage", towerId);
+		towerDamage = Value.getTowerStats("attack", towerId);
 		towerRate = Value.getTowerStats("speed", towerId);
 		towerRange = Value.getTowerStats("range", towerId);
 	}

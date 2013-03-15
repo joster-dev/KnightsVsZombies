@@ -28,18 +28,24 @@ public class Room {
 	}
 	
 	public void draw(Graphics g) {
+		int base_y = 0, base_x = 0;		// coordinates of the Base's block
 		for(int y = 0; y < block.length; y++) {
 			for(int x = 0; x < block[0].length; x++) {
-				block[y][x].draw(g);
+				if(block[y][x].airId == Value.airCastle){
+					base_y = y;
+					base_x = x;
+				}
+				else
+					block[y][x].draw(g);
 			}
 		}
-		g.setColor(Color.BLACK);
+		
+		block[base_y][base_x].draw(g);
+		
 		for(int y = 0; y < block.length; y++) {
 			for(int x = 0; x < block[0].length; x++) {
-				if(block[y][x].contains(Opening.mse) && block[y][x].hasTower) {
-					g.drawRect(block[y][x].x - (blockSize * block[y][x].tower.towerRange), block[y][x].y - (blockSize * block[y][x].tower.towerRange), blockSize + (blockSize * (2 * block[y][x].tower.towerRange)), blockSize + (blockSize * (2 * block[y][x].tower.towerRange)));
-				}
+				block[y][x].fight(g);
 			}
-		}	
+		}
 	}
 }
