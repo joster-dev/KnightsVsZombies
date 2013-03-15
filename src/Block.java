@@ -93,7 +93,13 @@ public class Block extends Rectangle {
 		}
 		else if(airId > Value.airCastle) {
 			//g.drawImage(new ImageIcon("res/Towers/tower" + airId + ".png").getImage(),x, y, width, height, null);
-			g.drawImage(ScreenPanel.sprites.getSprite("tower", (airId - 1), 0) ,x, y, width, height, null);
+			
+			// If a tower is shooting at an enemy to its right,
+			if (shoting && Screen.levelEnemyList.get(targetWave)[targetEnemy].x > (x))
+				g.drawImage(ScreenPanel.sprites.getSprite("tower", (airId - 1), 0), x, y, x+64, y+64, 64, 0, 0, 64, null);
+				
+			else
+				g.drawImage(ScreenPanel.sprites.getSprite("tower", (airId - 1), 0) ,x, y, width, height, null);
 		}
 	}
 	
