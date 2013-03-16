@@ -16,7 +16,15 @@ public class Block extends Rectangle {
 	public boolean shoting = false;
 	public int shotFrame = 0, fire = 1000;
 	
-	//public SpriteSheet sprites = new SpriteSheet();
+	public int animationId = 0;					// The index of the next sprite to get in an animation
+	public int animationUpdatesPerFrame = 60;	// The number of screen updates it takes to update a the frame of an
+												// 	animation
+	public int animationUpdateIndex = 1;		// Keeps track of how many screen updates have passed since the last 
+												//	animation frame was drawn
+	
+	public static final int animationBase = 0;	// The index of the base animation frame
+	public int animationIdleStart;				// The index of the first frame of the idle animation
+	public int animationIdleEnd;				// The index of the last frame of the idle animation
 	
 	public Rectangle towerHitBox = new Rectangle();
 	
@@ -33,6 +41,16 @@ public class Block extends Rectangle {
 		this.airId = towerId;
 		this.tower = new Tower(towerId);
 		towerHitBox = new Rectangle(x - (width * tower.towerRange), y - (width * tower.towerRange), width + (width * (2 * tower.towerRange)), width + (width * (2 * tower.towerRange)));
+	
+		if (this.airId == 1){
+			this.animationIdleStart = 1;
+			this.animationIdleEnd = 4;
+		}
+		else{
+			this.animationIdleStart = 0;
+			this.animationIdleEnd = 0;
+		}
+		
 	}
 	
 	public void physic() {
@@ -96,11 +114,18 @@ public class Block extends Rectangle {
 			
 			// If a tower is shooting at an enemy to its right,
 			if (shoting && Screen.levelEnemyList.get(targetWave)[targetEnemy].x > (x))
-				g.drawImage(ScreenPanel.sprites.getSprite("tower", (airId - 1), 0), x, y, x+64, y+64, 64, 0, 0, 64, null);
+				g.drawImage(ScreenPanel.sprites.getSprite("tower", (airId - 1), this.animationId), x, y, x+64, y+64, 64, 0, 0, 64, null);
 				
 			else
-				g.drawImage(ScreenPanel.sprites.getSprite("tower", (airId - 1), 0) ,x, y, width, height, null);
+				g.drawImage(ScreenPanel.sprites.getSprite("tower", (airId - 1), this.animationId) ,x, y, width, height, null);
 		}
+		
+		if(this.animationUpdateIndex == this.animationUpdatesPerFrame){
+			this.animationId = nextAnimationFrame();
+			this.animationUpdateIndex = 1;
+		}
+		
+		this.animationUpdateIndex++;
 	}
 	
 	public void fight(Graphics g) {
@@ -112,5 +137,23 @@ public class Block extends Rectangle {
 		if(shoting) {
 			g.drawLine(x + (width / 2), y + (height / 2), Screen.levelEnemyList.get(targetWave)[targetEnemy].x + (width / 2), Screen.levelEnemyList.get(targetWave)[targetEnemy].y + (height / 2) );
 		}
+	}
+	
+	public int nextAnimationFrame() {
+		
+		// If idle, start the idle animation
+		if (this.animationId == animationBase)
+			return this.animationIdleStart;
+	
+		// Go through each frame of the idle animation
+		else if(this.animationIdleStart <= this.animationId && this.animationId < this.animationIdleEnd)  
+			return (this.animationId + 1);
+		
+		// Repeat the idle animation
+		else if (this.animationId == this.animationIdleEnd)
+			return this.animationIdleStart;;
+		
+		// If all else fails, return the base sprite
+		return 0;
 	}
 }
