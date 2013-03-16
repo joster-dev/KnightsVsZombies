@@ -157,7 +157,7 @@ public class Screen extends JPanel implements Runnable {
 				levelClear(false);
 			}
 			
-			System.out.println(numEnemiesDead);
+			//System.out.println(numEnemiesDead);
 			if(numEnemiesDead >= numEnemies) {
 				try {
 					Thread.sleep(1500);

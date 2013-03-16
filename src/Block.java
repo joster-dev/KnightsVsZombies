@@ -25,6 +25,8 @@ public class Block extends Rectangle {
 	public static final int animationBase = 0;	// The index of the base animation frame
 	public int animationIdleStart;				// The index of the first frame of the idle animation
 	public int animationIdleEnd;				// The index of the last frame of the idle animation
+	public int animationAttackStart;
+	public int animationAttackEnd;
 	
 	public Rectangle towerHitBox = new Rectangle();
 	
@@ -45,10 +47,14 @@ public class Block extends Rectangle {
 		if (this.airId == 1){
 			this.animationIdleStart = 1;
 			this.animationIdleEnd = 4;
+			this.animationAttackStart = 5;
+			this.animationAttackEnd = 9;
 		}
 		else{
 			this.animationIdleStart = 0;
 			this.animationIdleEnd = 0;
+			this.animationAttackStart = 0;
+			this.animationAttackEnd = 0;
 		}
 		
 	}
@@ -110,7 +116,6 @@ public class Block extends Rectangle {
 			//g.fillRect(x, y, width, height);
 		}
 		else if(airId > Value.airCastle) {
-			//g.drawImage(new ImageIcon("res/Towers/tower" + airId + ".png").getImage(),x, y, width, height, null);
 			
 			// If a tower is shooting at an enemy to its right,
 			if (shoting && Screen.levelEnemyList.get(targetWave)[targetEnemy].x > (x))
@@ -136,6 +141,10 @@ public class Block extends Rectangle {
 		
 		if(shoting) {
 			g.drawLine(x + (width / 2), y + (height / 2), Screen.levelEnemyList.get(targetWave)[targetEnemy].x + (width / 2), Screen.levelEnemyList.get(targetWave)[targetEnemy].y + (height / 2) );
+			
+			// If shooting and not already in the attack animation, start the attack animation
+			if(!(this.animationAttackStart <= this.animationId) && (this.animationId < this.animationAttackEnd))
+				this.animationId = this.animationAttackStart;
 		}
 	}
 	
@@ -144,14 +153,27 @@ public class Block extends Rectangle {
 		// If idle, start the idle animation
 		if (this.animationId == animationBase)
 			return this.animationIdleStart;
-	
+		
 		// Go through each frame of the idle animation
 		else if(this.animationIdleStart <= this.animationId && this.animationId < this.animationIdleEnd)  
 			return (this.animationId + 1);
-		
+	
 		// Repeat the idle animation
 		else if (this.animationId == this.animationIdleEnd)
-			return this.animationIdleStart;;
+			return this.animationIdleStart;
+		
+		// Go through each frame of the attack animation
+		else if(this.animationAttackStart <= this.animationId && this.animationId < this.animationAttackEnd){ 
+			if(this.animationAttackStart == this.animationId)
+				this.animationUpdatesPerFrame = 30;
+			return (this.animationId + 1);
+		}
+	
+		// If finished attacking, return to the idle animation
+		else if (this.animationId == this.animationAttackEnd){
+			this.animationUpdatesPerFrame = 60;
+			return this.animationIdleStart;
+		}
 		
 		// If all else fails, return the base sprite
 		return 0;
