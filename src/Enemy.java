@@ -5,7 +5,7 @@ public class Enemy extends Rectangle {
 	public int xC;
 	public int yC;
 	public int walkFrame = 0;
-	public int walkSpeed = 15;
+	public int walkSpeed = 20;
 	
 	public int health;
 	public int armor;
@@ -172,7 +172,7 @@ public class Enemy extends Rectangle {
 		if(health <= 0) {
 			deleteEnemy();
 			
-			Screen.myGold += 3;
+			Screen.myGold += Value.getZombieStats("health", enemyId) / 7;;
 		}
 	}
 	

@@ -7,7 +7,7 @@ public class Room {
 	public static int worldHeight = 6;
 	public static int blockSize = ((2 * Opening.myHeight) / 15);				//Room size equal to 4/5 of the height of the screen.
 	
-	public Block[][] block;
+	public static Block[][] block;
 	
 	public Room() {
 		block = new Block[worldHeight][worldWidth];
@@ -31,6 +31,9 @@ public class Room {
 		int base_y = 0, base_x = 0;		// coordinates of the Base's block
 		for(int y = 0; y < block.length; y++) {
 			for(int x = 0; x < block[0].length; x++) {
+				if(block[y][x].contains(Opening.mse) && block[y][x].hasTower && !ScreenPanel.holdItem) {
+					ScreenPanel.displayTowerInfo(y, x);
+				}
 				if(block[y][x].airId == Value.airCastle){
 					base_y = y;
 					base_x = x;

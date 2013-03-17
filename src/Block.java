@@ -19,8 +19,7 @@ public class Block extends Rectangle {
 	public int animationId = 0;					// The index of the next sprite to get in an animation
 	public int animationUpdatesPerFrame = 60;	// The number of screen updates it takes to update a the frame of an
 												// 	animation
-	public int animationUpdateIndex = 1;		// Keeps track of how many screen updates have passed since the last 
-												//	animation frame was drawn
+	public int animationUpdateIndex = 1;		// Keeps track of how many screen updates have passed since the last animation frame was drawn
 	
 	public static final int animationBase = 0;	// The index of the base animation frame
 	public int animationIdleStart;				// The index of the first frame of the idle animation

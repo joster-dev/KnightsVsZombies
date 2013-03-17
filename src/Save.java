@@ -39,8 +39,6 @@ public class Save {
 			
 			loadScanner.close();
 			
-		} catch(Exception e) {
-			
-		}
+		} catch(Exception e) {}
 	}
 }

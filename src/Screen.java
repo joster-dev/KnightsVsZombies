@@ -16,6 +16,10 @@ public class Screen extends JPanel implements Runnable {
 	
 	public boolean createStaticElements = false;
 	
+	public boolean questFailed;
+	public boolean questClear;
+	public boolean questChainClear;
+	
 	public static ArrayList<int[]> levelEnemyType = new ArrayList<int[]>();
 	public static ArrayList<Enemy[]> levelEnemyList = new ArrayList<Enemy[]>();
 	
@@ -26,8 +30,6 @@ public class Screen extends JPanel implements Runnable {
 	public static ScreenPanel gamePanel;
 	public static Save save;
 	public static int level = 1;
-	
-	public boolean gameover = false;
 	
 	public Frame myFrame;
 	
@@ -55,6 +57,34 @@ public class Screen extends JPanel implements Runnable {
 				}
 			}
 		}
+		
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.BOLD, 18));
+		
+		if(questFailed) {
+			      g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+			      g.setColor(Color.BLACK);
+			      g.drawString("Quest Failed", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
+			      g.drawString("Better luck next time!", (Opening.myWidth * 3) / 8, Opening.myHeight / 2);
+			      g.drawString("Restarting...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
+			      g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+		    }
+		    else if (questClear) {
+			      g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+			      g.setColor(Color.BLACK);
+			      g.drawString("Quest Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
+			      g.drawString("Good job!", (Opening.myWidth * 3) / 8, Opening.myHeight / 2);
+			      g.drawString("Progressing to next level...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
+			      g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+		    }
+		    else if (questChainClear) {
+		    	g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+		    	g.setColor(Color.BLACK);
+		    	g.drawString("Story Mode Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
+		    	g.drawString("Congratulations, Thanks for playing!", (Opening.myWidth * 5) / 16, Opening.myHeight / 2);
+		    	g.drawString("Returning to main screen...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
+		    	g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+		    }
 	}
 	
 	public void define() {
@@ -110,7 +140,6 @@ public class Screen extends JPanel implements Runnable {
 	}
 	
 	public void levelClear(boolean w) {
-		gameover = true;
 		if(w == true) {
 			myHealth = 100;
 			myGold = 100;
@@ -118,6 +147,8 @@ public class Screen extends JPanel implements Runnable {
 			if(level < 5) {
 				level += 1;
 			}
+			questClear = false;
+			questChainClear = false;
 			
 			numEnemiesDead = 0;
 			levelEnemyType = new ArrayList<int[]>();
@@ -129,6 +160,7 @@ public class Screen extends JPanel implements Runnable {
 			myHealth = 100;
 			myGold = 100;
 			ScreenPanel.holdItem = false;
+			questFailed = false;
 			
 			numEnemiesDead = 0;
 			
@@ -145,22 +177,35 @@ public class Screen extends JPanel implements Runnable {
 					for(int j = 0; j < levelEnemyList.get(i).length; j++) {
 						if(levelEnemyList.get(i)[j].inGame && !levelEnemyList.get(i)[j].isDead) {
 							levelEnemyList.get(i)[j].physic();
+							if(levelEnemyList.get(i)[j].contains(Opening.mse)) {
+								ScreenPanel.displayEnemyInfo(i, j);
+							}
+						}
+						if(levelEnemyList.get(ScreenPanel.enemyWave)[ScreenPanel.enemyIndex].isDead) {
+							ScreenPanel.showEnemyInfo = false;
 						}
 					}
 				}
 			}
 			
 			if(myHealth <= 0) {
+				questFailed = true;
 				try {
-					Thread.sleep(1500);
+					Thread.sleep(2500);
 				} catch (Exception e) {}
 				levelClear(false);
 			}
 			
 			//System.out.println(numEnemiesDead);
 			if(numEnemiesDead >= numEnemies) {
+				if(level == 5) {
+					questChainClear = true;
+				} 
+				else {
+					questClear = true;
+				}
 				try {
-					Thread.sleep(1500);
+					Thread.sleep(2500);
 				} catch (Exception e) {}
 				levelClear(true);
 			}
