@@ -117,6 +117,15 @@ public class Frame extends JFrame {
 				openingScreen.settings = false;
 			}
 		}
+		else if(gameScreen.questChainClear) {
+			remove(gameScreen);
+			gameScreen.setVisible(false);
+			
+			add(openingScreen);
+			openingScreen.setVisible(true);
+			
+			gameScreen.questChainClear = false;
+		}
 	}
 	
 	public static void main(String[] args) {

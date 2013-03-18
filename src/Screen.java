@@ -141,20 +141,34 @@ public class Screen extends JPanel implements Runnable {
 	
 	public void levelClear(boolean w) {
 		if(w == true) {
-			myHealth = 100;
-			myGold = 100;
-			ScreenPanel.holdItem = false;
 			if(level < 5) {
+				myHealth = 100;
+				myGold = 100;
+				ScreenPanel.holdItem = false;
 				level += 1;
+				questClear = false;
+				numEnemiesDead = 0;
+				
+				levelEnemyType = new ArrayList<int[]>();
+				levelEnemyList = new ArrayList<Enemy[]>();
+				
+				define();
+			} 
+			else if(level == 5) {
+				myHealth = 100;
+				myGold = 100;
+				ScreenPanel.holdItem = false;
+				ScreenPanel.showEnemyInfo = false;
+				ScreenPanel.showTowerInfo = false;
+				
+				myFrame.updateFrame();
 			}
-			questClear = false;
-			questChainClear = false;
+			else {
+				
+			}
 			
-			numEnemiesDead = 0;
-			levelEnemyType = new ArrayList<int[]>();
-			levelEnemyList = new ArrayList<Enemy[]>();
 			
-			define();
+			
 		} 
 		else {
 			myHealth = 100;
