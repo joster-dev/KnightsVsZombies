@@ -65,6 +65,7 @@ public class Frame extends JFrame {
 				remove(chooseGame);
 				chooseGame.setVisible(false);
 				
+				gameScreen.level = 6;
 				add(gameScreen);
 				gameScreen.setVisible(true);
 				

@@ -57,7 +57,7 @@ public class Value {
 	
 	public static int ghost = 2;
 	public static int ghostHealth = 50;
-	public static int ghostArmor = 12;
+	public static int ghostArmor = 10;
 	
 	public static int swampZombie = 3;
 	public static int swampZombieHealth = 70;

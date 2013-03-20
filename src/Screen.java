@@ -29,7 +29,7 @@ public class Screen extends JPanel implements Runnable {
 	public static Room room;
 	public static ScreenPanel gamePanel;
 	public static Save save;
-	public static int level = 1;
+	public int level = 1;
 	
 	public Frame myFrame;
 	
@@ -93,7 +93,13 @@ public class Screen extends JPanel implements Runnable {
 		gamePanel = new ScreenPanel();
 		save = new Save();
 		
-		save.loadSave(new File("Save/StoryQuest" + level));
+		if(level <= 5) {
+			save.loadSave(new File("Save/StoryQuest" + level));
+		}
+		else {
+			save.loadSave(new File("Save/InfiniteStage"));
+			myWaves = 0;
+		}
 		
 		for(int i = 0; i < levelEnemyType.size(); i++) {
 			levelEnemyList.add(new Enemy[levelEnemyType.get(i).length]);
@@ -111,7 +117,7 @@ public class Screen extends JPanel implements Runnable {
 	
 	public int spawnTime = 1750;    //spawnFrame -> spawnTime. When spawnFrame == spawnTime, enemySpawner is called.
 
-	public int spawnFrame = 0;
+	public int spawnFrame = -10000;
 	public void enemySpawner() {
 		if(spawnFrame >= spawnTime) {
 			outerLoop:																//Label so we can break from both loops.
@@ -121,7 +127,7 @@ public class Screen extends JPanel implements Runnable {
 						levelEnemyList.get(i)[j].spawnEnemy(levelEnemyType.get(i)[j]);
 						if(j == levelEnemyList.get(i).length - 1) {
 							if(!newWave[i]) {
-								myWaves -= 1;
+								if(myWaves != 0) myWaves -= 1;
 								spawnFrame = -10000;
 							}
 							newWave[i] = true;
@@ -160,15 +166,28 @@ public class Screen extends JPanel implements Runnable {
 				ScreenPanel.holdItem = false;
 				ScreenPanel.showEnemyInfo = false;
 				ScreenPanel.showTowerInfo = false;
+				questChainClear = false;
 				
 				myFrame.updateFrame();
 			}
 			else {
+				for(int i = 0; i < levelEnemyType.size(); i++) {
+					for(int j = 0; j < levelEnemyType.get(i).length; j++) {
+						levelEnemyList.get(i)[j] = new Enemy();
+					}
+				}
+				for (int k = 0; k < levelEnemyType.size(); k++) {
+					int indexToIncrease = (int)(Math.random() * levelEnemyType.get(k).length);
+					levelEnemyType.get(k)[indexToIncrease] += 1;
+					indexToIncrease = (int)(Math.random() * levelEnemyType.get(k).length);
+					levelEnemyType.get(k)[indexToIncrease] += 1;
+				}
+				for(int l = 0; l < newWave.length; l++) {
+					newWave[l] = false;
+				}
 				
+				numEnemiesDead = 0;
 			}
-			
-			
-			
 		} 
 		else {
 			myHealth = 100;
@@ -215,7 +234,7 @@ public class Screen extends JPanel implements Runnable {
 				if(level == 5) {
 					questChainClear = true;
 				} 
-				else {
+				else if (level < 5) {
 					questClear = true;
 				}
 				try {
