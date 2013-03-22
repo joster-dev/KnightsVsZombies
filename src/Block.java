@@ -52,8 +52,8 @@ public class Block extends Rectangle {
 		else if (this.airId == 2){
 			this.animationIdleStart = 1;
 			this.animationIdleEnd = 4;
-			this.animationAttackStart = 1;
-			this.animationAttackEnd = 4;
+			this.animationAttackStart = 5;
+			this.animationAttackEnd = 8;
 		}
 		else{
 			this.animationIdleStart = 0;
