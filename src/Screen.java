@@ -47,7 +47,7 @@ public class Screen extends JPanel implements Runnable {
 		}
 		
 		room.draw(g);
-		g.drawImage(new ImageIcon("res/Graphics/hud_frame.png").getImage(),0, 0, Opening.myWidth, Opening.myHeight, null);
+		g.drawImage(ScreenPanel.sprites.hudFrame ,0, 0, Opening.myWidth, Opening.myHeight, null);
 		gamePanel.draw(g);
 		
 		for(int i = 0; i < levelEnemyList.size(); i++) {

@@ -20,6 +20,20 @@ public class SpriteSheet{
 	private int blockSheetWidth;					// The max number of block tiles per level
 	private int blockSheetHeight;					// The number of levels
 	
+	// The remaining graphical resouces (these will probably get changed around a bit as we go along)
+	BufferedImage attackIcon;
+	BufferedImage goldIcon;
+	BufferedImage healthIcon;
+	BufferedImage hudFrame;
+	BufferedImage fastForwardIcon;
+	BufferedImage pauseIcon;
+	BufferedImage saveIcon;
+	BufferedImage rangeIcon;
+	BufferedImage speedIcon;
+	BufferedImage baseIcon;
+	BufferedImage wavesIcon;
+	BufferedImage armorIcon = null;
+	
 	// Create one big sprite sheet composed of several separate sprite sheets
 	public SpriteSheet(){
 		
@@ -118,6 +132,21 @@ public class SpriteSheet{
 			// Save the maximum dimensions of the array (used to avoid OutOfBounds exceptions)
 			blockSheetWidth = bsCols;
 			blockSheetHeight = bsRows;
+			
+			//-----------------------------------------------------------------------------
+			
+			//Get the remaining graphical resources
+			attackIcon = ImageIO.read(new File("res/Graphics/Attack.png"));
+			goldIcon = ImageIO.read(new File("res/Graphics/Gold.png"));
+			healthIcon = ImageIO.read(new File("res/Graphics/Health.png"));
+			hudFrame = ImageIO.read(new File("res/Graphics/hud_frame.png"));
+			fastForwardIcon = ImageIO.read(new File("res/Graphics/MenuFF.png"));
+			pauseIcon = ImageIO.read(new File("res/Graphics/MenuPause.png"));
+			saveIcon = ImageIO.read(new File("res/Graphics/MenuSave.png"));
+			rangeIcon = ImageIO.read(new File("res/Graphics/Range.png"));
+			speedIcon = ImageIO.read(new File("res/Graphics/Speed.png"));
+			baseIcon = ImageIO.read(new File("res/Graphics/towr_base.png"));
+			wavesIcon = ImageIO.read(new File("res/Graphics/Waves.png"));
 		}
 		
 		catch(Exception e){}

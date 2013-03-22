@@ -158,16 +158,16 @@ public class ScreenPanel {
 		
 		g.setFont(new Font("Arial", Font.BOLD, 13));
 		if(showTowerInfo) {
-		    g.drawImage(new ImageIcon("res/Graphics/Attack.png").getImage(), infoIcon[0].x, infoIcon[0].y, infoIcon[0].width, infoIcon[0].height, null);
-		    g.drawImage(new ImageIcon("res/Graphics/Speed.png").getImage(), infoIcon[1].x, infoIcon[1].y, infoIcon[1].width, infoIcon[1].height, null);
-		    g.drawImage(new ImageIcon("res/Graphics/Range.png").getImage(), infoIcon[2].x, infoIcon[2].y, infoIcon[2].width, infoIcon[2].height, null);
+		    g.drawImage(sprites.attackIcon, infoIcon[0].x, infoIcon[0].y, infoIcon[0].width, infoIcon[0].height, null);
+		    g.drawImage(sprites.speedIcon, infoIcon[1].x, infoIcon[1].y, infoIcon[1].width, infoIcon[1].height, null);
+		    g.drawImage(sprites.rangeIcon, infoIcon[2].x, infoIcon[2].y, infoIcon[2].width, infoIcon[2].height, null);
 		    g.drawString(Integer.toString(Room.block[towerCellY][towerCellX].tower.towerDamage), infoIcon[0].x + (shopCellSpace / 2) + infoIconSize, infoIcon[0].y + ((infoIconSize * 3)/ 4));
 		    g.drawString(Integer.toString(Room.block[towerCellY][towerCellX].tower.towerRate), infoIcon[1].x + (shopCellSpace / 2) + infoIconSize, infoIcon[1].y + ((infoIconSize * 3)/ 4));
 		    g.drawString(Integer.toString(Room.block[towerCellY][towerCellX].tower.towerRange), infoIcon[2].x + (shopCellSpace / 2) + infoIconSize, infoIcon[2].y + ((infoIconSize * 3)/ 4));
 		}
 		else if(showEnemyInfo) {
-			g.drawImage(new ImageIcon("res/Graphics/Health.png").getImage(), infoIcon[0].x, infoIcon[0].y, infoIcon[0].width, infoIcon[0].height, null);
-			g.drawImage(new ImageIcon("res/Graphics/Armor.png").getImage(), infoIcon[1].x, infoIcon[1].y, infoIcon[1].width, infoIcon[1].height, null);
+			g.drawImage(sprites.healthIcon, infoIcon[0].x, infoIcon[0].y, infoIcon[0].width, infoIcon[0].height, null);
+			g.drawImage(sprites.armorIcon, infoIcon[1].x, infoIcon[1].y, infoIcon[1].width, infoIcon[1].height, null);
 			g.drawImage(null, infoIcon[2].x, infoIcon[2].y, infoIcon[2].width, infoIcon[2].height, null);
 			g.drawString(Integer.toString(Screen.levelEnemyList.get(enemyWave)[enemyIndex].health), infoIcon[0].x + (shopCellSpace / 2) + infoIconSize, infoIcon[0].y + ((infoIconSize * 3)/ 4));
 			g.drawString(Integer.toString(Screen.levelEnemyList.get(enemyWave)[enemyIndex].armor), infoIcon[1].x + (shopCellSpace / 2) + infoIconSize, infoIcon[1].y + ((infoIconSize * 3)/ 4));
@@ -190,7 +190,7 @@ public class ScreenPanel {
 			g.setColor(Color.BLACK);
 			g.drawRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
 			if(shopButtonId[i] != 0 && shopButtonId[i] != 7) {
-				g.drawImage(new ImageIcon("res/Graphics/Gold.png").getImage(), shop[i].x, shop[i].y, statusIconSize, statusIconSize, null);
+				g.drawImage(sprites.goldIcon, shop[i].x, shop[i].y, statusIconSize, statusIconSize, null);
 				g.setFont(new Font("Arial", Font.BOLD, 13));
 				g.drawString(Integer.toString(Value.getTowerStats("cost", shopButtonId[i])), shop[i].x + (shopCellSpace / 4), shop[i].y + ((shopCellSpace * 5) / 4));
 				g.drawImage(sprites.getSprite("tower", (shopButtonId[i] - 1), 0), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
@@ -208,9 +208,9 @@ public class ScreenPanel {
 				if(shopButtonId[i] != 0 && shopButtonId[i] != 7 && !holdItem) {
 					showEnemyInfo = false;
 					showTowerInfo = false;
-					g.drawImage(new ImageIcon("res/Graphics/Attack.png").getImage(), infoIcon[0].x, infoIcon[0].y, infoIcon[0].width, infoIcon[0].height, null);
-					g.drawImage(new ImageIcon("res/Graphics/Speed.png").getImage(), infoIcon[1].x, infoIcon[1].y, infoIcon[1].width, infoIcon[1].height, null);
-					g.drawImage(new ImageIcon("res/Graphics/Range.png").getImage(), infoIcon[2].x, infoIcon[2].y, infoIcon[2].width, infoIcon[2].height, null);
+					g.drawImage(sprites.attackIcon, infoIcon[0].x, infoIcon[0].y, infoIcon[0].width, infoIcon[0].height, null);
+					g.drawImage(sprites.speedIcon, infoIcon[1].x, infoIcon[1].y, infoIcon[1].width, infoIcon[1].height, null);
+					g.drawImage(sprites.rangeIcon, infoIcon[2].x, infoIcon[2].y, infoIcon[2].width, infoIcon[2].height, null);
 					g.drawString(Integer.toString(Value.getTowerStats("attack", shopButtonId[i])), infoIcon[0].x + (shopCellSpace / 2) + infoIconSize, infoIcon[0].y + ((infoIconSize * 3)/ 4));
 					g.drawString(Integer.toString(Value.getTowerStats("speed", shopButtonId[i])), infoIcon[1].x + (shopCellSpace / 2) + infoIconSize, infoIcon[1].y + ((infoIconSize * 3)/ 4));
 					g.drawString(Integer.toString(Value.getTowerStats("range", shopButtonId[i])), infoIcon[2].x + (shopCellSpace / 2) + infoIconSize, infoIcon[2].y + ((infoIconSize * 3)/ 4));
@@ -226,13 +226,13 @@ public class ScreenPanel {
 		for(int j = 0; j < menu.length; j++) {
 			
 			if(j == 0) {
-				g.drawImage(new ImageIcon("res/Graphics/MenuFF.png").getImage(), menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
+				g.drawImage(sprites.fastForwardIcon, menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
 			}
 			else if(j == 1) {
-				g.drawImage(new ImageIcon("res/Graphics/MenuPause.png").getImage(), menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
+				g.drawImage(sprites.pauseIcon, menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
 			}
 			else if(j == 2) {
-				g.drawImage(new ImageIcon("res/Graphics/MenuSave.png").getImage(), menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
+				g.drawImage(sprites.saveIcon, menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
 			}
 				
 			if(menu[j].contains(Opening.mse)) {
@@ -256,15 +256,15 @@ public class ScreenPanel {
 			
 			if(k == 0) {
 				g.drawString("" + Screen.myHealth, statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
-				g.drawImage(new ImageIcon("res/Graphics/Health.png").getImage(), statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
+				g.drawImage(sprites.healthIcon, statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
 			} 
 			else if(k == 1) {
 				g.drawString("" + Screen.myGold, statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
-				g.drawImage(new ImageIcon("res/Graphics/Gold.png").getImage(), statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
+				g.drawImage(sprites.goldIcon, statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
 			} 
 			else if(k == 2) {
 				g.drawString("" + Screen.myWaves, statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
-				g.drawImage(new ImageIcon("res/Graphics/Waves.png").getImage(), statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
+				g.drawImage(sprites.wavesIcon, statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
 			}
 		}
 		
