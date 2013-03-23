@@ -8,7 +8,8 @@ public class Frame extends JFrame {
 	public static int x = 896;
 	public static int y = 512;
 	public static Dimension size = new Dimension(x, y);
-	
+
+	public static SplashScreen splashScreen;
 	public static Opening openingScreen;
 	public static GameMode chooseGame;
 	public static Screen gameScreen;
@@ -27,23 +28,41 @@ public class Frame extends JFrame {
 	
 	public void init() {
 		setLayout(new GridLayout(1, 1, 0, 0));
-		
+
+		splashScreen = new SplashScreen(this);
 		openingScreen = new Opening(this);
 		chooseGame = new GameMode(this);
 		gameScreen = new Screen(this);
 		highScores = new HighScore(this);
 		settings = new Settings(this);
 		
-		add(openingScreen);
+		add(splashScreen);
+		splashScreen.setVisible(true);
+
+		openingScreen.setVisible(false);
+
 		chooseGame.setVisible(false);
+
 		gameScreen.setVisible(false);
+
 		highScores.setVisible(false);
+
 		settings.setVisible(false);
 		
 		setVisible(true);
 	}
 	
 	public void updateFrame() {
+
+		if(splashScreen.isDone()) {
+			remove(splashScreen);
+
+			splashScreen.setVisible(false);
+			add(openingScreen);
+
+			openingScreen.setVisible(true);
+
+		}
 		if(openingScreen.newGame) {
 			remove(openingScreen);
 			openingScreen.setVisible(false);
