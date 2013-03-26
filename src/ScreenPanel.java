@@ -237,15 +237,20 @@ public class ScreenPanel {
 		
 		for(int j = 0; j < menu.length; j++) {
 			
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(menu[j].x, menu[j].y, menu[j].width, menu[j].height);
+			g.setColor(Color.BLACK);
+			g.setFont(new Font("Arial", Font.PLAIN, 10));
 			if(j == 0) {
-				g.drawImage(sprites.fastForwardIcon, menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
+				g.drawString("Fast Forward", menu[j].x + menuButtonSizeX / 10, menu[j].y + menuButtonSizeY * 2 / 3);
 			}
 			else if(j == 1) {
-				g.drawImage(sprites.pauseIcon, menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
+				g.drawString("Pause", menu[j].x + menuButtonSizeX * 2 / 7, menu[j].y + menuButtonSizeY * 2 / 3);
 			}
 			else if(j == 2) {
-				g.drawImage(sprites.saveIcon, menu[j].x, menu[j].y, menu[j].width, menu[j].height, null);
+				g.drawString("Save", menu[j].x + menuButtonSizeX / 3, menu[j].y + menuButtonSizeY * 2 / 3);
 			}
+			g.drawRect(menu[j].x, menu[j].y, menu[j].width, menu[j].height);
 				
 			if(menu[j].contains(Opening.mse)) {
 				g.setColor(new Color(255, 255, 255, 100));
