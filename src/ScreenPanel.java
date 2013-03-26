@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.io.File;
-import javax.swing.*;
 
 public class ScreenPanel {
 	
@@ -17,9 +16,11 @@ public class ScreenPanel {
 	public static int menuButtonSizeX = ((3 * (Opening.myHeight / 5)) / 4);			//menu buttons take up 3/4 (6/8) of allocated space horizontally. 
 	public static int menuButtonSizeY = ((10 * (Opening.myHeight / 5)) / 48);		//menu buttons take up 5/24 (10/48) of allocated space vertically.
 	public static int menuCellSpace = ((3 * (Opening.myHeight / 5)) / 48);			//space between the menu buttons and each other is equal to 1/16 (3/48) of the vertical space.
+	public static boolean isFastForward = false;
+	public static boolean isPaused = false;
 	public static boolean confirmSave = false;
 	int base = 0;
-	int countTo = 190;
+	int countTo = 230;
 	
 	public static int statusLength = 3;
 	public static int statusButtonSizeX = (menuButtonSizeX * 2) + (cellSpaceFromRoom * 2);
@@ -124,7 +125,52 @@ public class ScreenPanel {
 			}
 			for(int j = 0; j < menu.length; j++) {
 				if(menu[j].contains(Opening.mse)) {
-					if(j == 2) {
+					if(j == 0) {
+						if(isFastForward) {
+							Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime * 2);
+							Frame.gameScreen.spawnFrame = (Frame.gameScreen.spawnFrame * 2);
+							Frame.gameScreen.nextWaveWaitTime = (Frame.gameScreen.nextWaveWaitTime * 2);
+							for(int y = 0; y < Room.block.length; y++) {
+								for(int x = 0; x < Room.block[0].length; x++) {
+									Room.block[y][x].fire = (Room.block[y][x].fire * 2);
+								}
+							}
+							for(int i = 0; i < Screen.levelEnemyList.size(); i++) {
+								for(int k = 0; k < Screen.levelEnemyList.get(i).length; k++) {
+									Screen.levelEnemyList.get(i)[k].walkSpeed = (Screen.levelEnemyList.get(i)[k].walkSpeed * 2);
+								}
+							}
+							
+							isFastForward = false;
+						}
+						else {
+							Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime / 2);
+							Frame.gameScreen.spawnFrame = (Frame.gameScreen.spawnFrame / 2);
+							Frame.gameScreen.nextWaveWaitTime = (Frame.gameScreen.nextWaveWaitTime / 2);
+							for(int y = 0; y < Room.block.length; y++) {
+								for(int x = 0; x < Room.block[0].length; x++) {
+									Room.block[y][x].fire = (Room.block[y][x].fire / 2);
+								}
+							}
+							for(int i = 0; i < Screen.levelEnemyList.size(); i++) {
+								for(int k = 0; k < Screen.levelEnemyList.get(i).length; k++) {
+									Screen.levelEnemyList.get(i)[k].walkSpeed = (Screen.levelEnemyList.get(i)[k].walkSpeed / 2);
+								}
+							}
+							isFastForward = true;
+						}
+					}
+					else if(j == 1) {
+						if(!isPaused) {
+							Frame.gameScreen.gameLoop.suspend();
+							isPaused = true;
+						}
+						else {
+							Frame.gameScreen.gameLoop.resume();
+							isPaused = false;
+						}
+					}
+					else if(j == 2) {
 						Screen.save.saveGame(new File("Save/SavedGame"));
 						confirmSave = true;
 					}
@@ -233,7 +279,7 @@ public class ScreenPanel {
 		
 		//*//
 		
-		//*Menu (Fast Forward, Options, Save)*//
+		//*Menu (Fast Forward, Pause, Save)*//
 		
 		for(int j = 0; j < menu.length; j++) {
 			
@@ -242,32 +288,41 @@ public class ScreenPanel {
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial", Font.PLAIN, 10));
 			if(j == 0) {
-				g.drawString("Fast Forward", menu[j].x + menuButtonSizeX / 10, menu[j].y + menuButtonSizeY * 2 / 3);
+				if(!isFastForward) {
+					g.drawString("Fast Forward", menu[j].x + menuButtonSizeX / 10, menu[j].y + menuButtonSizeY * 2 / 3);
+				}
+				else {
+					g.drawString("Normal Speed", menu[j].x + menuButtonSizeX / 19, menu[j].y + menuButtonSizeY * 2 / 3);
+				}
 			}
 			else if(j == 1) {
-				g.drawString("Pause", menu[j].x + menuButtonSizeX * 2 / 7, menu[j].y + menuButtonSizeY * 2 / 3);
+				if(!isPaused) {
+					g.drawString("Pause", menu[j].x + menuButtonSizeX * 2 / 7, menu[j].y + menuButtonSizeY * 2 / 3);
+				}
+				else {
+					g.drawString("Unpause", menu[j].x + menuButtonSizeX / 4, menu[j].y + menuButtonSizeY * 2 / 3);
+				}
 			}
 			else if(j == 2) {
-				g.drawString("Save", menu[j].x + menuButtonSizeX / 3, menu[j].y + menuButtonSizeY * 2 / 3);
+				if(!confirmSave) {
+					g.drawString("Save", menu[j].x + menuButtonSizeX / 3, menu[j].y + menuButtonSizeY * 2 / 3);	
+				}
+				else {
+					if(base == countTo) {
+						confirmSave = false;
+						base = 0;
+					}
+					else {
+						g.drawString("Game Saved", menu[j].x + menuButtonSizeX / 10, menu[j].y + menuButtonSizeY * 2 / 3);
+						base += 1;
+					}
+				}
 			}
 			g.drawRect(menu[j].x, menu[j].y, menu[j].width, menu[j].height);
 				
 			if(menu[j].contains(Opening.mse)) {
 				g.setColor(new Color(255, 255, 255, 100));
 				g.fillRect(menu[j].x, menu[j].y, menu[j].width, menu[j].height);
-			}
-		}
-		
-		if(confirmSave) {
-			if(base == countTo) {
-				confirmSave = false;
-				base = 0;
-			}
-			else {
-				g.setColor(Color.BLACK);
-				g.setFont(new Font("Arial", Font.BOLD, 20));
-				g.drawString("Game Saved", (Opening.myWidth * 11) / 16, (Opening.myHeight * 3) / 4);
-				base += 1;
 			}
 		}
 		

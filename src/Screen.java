@@ -125,8 +125,8 @@ public class Screen extends JPanel implements Runnable {
 	}
 	
 	public int spawnTime = 1750;    //spawnFrame -> spawnTime. When spawnFrame == spawnTime, enemySpawner is called.
-
-	public int spawnFrame = -10000;
+	public int spawnFrame = -9000;
+	public int nextWaveWaitTime = -10000;
 	public void enemySpawner() {
 		if(spawnFrame >= spawnTime) {
 			outerLoop:																//Label so we can break from both loops.
@@ -137,7 +137,7 @@ public class Screen extends JPanel implements Runnable {
 						if(j == levelEnemyList.get(i).length - 1) {
 							if(!newWave[i]) {
 								if(myWaves != 0) myWaves -= 1;
-								spawnFrame = -10000;
+								spawnFrame = nextWaveWaitTime;
 							}
 							newWave[i] = true;
 						}

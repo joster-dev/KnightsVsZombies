@@ -171,7 +171,7 @@ public class Enemy extends Rectangle {
 		if(health <= 0) {
 			deleteEnemy();
 			
-			Screen.myGold += Value.getZombieStats("health", enemyId) / 7;;
+			Screen.myGold += Value.getZombieStats("health", enemyId) / 10;
 		}
 	}
 	
