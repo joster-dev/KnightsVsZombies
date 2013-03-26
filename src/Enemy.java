@@ -1,5 +1,4 @@
 import java.awt.*;
-import javax.swing.ImageIcon;
 
 public class Enemy extends Rectangle {
 	public int xC;
@@ -38,9 +37,9 @@ public class Enemy extends Rectangle {
 	public int animationWalkEnd;				// The index of the last frame of the walking animation
 	
 	public void spawnEnemy(int enemyId) {
-		for(int y = 0; y < Screen.room.block.length; y++) {
-			if(Screen.room.block[y][0].groundId == Value.pathOpen) {
-				setBounds(Screen.room.block[y][0].x, Screen.room.block[y][0].y, enemySize, enemySize);
+		for(int y = 0; y < Room.block.length; y++) {
+			if(Room.block[y][0].groundId == Value.pathOpen) {
+				setBounds(Room.block[y][0].x, Room.block[y][0].y, enemySize, enemySize);
 				xC = 0;
 				yC = y;
 			}
@@ -114,7 +113,7 @@ public class Enemy extends Rectangle {
 				
 				if(!wasUp) {
 					try {
-						if(Screen.room.block[yC+1][xC].groundId == Value.pathOpen) {
+						if(Room.block[yC+1][xC].groundId == Value.pathOpen) {
 							direction = down;
 						}
 					} catch (Exception e) {
@@ -123,7 +122,7 @@ public class Enemy extends Rectangle {
 				}
 				if(!wasRight) {
 					try {
-						if(Screen.room.block[yC][xC-1].groundId == Value.pathOpen) {
+						if(Room.block[yC][xC-1].groundId == Value.pathOpen) {
 							direction = left;
 						}
 					} catch (Exception e) {
@@ -132,7 +131,7 @@ public class Enemy extends Rectangle {
 				}
 				if(!wasLeft) {
 					try {
-						if(Screen.room.block[yC][xC+1].groundId == Value.pathOpen) {
+						if(Room.block[yC][xC+1].groundId == Value.pathOpen) {
 							direction = right;
 						}	
 					} catch (Exception e) {
@@ -141,7 +140,7 @@ public class Enemy extends Rectangle {
 				}	
 				if(!wasDown) {
 					try {
-						if(Screen.room.block[yC-1][xC].groundId == Value.pathOpen) {
+						if(Room.block[yC-1][xC].groundId == Value.pathOpen) {
 							direction = up;
 						}
 					} catch (Exception e) {
@@ -149,7 +148,7 @@ public class Enemy extends Rectangle {
 					} 
 				}
 				
-				if(Screen.room.block[yC][xC].airId == Value.airCastle) {
+				if(Room.block[yC][xC].airId == Value.airCastle) {
 					deleteEnemy();
 					looseHealth();
 				}

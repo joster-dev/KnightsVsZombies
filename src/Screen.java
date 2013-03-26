@@ -30,6 +30,8 @@ public class Screen extends JPanel implements Runnable {
 	public static ScreenPanel gamePanel;
 	public static Save save;
 	public int level = 1;
+	public boolean loadGame = false;
+	public boolean infiniteGame = false;
 	
 	public Frame myFrame;
 	
@@ -93,12 +95,19 @@ public class Screen extends JPanel implements Runnable {
 		gamePanel = new ScreenPanel();
 		save = new Save();
 		
-		if(level <= 5) {
-			save.loadSave(new File("Save/StoryQuest" + level));
-		}
-		else {
+
+		if(infiniteGame) {
 			save.loadSave(new File("Save/InfiniteStage"));
 			myWaves = 0;
+			infiniteGame = false;
+		}
+		else if(loadGame) {
+			save.loadSave(new File("Save/SavedGame"));
+			if(level == 6) myWaves = 0;
+			loadGame = false;
+		}
+		else {
+			save.loadSave(new File("Save/StoryQuest" + level));
 		}
 		
 		for(int i = 0; i < levelEnemyType.size(); i++) {
@@ -229,7 +238,6 @@ public class Screen extends JPanel implements Runnable {
 				levelClear(false);
 			}
 			
-			//System.out.println(numEnemiesDead);
 			if(numEnemiesDead >= numEnemies) {
 				if(level == 5) {
 					questChainClear = true;

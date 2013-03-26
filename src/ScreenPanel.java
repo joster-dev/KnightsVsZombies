@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.File;
 import javax.swing.*;
 
 public class ScreenPanel {
@@ -16,6 +17,9 @@ public class ScreenPanel {
 	public static int menuButtonSizeX = ((3 * (Opening.myHeight / 5)) / 4);			//menu buttons take up 3/4 (6/8) of allocated space horizontally. 
 	public static int menuButtonSizeY = ((10 * (Opening.myHeight / 5)) / 48);		//menu buttons take up 5/24 (10/48) of allocated space vertically.
 	public static int menuCellSpace = ((3 * (Opening.myHeight / 5)) / 48);			//space between the menu buttons and each other is equal to 1/16 (3/48) of the vertical space.
+	public static boolean confirmSave = false;
+	int base = 0;
+	int countTo = 190;
 	
 	public static int statusLength = 3;
 	public static int statusButtonSizeX = (menuButtonSizeX * 2) + (cellSpaceFromRoom * 2);
@@ -42,7 +46,7 @@ public class ScreenPanel {
 	
 	public ScreenPanel() {
 		for(int i = 0; i < shop.length; i++) {
-			shop[i] = new Rectangle( ((Opening.myWidth) / 2) - ((shopWidth * (shopButtonSize+shopCellSpace)) / 2) + ((shopButtonSize+shopCellSpace) * i) + (shopCellSpace / 2), (4 * (Opening.myHeight / 5)) + shopCellSpace, shopButtonSize, shopButtonSize); //(Screen.room.block[Screen.room.worldHeight-1][0].y)
+			shop[i] = new Rectangle( ((Opening.myWidth) / 2) - ((shopWidth * (shopButtonSize+shopCellSpace)) / 2) + ((shopButtonSize+shopCellSpace) * i) + (shopCellSpace / 2), (4 * (Opening.myHeight / 5)) + shopCellSpace, shopButtonSize, shopButtonSize); //(Room.block[Room.worldHeight-1][0].y)
 		}
 		
 		for(int j = 0; j < menu.length; j++) {
@@ -104,17 +108,25 @@ public class ScreenPanel {
 			}
 			if (holdItem) {
 				if (Screen.myGold >= Value.getTowerStats("cost", holdItemId)) {
-					for (int y = 0; y < Screen.room.block.length; y++) {
-						for (int x = 0; x < Screen.room.block[0].length; x++) {
-							if (Screen.room.block[y][x].contains(Opening.mse)) {
-								if (Screen.room.block[y][x].groundId == Value.groundOpen && Screen.room.block[y][x].airId == Value.airOpen) {
-									Screen.room.block[y][x].addTower(holdItemId);
+					for (int y = 0; y < Room.block.length; y++) {
+						for (int x = 0; x < Room.block[0].length; x++) {
+							if (Room.block[y][x].contains(Opening.mse)) {
+								if (Room.block[y][x].groundId == Value.groundOpen && Room.block[y][x].airId == Value.airOpen) {
+									Room.block[y][x].addTower(holdItemId);
 									Screen.myGold -= Value.getTowerStats("cost", holdItemId);
 									holdItemId = -1;
 									holdItem = false;
 								}
 							}
 						}
+					}
+				}
+			}
+			for(int j = 0; j < menu.length; j++) {
+				if(menu[j].contains(Opening.mse)) {
+					if(j == 2) {
+						Screen.save.saveGame(new File("Save/SavedGame"));
+						confirmSave = true;
 					}
 				}
 			}
@@ -238,6 +250,19 @@ public class ScreenPanel {
 			if(menu[j].contains(Opening.mse)) {
 				g.setColor(new Color(255, 255, 255, 100));
 				g.fillRect(menu[j].x, menu[j].y, menu[j].width, menu[j].height);
+			}
+		}
+		
+		if(confirmSave) {
+			if(base == countTo) {
+				confirmSave = false;
+				base = 0;
+			}
+			else {
+				g.setColor(Color.BLACK);
+				g.setFont(new Font("Arial", Font.BOLD, 20));
+				g.drawString("Game Saved", (Opening.myWidth * 11) / 16, (Opening.myHeight * 3) / 4);
+				base += 1;
 			}
 		}
 		
