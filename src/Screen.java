@@ -91,10 +91,18 @@ public class Screen extends JPanel implements Runnable {
 	
 	public void define() {
 		
+		System.out.println(spawnTime);
+		System.out.println(spawnFrame);
+		System.out.println(nextWaveWaitTime);
+		spawnTime = 1750;
+		spawnFrame = -9000;
+		nextWaveWaitTime = -10000;
+		
 		room = new Room();
 		gamePanel = new ScreenPanel();
 		save = new Save();
 		
+		ScreenPanel.isFastForward = false;
 
 		if(infiniteGame) {
 			save.loadSave(new File("Save/InfiniteStage"));
@@ -127,6 +135,7 @@ public class Screen extends JPanel implements Runnable {
 	public int spawnTime = 1750;    //spawnFrame -> spawnTime. When spawnFrame == spawnTime, enemySpawner is called.
 	public int spawnFrame = -9000;
 	public int nextWaveWaitTime = -10000;
+	
 	public void enemySpawner() {
 		if(spawnFrame >= spawnTime) {
 			outerLoop:																//Label so we can break from both loops.
@@ -160,6 +169,10 @@ public class Screen extends JPanel implements Runnable {
 				myHealth = 100;
 				myGold = 100;
 				ScreenPanel.holdItem = false;
+				ScreenPanel.showEnemyInfo = false;
+				ScreenPanel.enemyWave = 0;
+				ScreenPanel.enemyIndex = 0;
+				ScreenPanel.showTowerInfo = false;
 				level += 1;
 				questClear = false;
 				numEnemiesDead = 0;
@@ -174,6 +187,8 @@ public class Screen extends JPanel implements Runnable {
 				myGold = 100;
 				ScreenPanel.holdItem = false;
 				ScreenPanel.showEnemyInfo = false;
+				ScreenPanel.enemyWave = 0;
+				ScreenPanel.enemyIndex = 0;
 				ScreenPanel.showTowerInfo = false;
 				questChainClear = false;
 				
@@ -202,6 +217,10 @@ public class Screen extends JPanel implements Runnable {
 			myHealth = 100;
 			myGold = 100;
 			ScreenPanel.holdItem = false;
+			ScreenPanel.showEnemyInfo = false;
+			ScreenPanel.enemyWave = 0;
+			ScreenPanel.enemyIndex = 0;
+			ScreenPanel.showTowerInfo = false;
 			questFailed = false;
 			
 			numEnemiesDead = 0;
