@@ -65,6 +65,20 @@ public class Opening extends JPanel {
 			g.fillRect(mainChoices[i].x, mainChoices[i].y, mainChoices[i].width, mainChoices[i].height);
 			g.setColor(Color.BLACK);
 			g.drawRect(mainChoices[i].x, mainChoices[i].y, mainChoices[i].width, mainChoices[i].height);
+			g.setFont(new Font("Arial", Font.BOLD, 30));	// DEBUG!!!	// below code is temporary until images for buttons are added
+			String temp;
+			// temporary, until we add pictures to the buttons instead
+			switch(i)
+			{
+				case 0:		temp = "New Game";
+							break;
+				case 1:		temp = "Load Game";
+							break;
+				case 2:		temp = "High Scores";
+							break;
+				default:	temp = "Settings";
+			}
+			g.drawString(temp, (mainChoices[i].x)+32, (mainChoices[i].y)+42);	// DEBUG!!! above code is temporary 'til images are added
 			
 			if(mainChoices[i].contains(mse)) {
 				

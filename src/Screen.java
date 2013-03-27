@@ -7,7 +7,9 @@ import java.util.*;
 public class Screen extends JPanel implements Runnable {
 	
 	public Thread gameLoop = new Thread(this);
-	
+
+	//	public static SoundHandler soundManager;
+
 	public static int myHealth = 100;
 	public static int myGold = 100;
 	public static int myWaves;

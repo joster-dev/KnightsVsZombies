@@ -1,6 +1,9 @@
 import java.awt.*;
 
 public class Enemy extends Rectangle {
+	
+	public HealthBar healthBar;
+
 	public int xC;
 	public int yC;
 	public int walkFrame = 0;
@@ -37,6 +40,7 @@ public class Enemy extends Rectangle {
 	public int animationWalkEnd;				// The index of the last frame of the walking animation
 	
 	public void spawnEnemy(int enemyId) {
+
 		for(int y = 0; y < Room.block.length; y++) {
 			if(Room.block[y][0].groundId == Value.pathOpen) {
 				setBounds(Room.block[y][0].x, Room.block[y][0].y, enemySize, enemySize);
@@ -45,6 +49,8 @@ public class Enemy extends Rectangle {
 			}
 		}
 		this.enemyId = enemyId;
+
+		healthBar = new HealthBar(this);
 		
 		health = Value.getZombieStats("health", enemyId);
 		armor = Value.getZombieStats("armor", enemyId);
@@ -171,11 +177,12 @@ public class Enemy extends Rectangle {
 		if(health <= 0) {
 			deleteEnemy();
 			
-			Screen.myGold += Value.getZombieStats("health", enemyId) / 10;
+			Screen.myGold += Value.getZombieStats("health", enemyId) / 7;;
 		}
 	}
 	
 	public void draw(Graphics g) {
+		healthBar.draw(g);
 		if(inGame && !isDead) {
 			
 			if(direction == left)

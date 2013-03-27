@@ -61,7 +61,7 @@ public class Block extends Rectangle {
 			this.animationAttackStart = 0;
 			this.animationAttackEnd = 0;
 		}
-		
+
 	}
 	
 	public void physic() {

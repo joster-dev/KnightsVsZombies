@@ -22,7 +22,7 @@ public class Frame extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		init();
 	}
 	
@@ -35,23 +35,23 @@ public class Frame extends JFrame {
 		gameScreen = new Screen(this);
 		highScores = new HighScore(this);
 		settings = new Settings(this);
-		
+
 		add(splashScreen);
 		splashScreen.setVisible(true);
-
+		
 		openingScreen.setVisible(false);
-
+		
 		chooseGame.setVisible(false);
-
+		
 		gameScreen.setVisible(false);
-
+		
 		highScores.setVisible(false);
-
+		
 		settings.setVisible(false);
 		
 		setVisible(true);
 	}
-	
+
 	public void updateFrame() {
 
 		if(splashScreen.isDone()) {

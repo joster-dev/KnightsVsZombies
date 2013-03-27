@@ -45,7 +45,15 @@ public class GameMode extends JPanel {
 			
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(choose[i].x, choose[i].y, choose[i].width, choose[i].height);
-			g.setColor(Color.BLACK);
+			g.setColor(Color.BLACK);								// DEBUG!!!	//\/temporary 'til add pictures here,\/
+			g.setFont(new Font("Arial", Font.BOLD, 30));			// DEBUG!!!
+			String temp;
+			// until we add pictures to the buttons, these are temporary...
+			if(i == 0)
+				temp = "Story Mode";
+			else
+				temp = "Infinite Mode";
+			g.drawString(temp, (choose[i].x)+32, (choose[i].y)+42);	// DEBUG!!!^^^^^^^^^^^^TEMP UNTIL PICTURES^^^^^
 			g.drawRect(choose[i].x, choose[i].y, choose[i].width, choose[i].height);
 			
 			if(choose[i].contains(Opening.mse)) {
