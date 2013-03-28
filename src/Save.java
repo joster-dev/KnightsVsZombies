@@ -15,6 +15,8 @@ public class Save {
 			while (loadScanner.hasNext()) {
 				
 				Frame.gameScreen.level = loadScanner.nextInt();
+				Screen.myHealth = loadScanner.nextInt();
+				Screen.myGold = loadScanner.nextInt();
 				
 				for(int y = 0; y < Room.block.length; y++) {
 					for(int x = 0; x < Room.block[0].length; x++) {
@@ -62,7 +64,9 @@ public class Save {
 			FileWriter fw = new FileWriter(savePath.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			
-			bw.write(Integer.toString(Frame.gameScreen.level) + "\n \n");
+			bw.write(Integer.toString(Frame.gameScreen.level) + " ");
+			bw.write(Integer.toString(Screen.myHealth) + " ");
+			bw.write(Integer.toString(Screen.myGold) + "\n \n");
 			
 			for(int y = 0; y < Room.block.length; y++) {
 				for(int x = 0; x < Room.block[0].length; x++) {
