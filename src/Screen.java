@@ -93,18 +93,9 @@ public class Screen extends JPanel implements Runnable {
 	
 	public void define() {
 		
-		System.out.println(spawnTime);
-		System.out.println(spawnFrame);
-		System.out.println(nextWaveWaitTime);
-		spawnTime = 1750;
-		spawnFrame = -9000;
-		nextWaveWaitTime = -10000;
-		
 		room = new Room();
 		gamePanel = new ScreenPanel();
 		save = new Save();
-		
-		ScreenPanel.isFastForward = false;
 
 		if(infiniteGame) {
 			save.loadSave(new File("Save/InfiniteStage"));
@@ -175,6 +166,10 @@ public class Screen extends JPanel implements Runnable {
 				ScreenPanel.enemyWave = 0;
 				ScreenPanel.enemyIndex = 0;
 				ScreenPanel.showTowerInfo = false;
+				ScreenPanel.isFastForward = false;
+				spawnTime = 1750;
+				spawnFrame = -9000;
+				nextWaveWaitTime = -10000;
 				level += 1;
 				questClear = false;
 				numEnemiesDead = 0;
@@ -192,6 +187,10 @@ public class Screen extends JPanel implements Runnable {
 				ScreenPanel.enemyWave = 0;
 				ScreenPanel.enemyIndex = 0;
 				ScreenPanel.showTowerInfo = false;
+				ScreenPanel.isFastForward = false;
+				spawnTime = 1750;
+				spawnFrame = -9000;
+				nextWaveWaitTime = -10000;
 				questChainClear = false;
 				
 				myFrame.updateFrame();
@@ -200,6 +199,9 @@ public class Screen extends JPanel implements Runnable {
 				for(int i = 0; i < levelEnemyType.size(); i++) {
 					for(int j = 0; j < levelEnemyType.get(i).length; j++) {
 						levelEnemyList.get(i)[j] = new Enemy();
+						if(ScreenPanel.isFastForward) {
+							levelEnemyList.get(i)[j].walkSpeed = levelEnemyList.get(i)[j].walkSpeed / 2;
+						}
 					}
 				}
 				for (int k = 0; k < levelEnemyType.size(); k++) {
@@ -223,9 +225,17 @@ public class Screen extends JPanel implements Runnable {
 			ScreenPanel.enemyWave = 0;
 			ScreenPanel.enemyIndex = 0;
 			ScreenPanel.showTowerInfo = false;
+			ScreenPanel.isFastForward = false;
 			questFailed = false;
+			spawnTime = 1750;
+			spawnFrame = -9000;
+			nextWaveWaitTime = -10000;
 			
 			numEnemiesDead = 0;
+			
+			if(level > 5) {
+				infiniteGame = true;
+			}
 			
 			define();
 		}
