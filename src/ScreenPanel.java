@@ -127,36 +127,13 @@ public class ScreenPanel {
 				if(menu[j].contains(Opening.mse)) {
 					if(j == 0) {
 						if(isFastForward) {
-							Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime * 2);
-							Frame.gameScreen.spawnFrame = (Frame.gameScreen.spawnFrame * 2);
-							Frame.gameScreen.nextWaveWaitTime = (Frame.gameScreen.nextWaveWaitTime * 2);
-							for(int y = 0; y < Room.block.length; y++) {
-								for(int x = 0; x < Room.block[0].length; x++) {
-									Room.block[y][x].fire = (Room.block[y][x].fire * 2);
-								}
-							}
-							for(int i = 0; i < Screen.levelEnemyList.size(); i++) {
-								for(int k = 0; k < Screen.levelEnemyList.get(i).length; k++) {
-									Screen.levelEnemyList.get(i)[k].walkSpeed = (Screen.levelEnemyList.get(i)[k].walkSpeed * 2);
-								}
-							}
+							fastForward(isFastForward);
 							
 							isFastForward = false;
 						}
 						else {
-							Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime / 2);
-							Frame.gameScreen.spawnFrame = (Frame.gameScreen.spawnFrame / 2);
-							Frame.gameScreen.nextWaveWaitTime = (Frame.gameScreen.nextWaveWaitTime / 2);
-							for(int y = 0; y < Room.block.length; y++) {
-								for(int x = 0; x < Room.block[0].length; x++) {
-									Room.block[y][x].fire = (Room.block[y][x].fire / 2);
-								}
-							}
-							for(int i = 0; i < Screen.levelEnemyList.size(); i++) {
-								for(int k = 0; k < Screen.levelEnemyList.get(i).length; k++) {
-									Screen.levelEnemyList.get(i)[k].walkSpeed = (Screen.levelEnemyList.get(i)[k].walkSpeed / 2);
-								}
-							}
+							fastForward(isFastForward);
+							
 							isFastForward = true;
 						}
 					}
@@ -183,6 +160,39 @@ public class ScreenPanel {
 		}
 	}
 	
+	public static void fastForward(boolean state) {
+		if(state) {
+			Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime * 2);
+			Frame.gameScreen.spawnFrame = (Frame.gameScreen.spawnFrame * 2);
+			Frame.gameScreen.nextWaveWaitTime = (Frame.gameScreen.nextWaveWaitTime * 2);
+			for(int y = 0; y < Room.block.length; y++) {
+				for(int x = 0; x < Room.block[0].length; x++) {
+					Room.block[y][x].fire = (Room.block[y][x].fire * 2);
+				}
+			}
+			for(int i = 0; i < Screen.levelEnemyList.size(); i++) {
+				for(int k = 0; k < Screen.levelEnemyList.get(i).length; k++) {
+					Screen.levelEnemyList.get(i)[k].walkSpeed = (Screen.levelEnemyList.get(i)[k].walkSpeed * 2);
+				}
+			}
+		}
+		else {
+			Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime / 2);
+			Frame.gameScreen.spawnFrame = (Frame.gameScreen.spawnFrame / 2);
+			Frame.gameScreen.nextWaveWaitTime = (Frame.gameScreen.nextWaveWaitTime / 2);
+			for(int y = 0; y < Room.block.length; y++) {
+				for(int x = 0; x < Room.block[0].length; x++) {
+					Room.block[y][x].fire = (Room.block[y][x].fire / 2);
+				}
+			}
+			for(int i = 0; i < Screen.levelEnemyList.size(); i++) {
+				for(int k = 0; k < Screen.levelEnemyList.get(i).length; k++) {
+					Screen.levelEnemyList.get(i)[k].walkSpeed = (Screen.levelEnemyList.get(i)[k].walkSpeed / 2);
+				}
+			}
+		}
+	} 
+	
 	static int towerCellX;
 	static int towerCellY;
 	  
@@ -206,7 +216,6 @@ public class ScreenPanel {
 	}
 	
 	public void draw(Graphics g) {
-		
 		//*Info Box*//
 		
 		g.setColor(Color.WHITE);

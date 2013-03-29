@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.io.*;
 import java.util.*;
@@ -31,7 +30,7 @@ public class Screen extends JPanel implements Runnable {
 	public static Room room;
 	public static ScreenPanel gamePanel;
 	public static Save save;
-	public int level = 1;
+	public int level = 5;
 	public boolean loadGame = false;
 	public boolean infiniteGame = false;
 	
@@ -191,9 +190,14 @@ public class Screen extends JPanel implements Runnable {
 				spawnTime = 1750;
 				spawnFrame = -9000;
 				nextWaveWaitTime = -10000;
-				questChainClear = false;
 				
 				myFrame.updateFrame();
+				
+				level = 1;
+				numEnemiesDead = 0;
+				questChainClear = false;
+				
+				define();
 			}
 			else {
 				for(int i = 0; i < levelEnemyType.size(); i++) {

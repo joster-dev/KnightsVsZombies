@@ -4,8 +4,8 @@ import javax.swing.*;
 public class Opening extends JPanel {
 	
 	public static int myWidth;
-
 	public static int myHeight;
+	public boolean firstRun = false;
 	
 	public static Point mse = new Point(0, 0);
 	
@@ -53,8 +53,11 @@ public class Opening extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		
-		myWidth = getWidth();
-		myHeight = getHeight();
+		if(!firstRun) {
+			myWidth = getWidth();
+			myHeight = getHeight();
+			firstRun = true;
+		}
 		
 		g.setColor(Color.ORANGE);
 		g.fillRect(0, 0, myWidth, myHeight);
@@ -86,6 +89,7 @@ public class Opening extends JPanel {
 				g.fillRect(mainChoices[i].x, mainChoices[i].y, mainChoices[i].width, mainChoices[i].height);
 			}
 		}
+		
 		repaint();
 	}
 }

@@ -61,6 +61,7 @@ public class Frame extends JFrame {
 			add(openingScreen);
 
 			openingScreen.setVisible(true);
+			splashScreen.done = false;
 
 		}
 		if(openingScreen.newGame) {
@@ -74,6 +75,8 @@ public class Frame extends JFrame {
 				remove(chooseGame);
 				chooseGame.setVisible(false);
 				
+				gameScreen.loadGame = false;
+				gameScreen.infiniteGame = false;
 				add(gameScreen);
 				gameScreen.setVisible(true);
 				
@@ -144,8 +147,6 @@ public class Frame extends JFrame {
 			
 			add(openingScreen);
 			openingScreen.setVisible(true);
-			
-			gameScreen.questChainClear = false;
 		}
 	}
 	
