@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Opening extends JPanel {
+
+	AudioHandler audioHandler;
 	
 	public static int myWidth;
 	public static int myHeight;
@@ -27,6 +29,7 @@ public class Opening extends JPanel {
 		for(int i = 0; i < mainChoices.length; i++) {
 			mainChoices[i] = new Rectangle((Frame.x / 3), ((Frame.y / 6) * i) + (Frame.y / 4), Frame.x / 3, Frame.y / 8);
 		}
+		audioHandler = new AudioHandler();
 	}
 	
 	public void click(int mouseClick) {
@@ -34,15 +37,27 @@ public class Opening extends JPanel {
 			for(int i = 0; i < mainChoices.length; i++) {
 				if (mainChoices[i].contains(mse)) {
 					if(i == 0) {
+						try {
+							audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+						} catch(Exception e) { }
 						newGame = true;
 					}
 					else if(i == 1) {
+						try {
+							audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+						} catch(Exception e) { }
 						loadGame = true;
 					}
 					else if(i == 2) {
+						try {
+							audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+						} catch(Exception e) { }
 						highScores = true;
 					}
 					else if(i == 3) {
+						try {
+							audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+						} catch(Exception e) { }
 						settings = true;
 					}
 				}
@@ -58,6 +73,9 @@ public class Opening extends JPanel {
 			myHeight = getHeight();
 			firstRun = true;
 		}
+		
+		myWidth = getWidth();
+		myHeight = getHeight();
 		
 		g.setColor(Color.ORANGE);
 		g.fillRect(0, 0, myWidth, myHeight);

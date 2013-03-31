@@ -3,6 +3,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class HighScore extends JPanel {
+
+	AudioHandler audioHandler;
 	
 	public boolean back = false;
 	
@@ -38,6 +40,7 @@ public class HighScore extends JPanel {
 		for(int j = 0; j < highScoreBoxes.length; j++) {
 			highScoreBoxes[j] = new Rectangle(highScoreListSpace.x + (highScoreListSpace.width / 10), highScoreListSpace.y + (highScoreListSpace.height / 5) + (highScoreListSpace.height * 3 / 20) * j, highScoreListSpace.width * 4 / 5, highScoreListSpace.height * 3 / 20);
 		}
+		audioHandler = new AudioHandler();
 	}
 	
 	public void newHighScore(String name, int highScore) {
@@ -57,6 +60,9 @@ public class HighScore extends JPanel {
 	public void click(int mouseclick) {
 		if (mouseclick == 1) {
 			if(backButton.contains(Opening.mse)) {
+				try {
+					audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+				} catch(Exception e) { }
 				back = true;
 				myFrame.updateFrame();
 			}

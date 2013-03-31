@@ -3,6 +3,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class GameMode extends JPanel {
+
+	AudioHandler audioHandler;
 	
 	public boolean storyMode = false;
 	public boolean infiniteMode = false;
@@ -17,6 +19,7 @@ public class GameMode extends JPanel {
 		for(int i = 0; i < choose.length; i++) {
 			choose[i] = new Rectangle((Frame.x / 4), ((Frame.y / 3) * i) + (Frame.y / 4), Frame.x / 2, Frame.y / 8);
 		}
+		audioHandler = new AudioHandler();
 	}
 	
 	public void click(int mouseclick) {
@@ -24,10 +27,16 @@ public class GameMode extends JPanel {
 			for(int i = 0; i < choose.length; i++) {
 				if (choose[i].contains(Opening.mse)) {
 					if(i == 0) {
+						try {
+							audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+						} catch(Exception e) { }
 						storyMode = true;
 						myFrame.updateFrame();
 					}
 					else if(i == 1) {
+						try {
+							audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+						} catch(Exception e) { }
 						infiniteMode = true;
 						myFrame.updateFrame();
 					}

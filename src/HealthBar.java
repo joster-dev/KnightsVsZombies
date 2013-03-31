@@ -8,15 +8,17 @@ public class HealthBar extends Rectangle {
 	
 //	public boolean visible;
 
-	public static final int width = 48;
-	public static final int height = 8;
+	public static final int width = 36;
+	public static final int height = 4;
 
 	public int healthWidth;
 
-	public int xOffset = 8;	// used to make the health bar appear 8 pixels
-							// to the right of the 64x64 cell's left side
-	public int yOffset;		// will be used to either offset the y coordinate
-							// of the health bar above the enemy or below it
+	// used to make the health bar appear 14 pixels
+	// to the right of the 64x64 cell's left side
+	public int xOffset = 14;
+	// will be used to either offset the y coordinate
+	// of the health bar above the enemy or below it
+	public int yOffset;
 
 	public double currentHealth;
 	public double possibleHealth;
@@ -40,10 +42,6 @@ public class HealthBar extends Rectangle {
 		else {
 			healthRatio = currentHealth / possibleHealth;
 		}
-		/*if(enemy.enemyId >= 0)
-			System.out.println("The currentHealth is: " + currentHealth +
-								" and the possibleHealth is: " + possibleHealth +
-								" and the enemy Id is " + enemy.enemyId);*/
 
 		healthWidth = (int)(healthRatio * width);
 
@@ -57,7 +55,7 @@ public class HealthBar extends Rectangle {
 		if(enemy.y <= 16)
 			yOffset = 72;
 		else
-			yOffset = -16;
+			yOffset = -12;
 
 		// used for the white background of health bar...
 		g.setColor(Color.white);

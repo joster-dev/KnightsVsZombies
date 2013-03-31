@@ -1,13 +1,14 @@
-import javax.swing.*;
-import java.awt.*;
 import java.io.*;
+import java.awt.*;
 import java.util.*;
+import javax.swing.*;
+
 
 public class Screen extends JPanel implements Runnable {
 	
 	public Thread gameLoop = new Thread(this);
 
-	//	public static SoundHandler soundManager;
+	public AudioHandler audioHandler;
 
 	public static int myHealth = 100;
 	public static int myGold = 100;
@@ -36,10 +37,11 @@ public class Screen extends JPanel implements Runnable {
 	
 	public Frame myFrame;
 	
-	public Screen(Frame frame) {
+	public Screen(Frame frame) throws Exception {
 		myFrame = frame;
 		
 		gameLoop.start();
+		audioHandler = new AudioHandler();
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -65,29 +67,33 @@ public class Screen extends JPanel implements Runnable {
 		g.setFont(new Font("Arial", Font.BOLD, 18));
 		
 		if(questFailed) {
-			      g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-			      g.setColor(Color.BLACK);
-			      g.drawString("Quest Failed", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
-			      g.drawString("Better luck next time!", (Opening.myWidth * 3) / 8, Opening.myHeight / 2);
-			      g.drawString("Restarting...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
-			      g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-		    }
-		    else if (questClear) {
-			      g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-			      g.setColor(Color.BLACK);
-			      g.drawString("Quest Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
-			      g.drawString("Good job!", (Opening.myWidth * 3) / 8, Opening.myHeight / 2);
-			      g.drawString("Progressing to next level...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
-			      g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-		    }
-		    else if (questChainClear) {
-		    	g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-		    	g.setColor(Color.BLACK);
-		    	g.drawString("Story Mode Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
-		    	g.drawString("Congratulations, Thanks for playing!", (Opening.myWidth * 5) / 16, Opening.myHeight / 2);
-		    	g.drawString("Returning to main screen...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
-		    	g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-		    }
+			g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+			g.setColor(Color.BLACK);
+			g.drawString("Quest Failed", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
+			g.drawString("Better luck next time!", (Opening.myWidth * 3) / 8, Opening.myHeight / 2);
+			g.drawString("Restarting...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
+			g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+			try {
+				audioHandler.soundHandler.playSound("res/Sounds/bitedust.wav");
+			}
+			catch (Exception e) { e.printStackTrace(); }
+		}
+		else if (questClear) {
+			g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+			g.setColor(Color.BLACK);
+			g.drawString("Quest Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
+			g.drawString("Good job!", (Opening.myWidth * 3) / 8, Opening.myHeight / 2);
+			g.drawString("Progressing to next level...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
+			g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+		}
+		else if (questChainClear) {
+			g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+			g.setColor(Color.BLACK);
+			g.drawString("Story Mode Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
+			g.drawString("Congratulations, Thanks for playing!", (Opening.myWidth * 5) / 16, Opening.myHeight / 2);
+			g.drawString("Returning to main screen...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
+			g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+		}
 	}
 	
 	public void define() {
@@ -122,6 +128,11 @@ public class Screen extends JPanel implements Runnable {
 		for(int i = 0; i < newWave.length; i++) {
 			newWave[i] = false;
 		}
+
+		// here's the audio for the game... this is only
+		// a sample track... a REALLY bad, sample track...
+		// ... still tweaking different aspects of this as well...
+		audioHandler.midiHandler.startMidi("res/Sounds/flourish.mid");
 	}
 	
 	public int spawnTime = 1750;    //spawnFrame -> spawnTime. When spawnFrame == spawnTime, enemySpawner is called.

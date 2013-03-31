@@ -3,6 +3,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Settings extends JPanel {
+
+	AudioHandler audioHandler;
 	
 	public boolean back = false;
 	
@@ -14,6 +16,7 @@ public class Settings extends JPanel {
 		myFrame = frame; 
 		
 		backButton = new Rectangle((Frame.x * 20) / 27, (Frame.y * 17) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
+		audioHandler = new AudioHandler();
 	}
 	
 	public void click(int mouseclick) {
@@ -21,6 +24,9 @@ public class Settings extends JPanel {
 			if(backButton.contains(Opening.mse)) {
 				back = true;
 				myFrame.updateFrame();
+				try {
+					audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+				} catch(Exception e) { }
 			}
 		}
 		
