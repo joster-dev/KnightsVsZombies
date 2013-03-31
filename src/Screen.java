@@ -13,7 +13,7 @@ public class Screen extends JPanel implements Runnable {
 	public static int myHealth = 100;
 	public static int myGold = 100;
 	public static int myWaves;
-	
+
 	boolean[] newWave;
 	
 	public boolean createStaticElements = false;
@@ -36,14 +36,14 @@ public class Screen extends JPanel implements Runnable {
 	public boolean infiniteGame = false;
 	
 	public Frame myFrame;
-	
+
 	public Screen(Frame frame) throws Exception {
 		myFrame = frame;
 		
 		gameLoop.start();
 		audioHandler = new AudioHandler();
 	}
-	
+
 	public void paintComponent(Graphics g) {
 		if(!createStaticElements) {
 			
@@ -78,22 +78,22 @@ public class Screen extends JPanel implements Runnable {
 			}
 			catch (Exception e) { e.printStackTrace(); }
 		}
-		else if (questClear) {
-			g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-			g.setColor(Color.BLACK);
-			g.drawString("Quest Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
-			g.drawString("Good job!", (Opening.myWidth * 3) / 8, Opening.myHeight / 2);
-			g.drawString("Progressing to next level...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
-			g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-		}
-		else if (questChainClear) {
-			g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-			g.setColor(Color.BLACK);
-			g.drawString("Story Mode Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
-			g.drawString("Congratulations, Thanks for playing!", (Opening.myWidth * 5) / 16, Opening.myHeight / 2);
-			g.drawString("Returning to main screen...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
-			g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-		}
+	    else if (questClear) {
+	    	g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+	    	g.setColor(Color.BLACK);
+	    	g.drawString("Quest Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
+	    	g.drawString("Good job!", (Opening.myWidth * 3) / 8, Opening.myHeight / 2);
+	    	g.drawString("Progressing to next level...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
+	    	g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+	    }
+	    else if (questChainClear) {
+	    	g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+	    	g.setColor(Color.BLACK);
+	    	g.drawString("Story Mode Cleared", (Opening.myWidth * 3) / 8, (Opening.myHeight * 3) / 8);
+	    	g.drawString("Congratulations, Thanks for playing!", (Opening.myWidth * 5) / 16, Opening.myHeight / 2);
+	    	g.drawString("Returning to main screen...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
+	    	g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
+	    }
 	}
 	
 	public void define() {
@@ -186,7 +186,8 @@ public class Screen extends JPanel implements Runnable {
 				
 				levelEnemyType = new ArrayList<int[]>();
 				levelEnemyList = new ArrayList<Enemy[]>();
-				
+
+				audioHandler.midiHandler.stopMidi();
 				define();
 			} 
 			else if(level == 5) {
@@ -201,13 +202,14 @@ public class Screen extends JPanel implements Runnable {
 				spawnTime = 1750;
 				spawnFrame = -9000;
 				nextWaveWaitTime = -10000;
-				
+
 				myFrame.updateFrame();
 				
 				level = 1;
 				numEnemiesDead = 0;
 				questChainClear = false;
-				
+
+				audioHandler.midiHandler.stopMidi();
 				define();
 			}
 			else {
@@ -252,6 +254,7 @@ public class Screen extends JPanel implements Runnable {
 				infiniteGame = true;
 			}
 			
+			audioHandler.midiHandler.stopMidi();
 			define();
 		}
 	}
