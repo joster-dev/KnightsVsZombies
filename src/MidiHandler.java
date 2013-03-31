@@ -25,7 +25,7 @@ public class MidiHandler {
 	}
 
 	public void stopMidi() {
-		if( !midiPlayer.isRunning() )
+		if( midiPlayer.isRunning() )
 			midiPlayer.stop();
         midiPlayer.close();
 	}

@@ -73,10 +73,6 @@ public class Screen extends JPanel implements Runnable {
 			g.drawString("Better luck next time!", (Opening.myWidth * 3) / 8, Opening.myHeight / 2);
 			g.drawString("Restarting...", (Opening.myWidth * 3) / 8, (Opening.myHeight * 5) / 8);
 			g.drawRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
-			try {
-				audioHandler.soundHandler.playSound("res/Sounds/bitedust.wav");
-			}
-			catch (Exception e) { e.printStackTrace(); }
 		}
 	    else if (questClear) {
 	    	g.fillRect(Opening.myWidth / 4, Opening.myHeight / 4, Opening.myWidth / 2, Opening.myHeight / 2);
@@ -282,7 +278,12 @@ public class Screen extends JPanel implements Runnable {
 			if(myHealth <= 0) {
 				questFailed = true;
 				try {
-					Thread.sleep(2500);
+					audioHandler.midiHandler.stopMidi();
+					audioHandler.soundHandler.playSound("res/Sounds/bitedust.wav");
+				}
+				catch (Exception e) { e.printStackTrace(); }
+				try {
+					Thread.sleep(2000);	// was 2500
 				} catch (Exception e) {}
 				levelClear(false);
 			}
