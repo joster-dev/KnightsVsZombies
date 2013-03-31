@@ -40,10 +40,10 @@ public class HealthBar extends Rectangle {
 		else {
 			healthRatio = currentHealth / possibleHealth;
 		}
-		if(enemy.enemyId >= 0)
+		/*if(enemy.enemyId >= 0)
 			System.out.println("The currentHealth is: " + currentHealth +
 								" and the possibleHealth is: " + possibleHealth +
-								" and the enemy Id is " + enemy.enemyId);
+								" and the enemy Id is " + enemy.enemyId);*/
 
 		healthWidth = (int)(healthRatio * width);
 

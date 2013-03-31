@@ -30,7 +30,7 @@ public class Screen extends JPanel implements Runnable {
 	public static Room room;
 	public static ScreenPanel gamePanel;
 	public static Save save;
-	public int level = 5;
+	public int level = 1;
 	public boolean loadGame = false;
 	public boolean infiniteGame = false;
 	

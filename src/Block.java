@@ -98,20 +98,20 @@ public class Block extends Rectangle {
 	public void draw(Graphics g) {
 		if(groundId == Value.groundOpen) {
 			if(this.randomId < 40)
-				g.drawImage(ScreenPanel.sprites.getSprite("block", 0, 1), x, y, width, height, null);
+				g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 1), x, y, width, height, null);
 				//g.drawImage(new ImageIcon("res/Graphics/grass.png").getImage(),x, y, width, height, null);
 			else if(this.randomId < 70)
-				g.drawImage(ScreenPanel.sprites.getSprite("block", 0, 2), x, y, width, height, null);
+				g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 2), x, y, width, height, null);
 				//g.drawImage(new ImageIcon("res/Graphics/grass_2.png").getImage(),x, y, width, height, null);
 			else if(this.randomId < 90)
-				g.drawImage(ScreenPanel.sprites.getSprite("block", 0, 3), x, y, width, height, null);
+				g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 3), x, y, width, height, null);
 				//g.drawImage(new ImageIcon("res/Graphics/grass_3.png").getImage(),x, y, width, height, null);
 			else if(this.randomId < 100)
-				g.drawImage(ScreenPanel.sprites.getSprite("block", 0, 4), x, y, width, height, null);
+				g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 4), x, y, width, height, null);
 				//g.drawImage(new ImageIcon("res/Graphics/grass_4.png").getImage(),x, y, width, height, null);
 		}
 		else if(groundId == Value.pathOpen) {
-			g.drawImage(ScreenPanel.sprites.getSprite("block", 0, 0), x, y, width, height, null);
+			g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 0), x, y, width, height, null);
 			//g.drawImage(new ImageIcon("res/Graphics/path.png").getImage(),x, y, width, height, null);
 		}
 		
@@ -139,9 +139,10 @@ public class Block extends Rectangle {
 	}
 	
 	public void fight(Graphics g) {
-		g.setColor(Color.BLACK);
-		if(this.contains(Opening.mse) && this.hasTower) {
-			g.drawRect(towerHitBox.x, towerHitBox.y, towerHitBox.width, towerHitBox.height);
+		g.setColor(Color.WHITE);
+		if(this.contains(Opening.mse) && this.hasTower) {	
+			//g.drawRect(towerHitBox.x, towerHitBox.y, towerHitBox.width, towerHitBox.height);
+			g.drawOval(towerHitBox.x, towerHitBox.y, towerHitBox.width, towerHitBox.height);
 		}
 		
 		if(shoting) {
