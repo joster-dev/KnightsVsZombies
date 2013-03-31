@@ -128,7 +128,7 @@ public class Screen extends JPanel implements Runnable {
 		// here's the audio for the game... this is only
 		// a sample track... a REALLY bad, sample track...
 		// ... still tweaking different aspects of this as well...
-		audioHandler.midiHandler.startMidi("res/Sounds/flourish.mid");
+		audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
 	}
 	
 	public int spawnTime = 1750;    //spawnFrame -> spawnTime. When spawnFrame == spawnTime, enemySpawner is called.
