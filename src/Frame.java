@@ -16,7 +16,7 @@ public class Frame extends JFrame {
 	public static HighScore highScores;
 	public static Settings settings;
 	
-	public Frame() {
+	public Frame() throws Exception {
 		setTitle(title);
 		setSize(size);
 		setResizable(false);
@@ -26,7 +26,7 @@ public class Frame extends JFrame {
 		init();
 	}
 	
-	public void init() {
+	public void init() throws Exception {
 		setLayout(new GridLayout(1, 1, 0, 0));
 
 		splashScreen = new SplashScreen(this);
@@ -150,7 +150,7 @@ public class Frame extends JFrame {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Frame frame = new Frame();
 	}
 }
