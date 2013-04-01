@@ -8,9 +8,13 @@ public class ScreenPanel {
 	public static int shopWidth = 5;
 	public static int shopButtonSize = ((3 * (Opening.myHeight / 5)) / 4);			//shop buttons take up 3/4 (6/8) of the of the vertical space allocated at the bottom of the screen. 
 	public static int shopCellSpace = cellSpaceFromRoom;
-	public static int[] shopButtonId = {0, 1, 2, 3, 7};
+	public static int[] shopButtonId = {0, 1, 2, 3, 6};
 	public static int holdItemId;
 	public static boolean holdItem = false;
+	public int[] leftArrowX;
+	public int[] leftArrowY;
+	public int[] rightArrowX;
+	public int[] rightArrowY;
 	
 	public static int menuLength = 3;
 	public static int menuButtonSizeX = ((3 * (Opening.myHeight / 5)) / 4);			//menu buttons take up 3/4 (6/8) of allocated space horizontally. 
@@ -50,6 +54,11 @@ public class ScreenPanel {
 			shop[i] = new Rectangle( ((Opening.myWidth) / 2) - ((shopWidth * (shopButtonSize+shopCellSpace)) / 2) + ((shopButtonSize+shopCellSpace) * i) + (shopCellSpace / 2), (4 * (Opening.myHeight / 5)) + shopCellSpace, shopButtonSize, shopButtonSize); //(Room.block[Room.worldHeight-1][0].y)
 		}
 		
+		leftArrowX = new int []{shop[0].x + shopButtonSize, shop[0].x + shopButtonSize, shop[0].x};
+		leftArrowY = new int[]{shop[0].y, shop[0].y + shopButtonSize, shop[0].y + (shopButtonSize / 2)};
+		rightArrowX = new int[]{shop[shop.length-1].x, shop[shop.length-1].x, shop[shop.length-1].x + shopButtonSize};
+		rightArrowY = new int[]{shop[shop.length-1].y, shop[shop.length-1].y + shopButtonSize, shop[shop.length-1].y + (shopButtonSize / 2)};
+		
 		for(int j = 0; j < menu.length; j++) {
 			menu[j] = new Rectangle( ((Opening.myWidth) / 2) + ((shopWidth * (shopButtonSize+shopCellSpace)) / 2) + cellSpaceFromRoom + (shopCellSpace / 2), ((4 * (Opening.myHeight / 5)) + cellSpaceFromRoom) + ((menuButtonSizeY + menuCellSpace) * j), menuButtonSizeX, menuButtonSizeY);
 		}
@@ -78,26 +87,26 @@ public class ScreenPanel {
 						shopButtonId[2] -= 1;
 						shopButtonId[3] -= 1;
 						if(shopButtonId[1] == 0) {
-							shopButtonId[1] = 6;
+							shopButtonId[1] = 5;
 						}
 						if(shopButtonId[2] == 0) {
-							shopButtonId[2] = 6;
+							shopButtonId[2] = 5;
 						}
 						if(shopButtonId[3] == 0) {
-							shopButtonId[3] = 6;
+							shopButtonId[3] = 5;
 						}
 					}
 					else if (i == 4) {
 						shopButtonId[1] += 1;
 						shopButtonId[2] += 1;
 						shopButtonId[3] += 1;
-						if(shopButtonId[1] == 7) {
+						if(shopButtonId[1] == 6) {
 							shopButtonId[1] = 1;
 						}
-						if(shopButtonId[2] == 7) {
+						if(shopButtonId[2] == 6) {
 							shopButtonId[2] = 1;
 						}
-						if(shopButtonId[3] == 7) {
+						if(shopButtonId[3] == 6) {
 							shopButtonId[3] = 1;
 						}
 					}
@@ -252,27 +261,43 @@ public class ScreenPanel {
 		//*Shop*//
 		
 		for(int i = 0; i < shop.length; i++) {
-			g.setColor(Color.LIGHT_GRAY);
-			g.fillRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
-			g.setColor(Color.BLACK);
-			g.drawRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
-			if(shopButtonId[i] != 0 && shopButtonId[i] != 7) {
+			if(shopButtonId[i] != 0 && shopButtonId[i] != 6) {
+				g.setColor(Color.LIGHT_GRAY);
+				g.fillRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
+				g.setColor(Color.BLACK);
+				g.drawRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
 				g.drawImage(sprites.goldIcon, shop[i].x, shop[i].y, statusIconSize, statusIconSize, null);
 				g.setFont(new Font("Arial", Font.BOLD, 13));
 				g.drawString(Integer.toString(Value.getTowerStats("cost", shopButtonId[i])), shop[i].x + (shopCellSpace / 4), shop[i].y + ((shopCellSpace * 5) / 4));
 				g.drawImage(sprites.getSprite("tower", (shopButtonId[i] - 1), 0), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
 			}
-			if(i == 0 || i == shop.length-1) {
+			if(i == 0) {
+				g.setColor(Color.LIGHT_GRAY);
+				g.fillPolygon(leftArrowX, leftArrowY, 3);
 				g.setColor(Color.BLACK);
-				g.fillOval(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
+				g.drawPolygon(leftArrowX, leftArrowY, 3);
+			}
+			else if(i == shop.length-1) {
+				g.setColor(Color.LIGHT_GRAY);
+				g.fillPolygon(rightArrowX, rightArrowY, 3);
+				g.setColor(Color.BLACK);
+				g.drawPolygon(rightArrowX, rightArrowY, 3);
 			}
 			if(shop[i].contains(Opening.mse)) {
 				g.setColor(new Color(255, 255, 255, 100));
-				g.fillRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
+				if(shopButtonId[i] != 0 && shopButtonId[i] != 6) {
+					g.fillRect(shop[i].x, shop[i].y, shop[i].width, shop[i].height);
+				}
+				else if(i == 0) {
+					g.fillPolygon(leftArrowX, leftArrowY, 3);
+				}
+				else if(i == shop.length-1) {
+					g.fillPolygon(rightArrowX, rightArrowY, 3);
+				}
 				g.setColor(Color.BLACK);
 				
 				//*Info Box information*//
-				if(shopButtonId[i] != 0 && shopButtonId[i] != 7 && !holdItem) {
+				if(shopButtonId[i] != 0 && shopButtonId[i] != 6 && !holdItem) {
 					showEnemyInfo = false;
 					showTowerInfo = false;
 					g.drawImage(sprites.attackIcon, infoIcon[0].x, infoIcon[0].y, infoIcon[0].width, infoIcon[0].height, null);
@@ -301,7 +326,7 @@ public class ScreenPanel {
 					g.drawString("Fast Forward", menu[j].x + menuButtonSizeX / 10, menu[j].y + menuButtonSizeY * 2 / 3);
 				}
 				else {
-					g.drawString("Normal Speed", menu[j].x + menuButtonSizeX / 19, menu[j].y + menuButtonSizeY * 2 / 3);
+					g.drawString("Normal Speed", menu[j].x + menuButtonSizeX / 25, menu[j].y + menuButtonSizeY * 2 / 3);
 				}
 			}
 			else if(j == 1) {
@@ -357,7 +382,15 @@ public class ScreenPanel {
 				g.drawImage(sprites.goldIcon, statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
 			} 
 			else if(k == 2) {
-				g.drawString("" + Screen.myWaves, statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
+				if(Frame.gameScreen.level == 6) {
+					g.drawString("Infinite Waves", statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
+				}
+				else if(Screen.myWaves > 1) {
+					g.drawString("" + Screen.myWaves + " More Waves", statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
+				}
+				else {
+					g.drawString("Final Wave", statusIcon[k].x + (statusButtonSizeX / 3), statusIcon[k].y + ((3 * statusIconSize) / 4));
+				}
 				g.drawImage(sprites.wavesIcon, statusIcon[k].x, statusIcon[k].y, statusIcon[k].width, statusIcon[k].height, null);
 			}
 		}

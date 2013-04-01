@@ -14,14 +14,14 @@ public class Value {
 	public static int airCastle = 0;
 	
 	public static int knightTower = 1;
-	public static int knightCost = 20;
-	public static int knightAtk = 10;
+	public static int knightCost = 25;
+	public static int knightAtk = 15;
 	public static int knightSpd = 1;
 	public static int knightRng = 1;
 	
 	public static int archerTower = 2;
-	public static int archerCost = 40;
-	public static int archerAtk = 10;
+	public static int archerCost = 35;
+	public static int archerAtk = 17;
 	public static int archerSpd = 1;
 	public static int archerRng = 2;
 	
@@ -32,7 +32,7 @@ public class Value {
 	public static int mageRng = 1;
 	
 	public static int longTower = 4;
-	public static int longCost = 80;
+	public static int longCost = 75;
 	public static int longAtk = 25;
 	public static int longSpd = 1;
 	public static int longRng = 3;
@@ -52,19 +52,19 @@ public class Value {
 	public static int basicZombieArmor = 1;
 	
 	public static int skeletonZombie = 1;
-	public static int skeletonZombieHealth = 80;
+	public static int skeletonZombieHealth = 75;
 	public static int skeletonZombieArmor = 2;
 	
 	public static int ghost = 2;
 	public static int ghostHealth = 80;
-	public static int ghostArmor = 10;
+	public static int ghostArmor = 8;
 	
 	public static int swampZombie = 3;
 	public static int swampZombieHealth = 100;
 	public static int swampZombieArmor = 5;
 	
 	public static int bombZombie = 4;
-	public static int bombZombieHealth = 120;
+	public static int bombZombieHealth = 110;
 	public static int bombZombieArmor = 10;
 	
 	//*//

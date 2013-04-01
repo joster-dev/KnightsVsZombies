@@ -185,7 +185,7 @@ public class Enemy extends Rectangle {
 				audioHandler.soundHandler.playSound("res/Sounds/zombie2.wav");
 			}
 			catch (Exception e) { e.printStackTrace(); }
-			Screen.myGold += Value.getZombieStats("health", enemyId) / 7;;
+			Screen.myGold += Value.getZombieStats("health", enemyId) / 10;
 		}
 	}
 	

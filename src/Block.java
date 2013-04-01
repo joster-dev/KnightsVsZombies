@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 
 import javax.swing.*;
 
@@ -14,7 +15,7 @@ public class Block extends Rectangle {
 	public int targetWave = -1;
 	public int targetEnemy = -1;
 	public boolean shoting = false;
-	public int shotFrame = 0, fire = 1000;
+	public int shotFrame = 0, fire = 1500;
 	
 	public int animationId = 0;					// The index of the next sprite to get in an animation
 	public int animationUpdatesPerFrame = 60;	// The number of screen updates it takes to update a the frame of an
@@ -27,7 +28,7 @@ public class Block extends Rectangle {
 	public int animationAttackStart;
 	public int animationAttackEnd;
 	
-	public Rectangle towerHitBox = new Rectangle();
+	public Ellipse2D.Float towerHitBox = new Ellipse2D.Float();
 	
 	public Block(int x, int y, int width, int height, int groundID, int airID) {
 		setBounds(x, y, width, height);
@@ -41,7 +42,7 @@ public class Block extends Rectangle {
 		this.hasTower = true;
 		this.airId = towerId;
 		this.tower = new Tower(towerId);
-		towerHitBox = new Rectangle(x - (width * tower.towerRange), y - (width * tower.towerRange), width + (width * (2 * tower.towerRange)), width + (width * (2 * tower.towerRange)));
+		towerHitBox = new Ellipse2D.Float(x - (width * tower.towerRange), y - (width * tower.towerRange), width + (width * (2 * tower.towerRange)), width + (width * (2 * tower.towerRange)));
 	
 		if (this.airId == 1){
 			this.animationIdleStart = 1;
@@ -142,7 +143,7 @@ public class Block extends Rectangle {
 		g.setColor(Color.WHITE);
 		if(this.contains(Opening.mse) && this.hasTower) {	
 			//g.drawRect(towerHitBox.x, towerHitBox.y, towerHitBox.width, towerHitBox.height);
-			g.drawOval(towerHitBox.x, towerHitBox.y, towerHitBox.width, towerHitBox.height);
+			g.drawOval((int)towerHitBox.x, (int)towerHitBox.y, (int)towerHitBox.width, (int)towerHitBox.height);
 		}
 		
 		if(shoting) {
