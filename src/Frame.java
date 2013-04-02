@@ -40,13 +40,9 @@ public class Frame extends JFrame {
 		splashScreen.setVisible(true);
 		
 		openingScreen.setVisible(false);
-		
 		chooseGame.setVisible(false);
-		
 		gameScreen.setVisible(false);
-		
 		highScores.setVisible(false);
-		
 		settings.setVisible(false);
 		
 		setVisible(true);
@@ -92,6 +88,16 @@ public class Frame extends JFrame {
 				gameScreen.setVisible(true);
 				
 				chooseGame.infiniteMode = false;
+				openingScreen.newGame = false;
+			}
+			else if(chooseGame.back) {
+				remove(chooseGame);
+				chooseGame.setVisible(false);
+				
+				add(openingScreen);
+				openingScreen.setVisible(true);
+				
+				chooseGame.back = false;
 				openingScreen.newGame = false;
 			}
 		}

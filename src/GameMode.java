@@ -8,8 +8,10 @@ public class GameMode extends JPanel {
 	
 	public boolean storyMode = false;
 	public boolean infiniteMode = false;
+	public boolean back = false;
 	
 	public Rectangle[] choose = new Rectangle[2];
+	public Rectangle backButton;
 	
 	public Frame myFrame;
 	
@@ -17,8 +19,11 @@ public class GameMode extends JPanel {
 		myFrame = frame;
 		
 		for(int i = 0; i < choose.length; i++) {
-			choose[i] = new Rectangle((Frame.x / 4), ((Frame.y / 3) * i) + (Frame.y / 4), Frame.x / 2, Frame.y / 8);
+			choose[i] = new Rectangle((Frame.x / 4), ((Frame.y / 5) * i) + (Frame.y / 4), Frame.x / 2, Frame.y / 8);
 		}
+		
+		backButton = new Rectangle((Frame.x * 23) / 54, (Frame.y * 13) / 20, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
+		
 		audioHandler = new AudioHandler();
 	}
 	
@@ -41,6 +46,13 @@ public class GameMode extends JPanel {
 						myFrame.updateFrame();
 					}
 				}
+			}
+			if(backButton.contains(Opening.mse)) {
+				try {
+					audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+				} catch(Exception e) { }
+				back = true;
+				myFrame.updateFrame();
 			}
 		}
 	}
@@ -70,6 +82,18 @@ public class GameMode extends JPanel {
 				g.setColor(new Color(255, 255, 255, 100));
 				g.fillRect(choose[i].x, choose[i].y, choose[i].width, choose[i].height);
 			}
+		}
+		
+		g.setColor(Color.MAGENTA);
+		g.fillRect(backButton.x, backButton.y, backButton.width, backButton.height);
+		
+		g.setColor(Color.BLACK);
+		g.drawRect(backButton.x, backButton.y, backButton.width, backButton.height);
+		
+		if(backButton.contains(Opening.mse)) {
+			
+			g.setColor(new Color(255, 255, 255, 100));
+			g.fillRect(backButton.x, backButton.y, backButton.width, backButton.height);
 		}
 		
 		repaint();
