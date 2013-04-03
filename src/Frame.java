@@ -13,6 +13,7 @@ public class Frame extends JFrame {
 	public static Opening openingScreen;
 	public static GameMode chooseGame;
 	public static Screen gameScreen;
+	public static Pause pauseScreen;
 	public static HighScore highScores;
 	public static Settings settings;
 	
@@ -33,6 +34,7 @@ public class Frame extends JFrame {
 		openingScreen = new Opening(this);
 		chooseGame = new GameMode(this);
 		gameScreen = new Screen(this);
+		pauseScreen = new Pause(this);
 		highScores = new HighScore(this);
 		settings = new Settings(this);
 
@@ -42,6 +44,7 @@ public class Frame extends JFrame {
 		openingScreen.setVisible(false);
 		chooseGame.setVisible(false);
 		gameScreen.setVisible(false);
+		pauseScreen.setVisible(false);
 		highScores.setVisible(false);
 		settings.setVisible(false);
 		
@@ -50,7 +53,7 @@ public class Frame extends JFrame {
 
 	public void updateFrame() {
 
-		if(splashScreen.isDone()) {
+		if(splashScreen.done) {
 			remove(splashScreen);
 
 			splashScreen.setVisible(false);
@@ -58,9 +61,8 @@ public class Frame extends JFrame {
 
 			openingScreen.setVisible(true);
 			splashScreen.done = false;
-
 		}
-		if(openingScreen.newGame) {
+		else if(openingScreen.newGame) {
 			remove(openingScreen);
 			openingScreen.setVisible(false);
 			
@@ -73,6 +75,7 @@ public class Frame extends JFrame {
 				
 				gameScreen.loadGame = false;
 				gameScreen.infiniteGame = false;
+				gameScreen.define();
 				add(gameScreen);
 				gameScreen.setVisible(true);
 				
@@ -153,6 +156,30 @@ public class Frame extends JFrame {
 			
 			add(openingScreen);
 			openingScreen.setVisible(true);
+		}
+		else if(ScreenPanel.isPaused) {
+			remove(gameScreen);
+			gameScreen.setVisible(false);
+			
+			add(pauseScreen);
+			pauseScreen.setVisible(true);
+			
+			if(pauseScreen.backToGame) {
+				remove(pauseScreen);
+				pauseScreen.setVisible(false);
+				
+				add(gameScreen);
+				gameScreen.setVisible(true);
+				pauseScreen.backToGame = false;
+			}
+			else if(pauseScreen.backToOpening) {
+				remove(pauseScreen);
+				pauseScreen.setVisible(false);
+				
+				add(openingScreen);
+				openingScreen.setVisible(true);
+				pauseScreen.backToOpening = false;
+			}
 		}
 	}
 	

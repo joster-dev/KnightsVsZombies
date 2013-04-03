@@ -150,10 +150,7 @@ public class ScreenPanel {
 						if(!isPaused) {
 							Frame.gameScreen.gameLoop.suspend();
 							isPaused = true;
-						}
-						else {
-							Frame.gameScreen.gameLoop.resume();
-							isPaused = false;
+							Frame.gameScreen.myFrame.updateFrame();
 						}
 					}
 					else if(j == 2) {
@@ -272,13 +269,13 @@ public class ScreenPanel {
 				g.drawImage(sprites.getSprite("tower", (shopButtonId[i] - 1), 0), shop[i].x + ((shopButtonSize - Room.blockSize) / 2), shop[i].y + + ((shopButtonSize - Room.blockSize) / 2), Room.blockSize, Room.blockSize, null);
 			}
 			if(i == 0) {
-				g.setColor(Color.LIGHT_GRAY);
+				g.setColor(Color.YELLOW);
 				g.fillPolygon(leftArrowX, leftArrowY, 3);
 				g.setColor(Color.BLACK);
 				g.drawPolygon(leftArrowX, leftArrowY, 3);
 			}
 			else if(i == shop.length-1) {
-				g.setColor(Color.LIGHT_GRAY);
+				g.setColor(Color.YELLOW);
 				g.fillPolygon(rightArrowX, rightArrowY, 3);
 				g.setColor(Color.BLACK);
 				g.drawPolygon(rightArrowX, rightArrowY, 3);

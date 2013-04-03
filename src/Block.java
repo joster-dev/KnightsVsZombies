@@ -15,7 +15,7 @@ public class Block extends Rectangle {
 	public int targetWave = -1;
 	public int targetEnemy = -1;
 	public boolean shoting = false;
-	public int shotFrame = 0, fire = 1500;
+	public int shotFrame = 0, fire = 1250;
 	
 	public int animationId = 0;					// The index of the next sprite to get in an animation
 	public int animationUpdatesPerFrame = 60;	// The number of screen updates it takes to update a the frame of an

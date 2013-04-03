@@ -14,7 +14,7 @@ public class SplashScreen extends JPanel {
 	public static int opacity;
 	public static int timer;
 	
-	public static boolean done;
+	public boolean done;
 
 	public SplashScreen (Frame frame) {
 		myFrame = frame;
@@ -26,8 +26,6 @@ public class SplashScreen extends JPanel {
 			audioHandler.soundHandler.playSound("res/Sounds/zombiegrowl.wav");
 		} catch (Exception e) { }
 	}
-
-	public boolean isDone() { return done; }
 
 	public void paintComponent(Graphics g) {
 

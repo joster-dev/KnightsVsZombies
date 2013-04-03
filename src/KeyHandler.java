@@ -35,6 +35,9 @@ public class KeyHandler implements MouseMotionListener, MouseListener {
 		else if(Frame.gameScreen.isVisible()) {
 			Screen.gamePanel.click(e.getButton());
 		}
+		else if(Frame.pauseScreen.isVisible()) {
+			Frame.pauseScreen.click(e.getButton());
+		}
 	}
 
 	public void mouseDragged(MouseEvent e) {
