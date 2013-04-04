@@ -34,12 +34,17 @@ public class Pause extends JPanel {
 			}
 			else if(backOpening.contains(Opening.mse)) {
 				backToOpening = true;
+				if(ScreenPanel.isFastForward) {
+					ScreenPanel.fastForward(true);
+				}
 				myFrame.updateFrame();
-				Frame.gameScreen.gameLoop.resume();
 				ScreenPanel.isPaused = false;
 				try {
 					audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
 				} catch(Exception e) { }
+				//*This code should stop the music, Anthony please take a look at this*//
+				Frame.gameScreen.audioHandler.midiHandler.stopMidi();
+				//*//
 			}
 		}
 	}

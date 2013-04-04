@@ -137,13 +137,9 @@ public class ScreenPanel {
 					if(j == 0) {
 						if(isFastForward) {
 							fastForward(isFastForward);
-							
-							isFastForward = false;
 						}
 						else {
 							fastForward(isFastForward);
-							
-							isFastForward = true;
 						}
 					}
 					else if(j == 1) {
@@ -168,6 +164,7 @@ public class ScreenPanel {
 	
 	public static void fastForward(boolean state) {
 		if(state) {
+			isFastForward = false;
 			Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime * 2);
 			Frame.gameScreen.spawnFrame = (Frame.gameScreen.spawnFrame * 2);
 			Frame.gameScreen.nextWaveWaitTime = (Frame.gameScreen.nextWaveWaitTime * 2);
@@ -183,6 +180,7 @@ public class ScreenPanel {
 			}
 		}
 		else {
+			isFastForward = true;
 			Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime / 2);
 			Frame.gameScreen.spawnFrame = (Frame.gameScreen.spawnFrame / 2);
 			Frame.gameScreen.nextWaveWaitTime = (Frame.gameScreen.nextWaveWaitTime / 2);
@@ -323,7 +321,7 @@ public class ScreenPanel {
 					g.drawString("Fast Forward", menu[j].x + menuButtonSizeX / 10, menu[j].y + menuButtonSizeY * 2 / 3);
 				}
 				else {
-					g.drawString("Normal Speed", menu[j].x + menuButtonSizeX / 25, menu[j].y + menuButtonSizeY * 2 / 3);
+					g.drawString("Normal Speed", menu[j].x + menuButtonSizeX / 23, menu[j].y + menuButtonSizeY * 2 / 3);
 				}
 			}
 			else if(j == 1) {

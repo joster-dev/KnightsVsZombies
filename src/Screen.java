@@ -94,9 +94,18 @@ public class Screen extends JPanel implements Runnable {
 	
 	public void define() {
 		
+		ScreenPanel.showEnemyInfo = false;
+		ScreenPanel.showTowerInfo = false;
+		spawnTime = 1750;
+		spawnFrame = -9000;
+		nextWaveWaitTime = -10000;
+		
 		room = new Room();
 		gamePanel = new ScreenPanel();
 		save = new Save();
+		
+		levelEnemyType = new ArrayList<int[]>();
+		levelEnemyList = new ArrayList<Enemy[]>();
 
 		if(infiniteGame) {
 			save.loadSave(new File("Save/InfiniteStage"));
@@ -129,6 +138,7 @@ public class Screen extends JPanel implements Runnable {
 		// a sample track... a REALLY bad, sample track...
 		// ... still tweaking different aspects of this as well...
 		audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+		gameLoop.resume();
 	}
 	
 	public int spawnTime = 1750;    //spawnFrame -> spawnTime. When spawnFrame == spawnTime, enemySpawner is called.
