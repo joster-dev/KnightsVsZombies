@@ -53,19 +53,19 @@ public class Value {
 	
 	public static int skeletonZombie = 1;
 	public static int skeletonZombieHealth = 75;
-	public static int skeletonZombieArmor = 2;
+	public static int skeletonZombieArmor = 3;
 	
 	public static int ghost = 2;
 	public static int ghostHealth = 80;
-	public static int ghostArmor = 8;
+	public static int ghostArmor = 9;
 	
 	public static int swampZombie = 3;
 	public static int swampZombieHealth = 100;
-	public static int swampZombieArmor = 5;
+	public static int swampZombieArmor = 6;
 	
 	public static int bombZombie = 4;
 	public static int bombZombieHealth = 110;
-	public static int bombZombieArmor = 10;
+	public static int bombZombieArmor = 8;
 	
 	//*//
 	

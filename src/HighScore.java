@@ -1,5 +1,4 @@
 import java.awt.*;
-
 import javax.swing.*;
 
 public class HighScore extends JPanel {
@@ -12,6 +11,7 @@ public class HighScore extends JPanel {
 	public String achievementTitle = "Achievements";
 	public Rectangle[] achievementBoxes = new Rectangle[6];
 	public boolean[] achievementState = new boolean[6];
+	public Rectangle[] achievementStateBoxes = new Rectangle[6];
 	
 	public Rectangle highScoreListSpace;
 	public String highScoreTitle = "High Scores";
@@ -35,6 +35,7 @@ public class HighScore extends JPanel {
 		
 		for(int i = 0; i < achievementBoxes.length; i++) {
 			achievementBoxes[i] = new Rectangle(achievementListSpace.x + (achievementListSpace.width / 10), achievementListSpace.y + (achievementListSpace.height * 4 / 23) + (achievementListSpace.height * 3 / 23) * i, achievementListSpace.width * 4 / 5, achievementListSpace.height * 3 / 23);
+			achievementStateBoxes[i] = new Rectangle(achievementBoxes[i].x + achievementBoxes[i].width - (achievementBoxes[i].height * 14 / 15), achievementBoxes[i].y + (achievementBoxes[i].height / 15), achievementBoxes[i].height * 13 / 15, achievementBoxes[i].height * 13 / 15);
 		}
 		
 		for(int j = 0; j < highScoreBoxes.length; j++) {
@@ -96,6 +97,7 @@ public class HighScore extends JPanel {
 			}									//*//
 			g.setColor(Color.BLACK);
 			g.drawRect(achievementBoxes[i].x, achievementBoxes[i].y, achievementBoxes[i].width, achievementBoxes[i].height);
+			g.drawRect(achievementStateBoxes[i].x, achievementStateBoxes[i].y, achievementStateBoxes[i].width, achievementStateBoxes[i].height);
 		}
 		for(int j = 0; j < highScoreBoxes.length; j++) {
 			g.drawRect(highScoreBoxes[j].x, highScoreBoxes[j].y, highScoreBoxes[j].width, highScoreBoxes[j].height);

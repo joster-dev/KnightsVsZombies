@@ -16,7 +16,7 @@ public class Screen extends JPanel implements Runnable {
 
 	boolean[] newWave;
 	
-	public boolean createStaticElements = false;
+	public boolean isViewed = false;
 	
 	public boolean questFailed;
 	public boolean questClear;
@@ -39,16 +39,17 @@ public class Screen extends JPanel implements Runnable {
 
 	public Screen(Frame frame) throws Exception {
 		myFrame = frame;
+
+		save = new Save();
 		
 		gameLoop.start();
 		audioHandler = new AudioHandler();
 	}
 
 	public void paintComponent(Graphics g) {
-		if(!createStaticElements) {
+		if(!isViewed) {
 			
-			define();
-			createStaticElements = true;
+			isViewed = true;
 		}
 		
 		room.draw(g);
@@ -99,15 +100,18 @@ public class Screen extends JPanel implements Runnable {
 		spawnTime = 1750;
 		spawnFrame = -9000;
 		nextWaveWaitTime = -10000;
-		
+		numEnemiesDead = 0;
+
 		room = new Room();
 		gamePanel = new ScreenPanel();
-		save = new Save();
 		
 		levelEnemyType = new ArrayList<int[]>();
 		levelEnemyList = new ArrayList<Enemy[]>();
-
+		
+		
+		System.out.println("beep");
 		if(infiniteGame) {
+			System.out.println("boop");
 			save.loadSave(new File("Save/InfiniteStage"));
 			myWaves = 0;
 			infiniteGame = false;
@@ -267,7 +271,7 @@ public class Screen extends JPanel implements Runnable {
 	
 	public void run() {
 		while(true) {
-			if(createStaticElements) {
+			if(isViewed) {
 				enemySpawner();
 				room.physic();
 				for(int i = 0; i < levelEnemyList.size(); i++) {

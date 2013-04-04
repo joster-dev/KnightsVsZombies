@@ -98,22 +98,36 @@ public class Block extends Rectangle {
 	
 	public void draw(Graphics g) {
 		if(groundId == Value.groundOpen) {
-			if(this.randomId < 40)
+			if(this.randomId < 40) {
+				if(Frame.gameScreen.level <= 5)
 				g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 1), x, y, width, height, null);
-				//g.drawImage(new ImageIcon("res/Graphics/grass.png").getImage(),x, y, width, height, null);
-			else if(this.randomId < 70)
+				else
+				g.drawImage(ScreenPanel.sprites.getSprite("block", 3, 1), x, y, width, height, null);
+			}
+			else if(this.randomId < 70) {
+				if(Frame.gameScreen.level <= 5)
 				g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 2), x, y, width, height, null);
-				//g.drawImage(new ImageIcon("res/Graphics/grass_2.png").getImage(),x, y, width, height, null);
-			else if(this.randomId < 90)
+				else
+				g.drawImage(ScreenPanel.sprites.getSprite("block", 3, 2), x, y, width, height, null);
+			}
+			else if(this.randomId < 90) {
+				if(Frame.gameScreen.level <= 5)
 				g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 3), x, y, width, height, null);
-				//g.drawImage(new ImageIcon("res/Graphics/grass_3.png").getImage(),x, y, width, height, null);
-			else if(this.randomId < 100)
+				else
+				g.drawImage(ScreenPanel.sprites.getSprite("block", 3, 3), x, y, width, height, null);
+			}
+			else if(this.randomId < 100) {
+				if(Frame.gameScreen.level <= 5)
 				g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 4), x, y, width, height, null);
-				//g.drawImage(new ImageIcon("res/Graphics/grass_4.png").getImage(),x, y, width, height, null);
+				else
+				g.drawImage(ScreenPanel.sprites.getSprite("block", 3, 4), x, y, width, height, null);
+			}
 		}
 		else if(groundId == Value.pathOpen) {
+			if(Frame.gameScreen.level <= 5)
 			g.drawImage(ScreenPanel.sprites.getSprite("block", (Frame.gameScreen.level - 1), 0), x, y, width, height, null);
-			//g.drawImage(new ImageIcon("res/Graphics/path.png").getImage(),x, y, width, height, null);
+			else
+			g.drawImage(ScreenPanel.sprites.getSprite("block", 3, 0), x, y, width, height, null);
 		}
 		
 		if(airId == Value.airCastle) {

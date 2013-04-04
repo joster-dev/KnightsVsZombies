@@ -88,6 +88,7 @@ public class Frame extends JFrame {
 				chooseGame.setVisible(false);
 				
 				gameScreen.infiniteGame = true;
+				gameScreen.level = 6;
 				gameScreen.define();
 				add(gameScreen);
 				gameScreen.setVisible(true);
@@ -111,6 +112,7 @@ public class Frame extends JFrame {
 			openingScreen.setVisible(false);
 			
 			gameScreen.loadGame = true;
+			gameScreen.define();
 			add(gameScreen);
 			gameScreen.setVisible(true);
 			
