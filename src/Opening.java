@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.io.File;
+
 import javax.swing.*;
 
 public class Opening extends JPanel {
@@ -15,6 +17,8 @@ public class Opening extends JPanel {
 	public boolean loadGame = false;
 	public boolean highScores = false;
 	public boolean settings = false;
+	
+	public boolean isLoadFile = false;
 
 	public Rectangle[] mainChoices = new Rectangle[4];
 	
@@ -43,10 +47,12 @@ public class Opening extends JPanel {
 						newGame = true;
 					}
 					else if(i == 1) {
-						try {
-							audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
-						} catch(Exception e) { }
-						loadGame = true;
+						if(isLoadFile) {
+							try {
+								audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
+							} catch(Exception e) { }
+							loadGame = true;
+						}
 					}
 					else if(i == 2) {
 						try {
@@ -73,6 +79,8 @@ public class Opening extends JPanel {
 			myHeight = getHeight();
 			firstRun = true;
 		}
+		
+		isLoadFile = Screen.save.isLoadFile(new File("Save/SavedGame"));
 		
 		myWidth = getWidth();
 		myHeight = getHeight();
@@ -102,10 +110,17 @@ public class Opening extends JPanel {
 			g.drawString(temp, (mainChoices[i].x)+32, (mainChoices[i].y)+42);	// DEBUG!!! above code is temporary 'til images are added
 			
 			if(mainChoices[i].contains(mse)) {
-				
-				g.setColor(new Color(255, 255, 255, 100));
-				g.fillRect(mainChoices[i].x, mainChoices[i].y, mainChoices[i].width, mainChoices[i].height);
+				if(i == 1 && !isLoadFile) { }
+				else {
+					g.setColor(new Color(255, 255, 255, 100));
+					g.fillRect(mainChoices[i].x, mainChoices[i].y, mainChoices[i].width, mainChoices[i].height);
+				}
 			}
+		}
+		
+		if(!isLoadFile) {
+			g.setColor(new Color(0, 0, 0, 150));
+			g.fillRect(mainChoices[1].x, mainChoices[1].y, mainChoices[1].width, mainChoices[1].height);
 		}
 		
 		repaint();

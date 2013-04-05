@@ -125,4 +125,15 @@ public class Save {
 		}
 		catch(Exception e) {}
 	}
+	
+	public boolean isLoadFile(File loadPath) {
+		try {
+			Scanner loadScanner = new Scanner(loadPath);
+			
+			if(loadScanner.hasNext()) return true;
+			else return false;
+		}
+		catch(Exception e) { }
+		return false;
+	}
 }
