@@ -35,6 +35,8 @@ public class Screen extends JPanel implements Runnable {
 	public boolean loadGame = false;
 	public boolean infiniteGame = false;
 	
+	public static int infiniteResetCounter = 0;
+	
 	public Frame myFrame;
 
 	public Screen(Frame frame) throws Exception {
@@ -108,10 +110,7 @@ public class Screen extends JPanel implements Runnable {
 		levelEnemyType = new ArrayList<int[]>();
 		levelEnemyList = new ArrayList<Enemy[]>();
 		
-		
-		System.out.println("beep");
 		if(infiniteGame) {
-			System.out.println("boop");
 			save.loadSave(new File("Save/InfiniteStage"));
 			myWaves = 0;
 			infiniteGame = false;
@@ -223,6 +222,7 @@ public class Screen extends JPanel implements Runnable {
 				define();
 			}
 			else {
+				infiniteResetCounter += 1;
 				for(int i = 0; i < levelEnemyType.size(); i++) {
 					for(int j = 0; j < levelEnemyType.get(i).length; j++) {
 						levelEnemyList.get(i)[j] = new Enemy();
@@ -233,9 +233,17 @@ public class Screen extends JPanel implements Runnable {
 				}
 				for (int k = 0; k < levelEnemyType.size(); k++) {
 					int indexToIncrease = (int)(Math.random() * levelEnemyType.get(k).length);
-					levelEnemyType.get(k)[indexToIncrease] += 1;
+					if(levelEnemyType.get(k)[indexToIncrease] < Value.level5boss) {
+						levelEnemyType.get(k)[indexToIncrease] += 1;
+					}
 					indexToIncrease = (int)(Math.random() * levelEnemyType.get(k).length);
-					levelEnemyType.get(k)[indexToIncrease] += 1;
+					if(levelEnemyType.get(k)[indexToIncrease] < Value.level5boss) {
+						levelEnemyType.get(k)[indexToIncrease] += 1;
+					}
+					indexToIncrease = (int)(Math.random() * levelEnemyType.get(k).length);
+					if(levelEnemyType.get(k)[indexToIncrease] < Value.level5boss) {
+						levelEnemyType.get(k)[indexToIncrease] += 1;
+					}
 				}
 				for(int l = 0; l < newWave.length; l++) {
 					newWave[l] = false;

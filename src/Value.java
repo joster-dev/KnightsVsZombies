@@ -67,6 +67,26 @@ public class Value {
 	public static int bombZombieHealth = 110;
 	public static int bombZombieArmor = 8;
 	
+	public static int level1boss = 5;
+	public static int level1bossHealth = 400;
+	public static int level1bossArmor = 1;
+	
+	public static int level2boss = 6;
+	public static int level2bossHealth = 350;
+	public static int level2bossArmor = 5;
+	
+	public static int level3boss = 7;
+	public static int level3bossHealth = 250;
+	public static int level3bossArmor = 12;
+	
+	public static int level4boss = 8;
+	public static int level4bossHealth = 450;
+	public static int level4bossArmor = 6;
+	
+	public static int level5boss = 9;
+	public static int level5bossHealth = 550;
+	public static int level5bossArmor = 9;
+	
 	//*//
 	
 	public static int getZombieStats(String stat, int zombieId) {
@@ -85,6 +105,21 @@ public class Value {
 			}
 			else if(zombieId == bombZombie) {
 				return bombZombieHealth;
+			}
+			else if(zombieId == level1boss) {
+				return level1bossHealth;
+			}
+			else if(zombieId == level2boss) {
+				return level2bossHealth;
+			}
+			else if(zombieId == level3boss) {
+				return level3bossHealth;
+			}
+			else if(zombieId == level4boss) {
+				return level4bossHealth;
+			}
+			else if(zombieId == level5boss) {
+				return level5bossHealth;
 			}
 			else {
 				return 0;
@@ -105,6 +140,21 @@ public class Value {
 			}
 			else if(zombieId == bombZombie) {
 				return bombZombieArmor;
+			}
+			else if(zombieId == level1boss) {
+				return level1bossArmor;
+			}
+			else if(zombieId == level2boss) {
+				return level2bossArmor;
+			}
+			else if(zombieId == level3boss) {
+				return level3bossArmor;
+			}
+			else if(zombieId == level4boss) {
+				return level4bossArmor;
+			}
+			else if(zombieId == level5boss) {
+				return level5bossArmor;
 			}
 			else {
 				return 0;
