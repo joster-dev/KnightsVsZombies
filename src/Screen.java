@@ -41,11 +41,11 @@ public class Screen extends JPanel implements Runnable {
 
 	public Screen(Frame frame) throws Exception {
 		myFrame = frame;
+		audioHandler = myFrame.audioHandler;
 
 		save = new Save();
 		
 		gameLoop.start();
-		audioHandler = new AudioHandler();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -137,10 +137,38 @@ public class Screen extends JPanel implements Runnable {
 			newWave[i] = false;
 		}
 
-		// here's the audio for the game... this is only
-		// a sample track... a REALLY bad, sample track...
-		// ... still tweaking different aspects of this as well...
-		audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+		switch(level) 
+		{
+		case 1:	if( !myFrame.openingScreen.isVisible() ) {
+					// I will replace this with level 1 music soon...
+					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+				}
+				break;
+		case 2: if( !myFrame.openingScreen.isVisible() ) {
+					audioHandler.midiHandler.startMidi("res/Sounds/2_swamp.mid");
+				}
+				break;
+		case 3: if( !myFrame.openingScreen.isVisible() ) {
+					audioHandler.midiHandler.startMidi("res/Sounds/opening.mid");
+				}
+				break;
+		case 4: if( !myFrame.openingScreen.isVisible() ) {
+					// I will replace this with level 4 music soon...
+					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+				}
+				break;
+		case 5: if( !myFrame.openingScreen.isVisible() ) {
+					// I will replace this with level 5 music soon...
+					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+				}
+				break;
+		default:if( !myFrame.openingScreen.isVisible() ) {
+					// I will replace this with infinite music soon...
+					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+				}
+				break;
+		}
+
 		gameLoop.resume();
 	}
 	
@@ -218,7 +246,6 @@ public class Screen extends JPanel implements Runnable {
 				numEnemiesDead = 0;
 				questChainClear = false;
 
-				audioHandler.midiHandler.stopMidi();
 				define();
 			}
 			else {
@@ -271,8 +298,7 @@ public class Screen extends JPanel implements Runnable {
 			if(level > 5) {
 				infiniteGame = true;
 			}
-			
-			audioHandler.midiHandler.stopMidi();
+
 			define();
 		}
 	}
@@ -313,6 +339,7 @@ public class Screen extends JPanel implements Runnable {
 			if(numEnemiesDead >= numEnemies) {
 				if(level == 5) {
 					questChainClear = true;
+					audioHandler.midiHandler.stopMidi();
 				} 
 				else if (level < 5) {
 					questClear = true;

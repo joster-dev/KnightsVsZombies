@@ -16,6 +16,8 @@ public class Frame extends JFrame {
 	public static Pause pauseScreen;
 	public static HighScore highScores;
 	public static Settings settings;
+
+	public AudioHandler audioHandler;
 	
 	public Frame() throws Exception {
 		setTitle(title);
@@ -24,6 +26,7 @@ public class Frame extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		audioHandler = new AudioHandler();
 		init();
 	}
 	
@@ -61,6 +64,7 @@ public class Frame extends JFrame {
 
 			openingScreen.setVisible(true);
 			splashScreen.done = false;
+			audioHandler.midiHandler.startMidi("res/Sounds/opening.mid");
 		}
 		else if(openingScreen.newGame) {
 			remove(openingScreen);
@@ -70,6 +74,7 @@ public class Frame extends JFrame {
 			chooseGame.setVisible(true);
 			
 			if(chooseGame.storyMode) {
+				audioHandler.midiHandler.stopMidi();
 				remove(chooseGame);
 				chooseGame.setVisible(false);
 				
@@ -84,11 +89,14 @@ public class Frame extends JFrame {
 				openingScreen.newGame = false;
 			}
 			else if(chooseGame.infiniteMode) {
+				audioHandler.midiHandler.stopMidi();
 				remove(chooseGame);
 				chooseGame.setVisible(false);
 				
 				gameScreen.infiniteGame = true;
 				gameScreen.level = 6;
+				// I will replace this with infinite mode music soon...
+				audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");
 				gameScreen.define();
 				add(gameScreen);
 				gameScreen.setVisible(true);
@@ -108,6 +116,7 @@ public class Frame extends JFrame {
 			}
 		}
 		else if(openingScreen.loadGame) {
+			audioHandler.midiHandler.stopMidi();
 			remove(openingScreen);
 			openingScreen.setVisible(false);
 			
@@ -155,13 +164,17 @@ public class Frame extends JFrame {
 			}
 		}
 		else if(gameScreen.questChainClear) {
+			// this is a test...
+			audioHandler.midiHandler.stopMidi();
 			remove(gameScreen);
 			gameScreen.setVisible(false);
 			
 			add(openingScreen);
 			openingScreen.setVisible(true);
+			audioHandler.midiHandler.startMidi("res/Sounds/opening.mid");
 		}
 		else if(ScreenPanel.isPaused) {
+			audioHandler.midiHandler.stopMidi();
 			remove(gameScreen);
 			gameScreen.setVisible(false);
 			
@@ -175,6 +188,8 @@ public class Frame extends JFrame {
 				add(gameScreen);
 				gameScreen.setVisible(true);
 				pauseScreen.backToGame = false;
+				// used to 'unpause' midi songs...
+				audioHandler.midiHandler.restartMidi();
 			}
 			else if(pauseScreen.backToOpening) {
 				remove(pauseScreen);
@@ -183,6 +198,7 @@ public class Frame extends JFrame {
 				add(openingScreen);
 				openingScreen.setVisible(true);
 				pauseScreen.backToOpening = false;
+				audioHandler.midiHandler.startMidi("res/Sounds/opening.mid");
 			}
 		}
 	}

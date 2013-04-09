@@ -3,7 +3,7 @@ import javax.sound.sampled.*;
 
 public class Enemy extends Rectangle {
 
-	AudioHandler audioHandler = new AudioHandler();
+	public AudioHandler audioHandler = new AudioHandler();
 	
 	public HealthBar healthBar;
 
@@ -81,6 +81,12 @@ public class Enemy extends Rectangle {
 		Screen.myHealth -= health;
 		if( Screen.myHealth < 0 )
 			Screen.myHealth = 0;
+		if( Screen.myHealth != 0 ) {
+			try {
+				audioHandler.soundHandler.playSound("res/Sounds/zombie1.wav");
+			}
+			catch (Exception e) { e.printStackTrace(); }
+		}
 	}
 	
 	public void looseEnemyHealth(int towerDmg) {

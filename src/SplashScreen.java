@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 public class SplashScreen extends JPanel {
 
-	AudioHandler audioHandler;
+	public AudioHandler audioHandler;
 
 	public Frame myFrame;
 
@@ -21,7 +21,7 @@ public class SplashScreen extends JPanel {
 		opacity = 0;
 		timer = 0;
 		done = false;
-		audioHandler = new AudioHandler();
+		audioHandler = myFrame.audioHandler;
 		try {
 			audioHandler.soundHandler.playSound("res/Sounds/zombiegrowl.wav");
 		} catch (Exception e) { }

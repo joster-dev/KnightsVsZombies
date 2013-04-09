@@ -3,13 +3,29 @@ import javax.sound.midi.*;
 
 public class MidiHandler {
 
-	public Sequencer midiPlayer;
+	public AudioHandler audioHandler;
 
-	public void startMidi(String midFilename) {
+	public Sequencer midiPlayer;
+	private String currentFileName;
+	
+	public MidiHandler(AudioHandler a)
+	{
+		audioHandler = a;
 		try {
-			File midiFile = new File(midFilename);
-			Sequence song = MidiSystem.getSequence(midiFile);
 			midiPlayer = MidiSystem.getSequencer();
+//			midiPlayer.open();
+		} catch (MidiUnavailableException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void startMidi(String midiFileName) {
+		closeMidi();
+		currentFileName = midiFileName;
+		try {
+			File midiFile = new File(midiFileName);
+			Sequence song = MidiSystem.getSequence(midiFile);
+//			midiPlayer = MidiSystem.getSequencer();
 			midiPlayer.open();
 			midiPlayer.setSequence(song);
 			midiPlayer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY); // infinite loop until interrupted
@@ -24,14 +40,42 @@ public class MidiHandler {
 		}
 	}
 
-	public void stopMidi() {
-		if( midiPlayer.isRunning() )
-			midiPlayer.stop();
-        midiPlayer.close();
+
+	public void restartMidi() {
+		midiPlayer.start();
 	}
+
+
+	public void stopMidi() {
+		if( midiPlayer.isOpen() )
+		{
+			if( midiPlayer.isRunning() )
+			{
+				midiPlayer.stop();
+			}
+		}
+	}
+
+
+	public void closeMidi() {
+		if( midiPlayer.isOpen() )
+		{
+			if( midiPlayer.isRunning() )
+			{
+				midiPlayer.stop();
+			}
+			midiPlayer.close();
+		}
+	}
+
 
 	public void setTempo(float tempo) {
 		midiPlayer.setTempoFactor(tempo);
+	}
+
+
+	public String getFileName() {
+		return currentFileName;
 	}
 	
 	// currently does not work... need a way
@@ -48,53 +92,3 @@ public class MidiHandler {
 	    }
 	}	*/
 }
-
-/*import java.io.*;
-import javax.sound.midi.*;
-
-// UNFINISHED!!! THIS WILL BE USED FOR ADDING MIDI/CHIPTUNES...
-
-public class MidiSoundTest {
-   private static Sequencer midiPlayer;
-   
-   // testing main method
-//   public static void main(String[] args) {
-   public void changeBackToMain() {
-      startMidi("res/Sounds/flourish.mid");     // start the midi player
-      try {
-         Thread.sleep(6000);   // delay
-      } catch (InterruptedException e) { }
-      System.out.println("faster");
-      midiPlayer.setTempoFactor(2.0F);   // >1 to speed up the tempo
-      try {
-         Thread.sleep(2000);   // delay
-      } catch (InterruptedException e) { }
-      midiPlayer.stop();
-   
-      // Do this on every move step, you could change to another song
-      if (!midiPlayer.isRunning()) {  // previous song finished
-         // reset midi player and start a new song
-         midiPlayer.stop();
-         midiPlayer.close();
-//         startMidi("song2.mid");
-      }
-   }
-   
-   public static void startMidi(String midFilename) {
-      try {
-         File midiFile = new File(midFilename);
-         Sequence song = MidiSystem.getSequence(midiFile);
-         midiPlayer = MidiSystem.getSequencer();
-         midiPlayer.open();
-         midiPlayer.setSequence(song);
-         midiPlayer.setLoopCount(0); // repeat 0 times (play once)
-         midiPlayer.start();
-      } catch (MidiUnavailableException e) {
-         e.printStackTrace();
-      } catch (InvalidMidiDataException e) {
-         e.printStackTrace();
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
-   }
-}		*/

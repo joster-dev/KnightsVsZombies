@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class GameMode extends JPanel {
 
-	AudioHandler audioHandler;
+	public AudioHandler audioHandler;
 	
 	public boolean storyMode = false;
 	public boolean infiniteMode = false;
@@ -24,7 +24,7 @@ public class GameMode extends JPanel {
 		
 		backButton = new Rectangle((Frame.x * 23) / 54, (Frame.y * 13) / 20, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
 		
-		audioHandler = new AudioHandler();
+		audioHandler = myFrame.audioHandler;
 	}
 	
 	public void click(int mouseclick) {

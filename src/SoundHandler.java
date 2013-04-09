@@ -4,6 +4,12 @@ import java.io.IOException;
 import javax.sound.sampled.*;
 
 public class SoundHandler {
+	
+	public AudioHandler audioHandler;
+	
+	public SoundHandler(AudioHandler a) {
+		audioHandler = a;
+	}
 
 	public void playSound(String fileName) throws Exception {
 		// this will load and play the sound associated with the

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Settings extends JPanel {
 
-	AudioHandler audioHandler;
+	public AudioHandler audioHandler;
 	
 	public boolean back = false;
 	

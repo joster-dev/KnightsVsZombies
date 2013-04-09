@@ -5,7 +5,7 @@ import javax.swing.*;
 
 public class Opening extends JPanel {
 
-	AudioHandler audioHandler;
+	public AudioHandler audioHandler;
 	
 	public static int myWidth;
 	public static int myHeight;
@@ -33,7 +33,7 @@ public class Opening extends JPanel {
 		for(int i = 0; i < mainChoices.length; i++) {
 			mainChoices[i] = new Rectangle((Frame.x / 3), ((Frame.y / 6) * i) + (Frame.y / 4), Frame.x / 3, Frame.y / 8);
 		}
-		audioHandler = new AudioHandler();
+		audioHandler = myFrame.audioHandler;
 	}
 	
 	public void click(int mouseClick) {

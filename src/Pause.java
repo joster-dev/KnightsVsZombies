@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Pause extends JPanel {
 	
-	AudioHandler audioHandler;
+	public AudioHandler audioHandler;
 	
 	public boolean backToGame = false;
 	public boolean backToOpening = false;
@@ -19,6 +19,8 @@ public class Pause extends JPanel {
 		
 		backOpening = new Rectangle((Frame.x * 3) / 27, (Frame.y * 17) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
 		backGame = new Rectangle((Frame.x * 20) / 27, (Frame.y * 17) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
+		
+		audioHandler = myFrame.audioHandler;
 	}
 	
 	public void click(int mouseclick) {
@@ -42,9 +44,6 @@ public class Pause extends JPanel {
 				try {
 					audioHandler.soundHandler.playSound("res/Sounds/thunk.wav");
 				} catch(Exception e) { }
-				//*This code should stop the music, Anthony please take a look at this*//
-				Frame.gameScreen.audioHandler.midiHandler.stopMidi();
-				//*//
 			}
 		}
 	}
