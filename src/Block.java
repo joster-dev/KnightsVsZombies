@@ -161,7 +161,7 @@ public class Block extends Rectangle {
 		}
 		
 		if(shoting) {
-			g.drawLine(x + (width / 2), y + (height / 2), Screen.levelEnemyList.get(targetWave)[targetEnemy].x + (width / 2), Screen.levelEnemyList.get(targetWave)[targetEnemy].y + (height / 2) );
+			//g.drawLine(x + (width / 2), y + (height / 2), Screen.levelEnemyList.get(targetWave)[targetEnemy].x + (width / 2), Screen.levelEnemyList.get(targetWave)[targetEnemy].y + (height / 2) );
 			
 			// If shooting and not already in the attack animation, start the attack animation
 			if(!(this.animationAttackStart <= this.animationId) && (this.animationId < this.animationAttackEnd))

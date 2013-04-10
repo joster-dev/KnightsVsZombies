@@ -74,7 +74,12 @@ public class Enemy extends Rectangle {
 	public void deleteEnemy() {
 		inGame = false;
 		isDead = true;
+		if(Frame.gameScreen.level <= 5) {
+			Screen.myGold += Value.getZombieStats("health", enemyId) / 10;
+		}
+		else Screen.myGold += Value.getZombieStats("health", enemyId) / 20;
 		Screen.numEnemiesDead += 1;
+		Screen.totalEnemiesDead += 1;
 	}
 	
 	public void looseHealth() {
@@ -191,7 +196,6 @@ public class Enemy extends Rectangle {
 				audioHandler.soundHandler.playSound("res/Sounds/zombie2.wav");
 			}
 			catch (Exception e) { e.printStackTrace(); }
-			Screen.myGold += Value.getZombieStats("health", enemyId) / 10;
 		}
 	}
 	

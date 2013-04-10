@@ -11,13 +11,17 @@ public class HighScore extends JPanel {
 	public String achievementTitle = "Achievements";
 	public Rectangle[] achievementBoxes = new Rectangle[6];
 	public boolean[] achievementState = new boolean[6];
+	//** 	Achievements from 0 - 5  **//
+	//	0 - 4 	: Complete Story Level 1 - 5
+	//	5 		: Score high enough on infinite mode to get a high score
+	//*//
 	public Rectangle[] achievementStateBoxes = new Rectangle[6];
 	
 	public Rectangle highScoreListSpace;
 	public String highScoreTitle = "High Scores";
 	public Rectangle[] highScoreBoxes = new Rectangle[5];
 	public String[] highScoreNames = new String[]{"Ted", "Steve", "Jim", "Tyrone", "Sam"};
-	public int[] highScores = new int[]{1000, 900, 800, 700, 600};
+	public int[] highScores = new int[]{50, 45, 40, 35, 32};
 	
 	public Rectangle imgBox;
 	
@@ -53,9 +57,14 @@ public class HighScore extends JPanel {
 				}
 				highScores[i] = highScore;
 				highScoreNames[i] = name;
+				unlockAchievement(5);
 				break;
 			}
 		}
+	}
+	
+	public void unlockAchievement(int achieveNum) {
+		achievementState[achieveNum] = true;
 	}
 	
 	public void click(int mouseclick) {
@@ -92,9 +101,15 @@ public class HighScore extends JPanel {
 		
 		for(int i = 0; i < achievementBoxes.length; i++) {
 			if(!achievementState[i]) {			//*Sets the opacity to a dark color if the achievement is not unlocked.*//
+				g.drawLine(achievementStateBoxes[i].x + (achievementStateBoxes[i].width / 5), achievementStateBoxes[i].y + (achievementStateBoxes[i].width / 5), achievementStateBoxes[i].x + (achievementStateBoxes[i].width * 4 / 5), achievementStateBoxes[i].y + (achievementStateBoxes[i].width * 4 / 5));
+				g.drawLine(achievementStateBoxes[i].x + (achievementStateBoxes[i].width * 4 / 5), achievementStateBoxes[i].y + (achievementStateBoxes[i].width / 5), achievementStateBoxes[i].x + (achievementStateBoxes[i].width / 5), achievementStateBoxes[i].y + (achievementStateBoxes[i].width * 4 / 5));
 				g.setColor(new Color(0, 0, 0, 150));
 				g.fillRect(achievementBoxes[i].x, achievementBoxes[i].y, achievementBoxes[i].width, achievementBoxes[i].height);
 			}									//*//
+			else {
+				g.setColor(Color.BLACK);
+				g.drawOval(achievementStateBoxes[i].x + (achievementStateBoxes[i].width / 5), achievementStateBoxes[i].y + (achievementStateBoxes[i].width / 5), achievementStateBoxes[i].width * 3 / 5, achievementStateBoxes[i].width * 3 / 5);
+			}
 			g.setColor(Color.BLACK);
 			g.drawRect(achievementBoxes[i].x, achievementBoxes[i].y, achievementBoxes[i].width, achievementBoxes[i].height);
 			g.drawRect(achievementStateBoxes[i].x, achievementStateBoxes[i].y, achievementStateBoxes[i].width, achievementStateBoxes[i].height);

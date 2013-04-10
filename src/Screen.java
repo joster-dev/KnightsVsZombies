@@ -27,6 +27,7 @@ public class Screen extends JPanel implements Runnable {
 	
 	public static int numEnemies = 1;
 	public static int numEnemiesDead = 0;
+	public static int totalEnemiesDead = 0;
 	
 	public static Room room;
 	public static ScreenPanel gamePanel;
@@ -217,6 +218,7 @@ public class Screen extends JPanel implements Runnable {
 				spawnTime = 1750;
 				spawnFrame = -9000;
 				nextWaveWaitTime = -10000;
+				Frame.highScores.unlockAchievement(level - 1);
 				level += 1;
 				questClear = false;
 				numEnemiesDead = 0;
@@ -241,7 +243,7 @@ public class Screen extends JPanel implements Runnable {
 				nextWaveWaitTime = -10000;
 
 				myFrame.updateFrame();
-				
+				Frame.highScores.unlockAchievement(level - 1);
 				level = 1;
 				numEnemiesDead = 0;
 				questChainClear = false;
@@ -249,7 +251,6 @@ public class Screen extends JPanel implements Runnable {
 				define();
 			}
 			else {
-				infiniteResetCounter += 1;
 				for(int i = 0; i < levelEnemyType.size(); i++) {
 					for(int j = 0; j < levelEnemyType.get(i).length; j++) {
 						levelEnemyList.get(i)[j] = new Enemy();
@@ -275,7 +276,6 @@ public class Screen extends JPanel implements Runnable {
 				for(int l = 0; l < newWave.length; l++) {
 					newWave[l] = false;
 				}
-				
 				numEnemiesDead = 0;
 			}
 		} 
@@ -296,6 +296,7 @@ public class Screen extends JPanel implements Runnable {
 			numEnemiesDead = 0;
 			
 			if(level > 5) {
+				Frame.highScores.newHighScore("You", totalEnemiesDead);
 				infiniteGame = true;
 			}
 
@@ -340,13 +341,16 @@ public class Screen extends JPanel implements Runnable {
 				if(level == 5) {
 					questChainClear = true;
 					audioHandler.midiHandler.stopMidi();
+					try {
+						Thread.sleep(2500);
+					} catch (Exception e) {}
 				} 
 				else if (level < 5) {
 					questClear = true;
+					try {
+						Thread.sleep(2500);
+					} catch (Exception e) {}
 				}
-				try {
-					Thread.sleep(2500);
-				} catch (Exception e) {}
 				levelClear(true);
 			}
 			repaint();
