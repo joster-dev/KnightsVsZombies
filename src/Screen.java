@@ -347,6 +347,7 @@ public class Screen extends JPanel implements Runnable {
 				} 
 				else if (level < 5) {
 					questClear = true;
+					audioHandler.midiHandler.stopMidi();
 					try {
 						Thread.sleep(2500);
 					} catch (Exception e) {}
