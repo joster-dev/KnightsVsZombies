@@ -20,6 +20,11 @@ public class SpriteSheet{
 	private int blockSheetWidth;					// The max number of block tiles per level
 	private int blockSheetHeight;					// The number of levels
 	
+	// The sprite sheet of bosses
+	public static BufferedImage[][] bossSheet;
+	private int bossSheetWidth;						// The max number of animation frames
+	private int bossSheetHeight;					// The max number of bosses
+	
 	// The remaining graphical resouces (these will probably get changed around a bit as we go along)
 	BufferedImage attackIcon;
 	BufferedImage goldIcon;
@@ -135,6 +140,38 @@ public class SpriteSheet{
 			
 			//-----------------------------------------------------------------------------
 			
+			// Get the image file for the sprite sheet of bosses
+			BufferedImage bossSheetBig = ImageIO.read(new File("res/boss_sheet.png"));
+			
+			// Set the dimensions of the sprites
+			final int bssWidth = 256;
+			final int bssHeight = 256;
+			
+			// Set the number of rows and columns in the sheet
+			final int bssRows = ((bossSheetBig.getHeight())/256);
+			final int bssCols = ((bossSheetBig.getWidth())/256);
+		
+			// Initialize a new 2-dimensional array to store the individual sprite images
+			bossSheet = new BufferedImage[bssRows][bssCols];
+			
+			// Get the individual sprites and store them to the array
+			for(int i = 0; i < bssRows; i++){
+				for(int j = 0; j < bssCols; j++){
+					bossSheet[i][j] = bossSheetBig.getSubimage(
+							j * bssHeight,
+							i * bssWidth,
+							bssWidth,
+							bssHeight
+						);
+				}
+			}
+			
+			// Save the maximum dimensions of the array (used to avoid OutOfBounds exceptions)
+			bossSheetWidth = bssCols;
+			bossSheetHeight = bssRows;
+			
+			//-----------------------------------------------------------------------------
+			
 			//Get the remaining graphical resources
 			attackIcon = ImageIO.read(new File("res/Graphics/Attack.png"));
 			goldIcon = ImageIO.read(new File("res/Graphics/Gold.png"));
@@ -187,6 +224,17 @@ public class SpriteSheet{
 			// If the specified index exists within the sheet, return the sprite at that index
 			if(row < blockSheetHeight && col < blockSheetWidth)
 				return blockSheet [row][col];
+			
+			// Otherwise, return null
+			return null;
+		}
+		
+		// Otherwise, if the boss sheet is specified...
+		else if (sheet == "boss"){
+			
+			// If the specified index exists within the sheet, return the sprite at that index
+			if(row < bossSheetHeight && col < bossSheetWidth)
+				return bossSheet [row][col];
 			
 			// Otherwise, return null
 			return null;
