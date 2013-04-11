@@ -56,8 +56,6 @@ public class Screen extends JPanel implements Runnable {
 		}
 		
 		room.draw(g);
-		g.drawImage(ScreenPanel.sprites.hudFrame ,0, 0, Opening.myWidth, Opening.myHeight, null);
-		gamePanel.draw(g);
 		
 		for(int i = 0; i < levelEnemyList.size(); i++) {
 			for(int j = 0; j < levelEnemyList.get(i).length; j++) {
@@ -66,6 +64,9 @@ public class Screen extends JPanel implements Runnable {
 				}
 			}
 		}
+		
+		g.drawImage(ScreenPanel.sprites.hudFrame ,0, 0, Opening.myWidth, Opening.myHeight, null);
+		gamePanel.draw(g);
 		
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 18));
