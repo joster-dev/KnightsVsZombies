@@ -207,13 +207,13 @@ public class Enemy extends Rectangle {
 				if(enemyId < 5)
 					g.drawImage(ScreenPanel.sprites.getSprite("enemy", enemyId, this.animationId), x, y, x+64, y+64, 64, 0, 0, 64, null);
 				else
-					g.drawImage(ScreenPanel.sprites.getSprite("boss", enemyId-5, this.animationId), x-96, y-128, (x-96)+256, (y-128)+256, 256, 0, 0, 256, null);
+					g.drawImage(ScreenPanel.sprites.getSprite("boss", enemyId-5, this.animationId), x-32, y-64, (x-32)+128, (y-64)+128, 128, 0, 0, 128, null);
 			}
 			else {
 				if(enemyId<5)
 					g.drawImage(ScreenPanel.sprites.getSprite("enemy", enemyId, this.animationId), x, y, width, height, null);
 				else
-					g.drawImage(ScreenPanel.sprites.getSprite("boss", enemyId-5, this.animationId), x-96, y-128, width+192, height+192, null);
+					g.drawImage(ScreenPanel.sprites.getSprite("boss", enemyId-5, this.animationId), x-32, y-64, width+64, height+64, null);
 			}
 			if(this.animationUpdateIndex == this.animationUpdatesPerFrame){
 				this.animationId = nextAnimationFrame();

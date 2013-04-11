@@ -144,12 +144,12 @@ public class SpriteSheet{
 			BufferedImage bossSheetBig = ImageIO.read(new File("res/boss_sheet.png"));
 			
 			// Set the dimensions of the sprites
-			final int bssWidth = 256;
-			final int bssHeight = 256;
+			final int bssWidth = 128;
+			final int bssHeight = 128;
 			
 			// Set the number of rows and columns in the sheet
-			final int bssRows = ((bossSheetBig.getHeight())/256);
-			final int bssCols = ((bossSheetBig.getWidth())/256);
+			final int bssRows = ((bossSheetBig.getHeight())/128);
+			final int bssCols = ((bossSheetBig.getWidth())/128);
 		
 			// Initialize a new 2-dimensional array to store the individual sprite images
 			bossSheet = new BufferedImage[bssRows][bssCols];
