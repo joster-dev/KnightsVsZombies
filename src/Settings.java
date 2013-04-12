@@ -33,8 +33,9 @@ public class Settings extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
-		g.setColor(Color.YELLOW);
-		g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
+		//g.setColor(Color.YELLOW);
+		//g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
+		g.drawImage(SpriteSheet.openingBackground, 0, 0, Opening.myWidth, Opening.myHeight, null);
 		
 		g.setColor(Color.MAGENTA);
 		g.fillRect(backButton.x, backButton.y, backButton.width, backButton.height);

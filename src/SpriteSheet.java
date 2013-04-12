@@ -1,7 +1,9 @@
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class SpriteSheet{
 
@@ -38,6 +40,8 @@ public class SpriteSheet{
 	BufferedImage baseIcon;
 	BufferedImage wavesIcon;
 	BufferedImage armorIcon = null;
+	
+	public static Image openingBackground = new ImageIcon("res/Graphics/opening_screen.png").getImage();
 	
 	// Create one big sprite sheet composed of several separate sprite sheets
 	public SpriteSheet(){

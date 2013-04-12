@@ -51,11 +51,15 @@ public class HealthBar extends Rectangle {
 			healthWidth = 2;
 		if(healthWidth > width)
 			healthWidth = width;
-
+		
 		if(enemy.y <= 16)
 			yOffset = 72;
-		else
-			yOffset = -12;
+		else {
+			if(enemy.enemyId <5)
+				yOffset = -12;
+			else
+				yOffset = -70;
+		}
 
 		// used for the white background of health bar...
 		g.setColor(Color.white);

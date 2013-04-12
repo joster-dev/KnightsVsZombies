@@ -85,8 +85,10 @@ public class Opening extends JPanel {
 		myWidth = getWidth();
 		myHeight = getHeight();
 		
-		g.setColor(Color.ORANGE);
-		g.fillRect(0, 0, myWidth, myHeight);
+		//g.setColor(Color.ORANGE);
+		//g.fillRect(0, 0, myWidth, myHeight);
+		
+		g.drawImage(SpriteSheet.openingBackground, 0, 0, myWidth, myHeight, null);
 		
 		for(int i = 0; i < mainChoices.length; i++) {
 			

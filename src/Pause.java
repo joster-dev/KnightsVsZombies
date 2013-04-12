@@ -49,7 +49,7 @@ public class Pause extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
-		g.setColor(Color.YELLOW);
+		g.setColor(new Color(255, 255, 255, 1));
 		g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
 		
 		g.setColor(Color.MAGENTA);

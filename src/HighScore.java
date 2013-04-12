@@ -81,8 +81,10 @@ public class HighScore extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
-		g.setColor(Color.YELLOW);
-		g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
+		//g.setColor(Color.YELLOW);
+		//g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
+		
+		g.drawImage(SpriteSheet.openingBackground, 0, 0, Opening.myWidth, Opening.myHeight, null);
 		
 		g.setColor(Color.WHITE);
 		g.fillRect(achievementListSpace.x, achievementListSpace.y, achievementListSpace.width, achievementListSpace.height);
