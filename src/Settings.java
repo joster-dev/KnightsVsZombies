@@ -15,7 +15,7 @@ public class Settings extends JPanel {
 	public Settings(Frame frame) {
 		myFrame = frame; 
 		
-		backButton = new Rectangle((Frame.x * 20) / 27, (Frame.y * 17) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
+		backButton = new Rectangle((Frame.x * 20) / 27, (Frame.y * 19) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
 		audioHandler = new AudioHandler();
 	}
 	

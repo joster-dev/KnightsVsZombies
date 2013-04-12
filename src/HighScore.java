@@ -32,10 +32,10 @@ public class HighScore extends JPanel {
 	public HighScore (Frame frame) {
 		myFrame = frame;
 		
-		achievementListSpace = new Rectangle(Frame.x / 9, Frame.y / 9, Frame.x / 3, (Frame.y * 7) / 9);
-		highScoreListSpace = new Rectangle((Frame.x * 5) / 9, Frame.y / 9, Frame.x / 3, (Frame.y * 10) / 27);
-		imgBox = new Rectangle((Frame.x * 5) / 9, (Frame.y * 5) / 9, (Frame.x * 4) / 27, Frame.y / 3);
-		backButton = new Rectangle((Frame.x * 20) / 27, (Frame.y * 17) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
+		achievementListSpace = new Rectangle(Frame.x / 9, Frame.y / 4, Frame.x / 3, (Frame.y * 5) / 8);
+		highScoreListSpace = new Rectangle((Frame.x * 5) / 9, Frame.y / 4, Frame.x / 3, (Frame.y * 10) / 27);
+		imgBox = new Rectangle((Frame.x * 5) / 9, (Frame.y * 19) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
+		backButton = new Rectangle((Frame.x * 20) / 27, (Frame.y * 19) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
 		
 		for(int i = 0; i < achievementBoxes.length; i++) {
 			achievementBoxes[i] = new Rectangle(achievementListSpace.x + (achievementListSpace.width / 10), achievementListSpace.y + (achievementListSpace.height * 4 / 23) + (achievementListSpace.height * 3 / 23) * i, achievementListSpace.width * 4 / 5, achievementListSpace.height * 3 / 23);
