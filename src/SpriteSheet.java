@@ -5,6 +5,15 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+/**
+ * SpriteSheet
+ * 
+ * Acts as a global set of images files that can be loaded at the beginning of the game and accessed by the
+ * program at any time later on. 
+ * 
+ * @author Nick Roberts
+ *
+ */
 public class SpriteSheet{
 
 	// The sprite sheet of towers
@@ -27,7 +36,7 @@ public class SpriteSheet{
 	private int bossSheetWidth;						// The max number of animation frames
 	private int bossSheetHeight;					// The max number of bosses
 	
-	// The remaining graphical resouces (these will probably get changed around a bit as we go along)
+	// Icons used by the heads-up-display
 	BufferedImage attackIcon;
 	BufferedImage goldIcon;
 	BufferedImage healthIcon;
@@ -41,9 +50,17 @@ public class SpriteSheet{
 	BufferedImage wavesIcon;
 	BufferedImage armorIcon = null;
 	
+	// The background used by all the main menus
 	public static Image openingBackground = new ImageIcon("res/Graphics/opening_screen.png").getImage();
 	
-	// Create one big sprite sheet composed of several separate sprite sheets
+	/**
+	 * spriteSheet()
+	 * 
+	 * A constructor that, when called, initializes an instance of the SpriteSheet class by populating it with
+	 * the necessary image files. In the case of the files "tower_sheet.png", "enemy_sheet.png",
+	 * "block_sheet.png", and "boss_sheet.png", the images are broken down into 2-dimensional an array of images 
+	 * to be used later as frames of animation.
+	 */
 	public SpriteSheet(){
 		
 		try{
@@ -190,10 +207,22 @@ public class SpriteSheet{
 			wavesIcon = ImageIO.read(new File("res/Graphics/Waves.png"));
 		}
 		
+		// Catch any exceptions that might be encountered in opening the files or generating the images
 		catch(Exception e){}
 		
 	}
 	
+	/**
+	 * getSprite (sheet, row, column)
+	 * 
+	 * A method that takes in the name of a sprite sheet 'sheet', the row of a sprite in the sheet 'row', and the
+	 * column of a sprite in the sheet 'col' and returns the sprite at 'sheet'_sheet ['row']['col']
+	 * 
+	 * @param sheet	The name of the sprite sheet to access
+	 * @param row The row of the sprite sheet to access
+	 * @param col The column of the sprite sheet to access
+	 * @return 'sheet'_sheet ['row']['col'] if it exists, otherwise null
+	 */
 	public BufferedImage getSprite (String sheet, int row, int col){
 	
 		// If the row or column number is below 0, return null
