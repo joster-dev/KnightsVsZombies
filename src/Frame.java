@@ -7,7 +7,7 @@ public class Frame extends JFrame {
 	
 	public static int x = 896;
 	public static int y = 512;
-	public static Dimension size = new Dimension(x, y);
+	public static Dimension size = new Dimension(x, y);						//How big the game window will appear.
 
 	public static SplashScreen splashScreen;
 	public static Opening openingScreen;
@@ -23,7 +23,7 @@ public class Frame extends JFrame {
 		setTitle(title);
 		setSize(size);
 		setResizable(false);
-		setLocationRelativeTo(null);
+		setLocationRelativeTo(null);										//Center the game window in the middle of the monitor.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		audioHandler = new AudioHandler();
@@ -31,7 +31,7 @@ public class Frame extends JFrame {
 	}
 	
 	public void init() throws Exception {
-		setLayout(new GridLayout(1, 1, 0, 0));
+		setLayout(new GridLayout(1, 1, 0, 0));								//Specifies a Layout with 1 row and a 1 column
 
 		splashScreen = new SplashScreen(this);
 		openingScreen = new Opening(this);
@@ -53,9 +53,9 @@ public class Frame extends JFrame {
 		
 		setVisible(true);
 	}
-
+	
+	//Called to switch JPanel objects.
 	public void updateFrame() {
-
 		if(splashScreen.done) {
 			remove(splashScreen);
 
@@ -94,9 +94,6 @@ public class Frame extends JFrame {
 				chooseGame.setVisible(false);
 				
 				gameScreen.infiniteGame = true;
-				gameScreen.level = 6;
-				// I will replace this with infinite mode music soon...
-				audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");
 				gameScreen.define();
 				add(gameScreen);
 				gameScreen.setVisible(true);
@@ -164,7 +161,6 @@ public class Frame extends JFrame {
 			}
 		}
 		else if(gameScreen.questChainClear) {
-			// this is a test...
 			audioHandler.midiHandler.stopMidi();
 			remove(gameScreen);
 			gameScreen.setVisible(false);
@@ -188,8 +184,7 @@ public class Frame extends JFrame {
 				add(gameScreen);
 				gameScreen.setVisible(true);
 				pauseScreen.backToGame = false;
-				// used to 'unpause' midi songs...
-				audioHandler.midiHandler.restartMidi();
+				audioHandler.midiHandler.restartMidi();						//Used to unpause midi songs
 			}
 			else if(pauseScreen.backToOpening) {
 				remove(pauseScreen);

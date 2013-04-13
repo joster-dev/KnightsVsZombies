@@ -237,12 +237,14 @@ public class ScreenPanel {
 		    g.drawString(Integer.toString(Room.block[towerCellY][towerCellX].tower.towerRange), infoIcon[2].x + (shopCellSpace / 2) + infoIconSize, infoIcon[2].y + ((infoIconSize * 3)/ 4));
 		}
 		else if(showEnemyInfo) {
-			g.drawImage(sprites.healthIcon, infoIcon[0].x, infoIcon[0].y, infoIcon[0].width, infoIcon[0].height, null);
-			g.drawImage(sprites.armorIcon, infoIcon[1].x, infoIcon[1].y, infoIcon[1].width, infoIcon[1].height, null);
-			g.drawImage(null, infoIcon[2].x, infoIcon[2].y, infoIcon[2].width, infoIcon[2].height, null);
-			g.drawString(Integer.toString(Screen.levelEnemyList.get(enemyWave)[enemyIndex].health), infoIcon[0].x + (shopCellSpace / 2) + infoIconSize, infoIcon[0].y + ((infoIconSize * 3)/ 4));
-			g.drawString(Integer.toString(Screen.levelEnemyList.get(enemyWave)[enemyIndex].armor), infoIcon[1].x + (shopCellSpace / 2) + infoIconSize, infoIcon[1].y + ((infoIconSize * 3)/ 4));
-			g.drawString("", infoIcon[2].x + (shopCellSpace / 2) + infoIconSize, infoIcon[2].y + ((infoIconSize * 3)/ 4));
+			if(Screen.levelEnemyList.get(enemyWave)[enemyIndex].health >= 0) {
+				g.drawImage(sprites.healthIcon, infoIcon[0].x, infoIcon[0].y, infoIcon[0].width, infoIcon[0].height, null);
+				g.drawImage(sprites.armorIcon, infoIcon[1].x, infoIcon[1].y, infoIcon[1].width, infoIcon[1].height, null);
+				g.drawImage(null, infoIcon[2].x, infoIcon[2].y, infoIcon[2].width, infoIcon[2].height, null);
+				g.drawString(Integer.toString(Screen.levelEnemyList.get(enemyWave)[enemyIndex].health), infoIcon[0].x + (shopCellSpace / 2) + infoIconSize, infoIcon[0].y + ((infoIconSize * 3)/ 4));
+				g.drawString(Integer.toString(Screen.levelEnemyList.get(enemyWave)[enemyIndex].armor), infoIcon[1].x + (shopCellSpace / 2) + infoIconSize, infoIcon[1].y + ((infoIconSize * 3)/ 4));
+				g.drawString("", infoIcon[2].x + (shopCellSpace / 2) + infoIconSize, infoIcon[2].y + ((infoIconSize * 3)/ 4));
+			}
 		}
 		else {
 			for(int i = 0; i < infoIcon.length; i++) {

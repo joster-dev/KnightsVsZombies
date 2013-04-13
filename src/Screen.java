@@ -12,31 +12,32 @@ public class Screen extends JPanel implements Runnable {
 
 	public static int myHealth = 100;
 	public static int myGold = 100;
-	public static int myWaves;
+	public static int myWaves;								//Number of groups of enemies in a level.
 
 	boolean[] newWave;
 	
-	public boolean isViewed = false;
+	public boolean isViewed = false;						//Only runs the gameLoop thread after the Screen was painted.
 	
 	public boolean questFailed;
 	public boolean questClear;
 	public boolean questChainClear;
 	
-	public static ArrayList<int[]> levelEnemyType = new ArrayList<int[]>();
-	public static ArrayList<Enemy[]> levelEnemyList = new ArrayList<Enemy[]>();
+	public static ArrayList<int[]> levelEnemyType = new ArrayList<int[]>();				//Stores what enemy.
+	public static ArrayList<Enemy[]> levelEnemyList = new ArrayList<Enemy[]>();			//Stores actual enemy.
 	
 	public static int numEnemies = 1;
 	public static int numEnemiesDead = 0;
-	public static int totalEnemiesDead = 0;
+	public static int totalEnemiesDead = 0;					//For High Score purposes.
 	
 	public static Room room;
 	public static ScreenPanel gamePanel;
 	public static Save save;
+	
 	public int level = 1;
+	//*For Loading*//
 	public boolean loadGame = false;
 	public boolean infiniteGame = false;
-	
-	public static int infiniteResetCounter = 0;
+	//*//
 	
 	public Frame myFrame;
 
@@ -51,8 +52,7 @@ public class Screen extends JPanel implements Runnable {
 
 	public void paintComponent(Graphics g) {
 		if(!isViewed) {
-			
-			isViewed = true;
+			isViewed = true;								//Once Screen is painted, isViewed becomes true, starting gameLoop.
 		}
 		
 		room.draw(g);
@@ -60,7 +60,7 @@ public class Screen extends JPanel implements Runnable {
 		for(int i = 0; i < levelEnemyList.size(); i++) {
 			for(int j = 0; j < levelEnemyList.get(i).length; j++) {
 				if(levelEnemyList.get(i)[j].inGame) {
-					levelEnemyList.get(i)[j].draw(g);
+					levelEnemyList.get(i)[j].draw(g);		//Draws all of the enemies.
 				}
 			}
 		}
@@ -68,7 +68,7 @@ public class Screen extends JPanel implements Runnable {
 		g.drawImage(ScreenPanel.sprites.hudFrame ,0, 0, Opening.myWidth, Opening.myHeight, null);
 		gamePanel.draw(g);
 		
-		g.setColor(Color.WHITE);
+		g.setColor(Color.ORANGE);
 		g.setFont(new Font("Arial", Font.BOLD, 18));
 		
 		if(questFailed) {
@@ -205,9 +205,9 @@ public class Screen extends JPanel implements Runnable {
 		}
 	}
 	
-	public void levelClear(boolean w) {
+	public void levelClear(boolean w) {							//Parameter true means level complete, false means level fail.
 		if(w == true) {
-			if(level < 5) {
+			if(level < 5) {										//If story level between 1-4 reset and progress.
 				myHealth = 100;
 				myGold = 100;
 				ScreenPanel.holdItem = false;
@@ -219,18 +219,16 @@ public class Screen extends JPanel implements Runnable {
 				spawnTime = 1750;
 				spawnFrame = -9000;
 				nextWaveWaitTime = -10000;
-				Frame.highScores.unlockAchievement(level - 1);
+				
+				Frame.highScores.unlockAchievement(level - 1);		//Unlock achievement for beating a level.
 				level += 1;
 				questClear = false;
 				numEnemiesDead = 0;
-				
-				levelEnemyType = new ArrayList<int[]>();
-				levelEnemyList = new ArrayList<Enemy[]>();
 
 				audioHandler.midiHandler.stopMidi();
 				define();
 			} 
-			else if(level == 5) {
+			else if(level == 5) {							//If story level is 5 reset and return to main screen.
 				myHealth = 100;
 				myGold = 100;
 				ScreenPanel.holdItem = false;
@@ -242,14 +240,15 @@ public class Screen extends JPanel implements Runnable {
 				spawnTime = 1750;
 				spawnFrame = -9000;
 				nextWaveWaitTime = -10000;
+				isViewed = false;
 
+				levelEnemyType = new ArrayList<int[]>();
+				levelEnemyList = new ArrayList<Enemy[]>();
+				
 				myFrame.updateFrame();
-				Frame.highScores.unlockAchievement(level - 1);
-				level = 1;
+				Frame.highScores.unlockAchievement(level - 1);		//Unlock achievement for beating level 5.
 				numEnemiesDead = 0;
 				questChainClear = false;
-
-				define();
 			}
 			else {
 				for(int i = 0; i < levelEnemyType.size(); i++) {
@@ -341,6 +340,7 @@ public class Screen extends JPanel implements Runnable {
 			if(numEnemiesDead >= numEnemies) {
 				if(level == 5) {
 					questChainClear = true;
+					repaint();
 					audioHandler.midiHandler.stopMidi();
 					try {
 						Thread.sleep(2500);
@@ -348,6 +348,7 @@ public class Screen extends JPanel implements Runnable {
 				} 
 				else if (level < 5) {
 					questClear = true;
+					repaint();
 					audioHandler.midiHandler.stopMidi();
 					try {
 						Thread.sleep(2500);

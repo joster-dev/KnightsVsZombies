@@ -16,14 +16,18 @@ public class HighScore extends JPanel {
 	//	5 		: Score high enough on infinite mode to get a high score
 	//*//
 	public Rectangle[] achievementStateBoxes = new Rectangle[6];
+	public String[] achievementNames = new String[]{"Clear Level 1",
+													"Clear Level 2",
+													"Clear Level 3",
+													"Clear Level 4",
+													"Clear Level 5",
+													"High Score!"};
 	
 	public Rectangle highScoreListSpace;
 	public String highScoreTitle = "High Scores";
 	public Rectangle[] highScoreBoxes = new Rectangle[5];
 	public String[] highScoreNames = new String[]{"Ted", "Steve", "Jim", "Tyrone", "Sam"};
 	public int[] highScores = new int[]{50, 45, 40, 35, 32};
-	
-	public Rectangle imgBox;
 	
 	public Rectangle backButton;
 	
@@ -34,7 +38,6 @@ public class HighScore extends JPanel {
 		
 		achievementListSpace = new Rectangle(Frame.x / 9, Frame.y / 4, Frame.x / 3, (Frame.y * 5) / 8);
 		highScoreListSpace = new Rectangle((Frame.x * 5) / 9, Frame.y / 4, Frame.x / 3, (Frame.y * 10) / 27);
-		imgBox = new Rectangle((Frame.x * 5) / 9, (Frame.y * 19) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
 		backButton = new Rectangle((Frame.x * 20) / 27, (Frame.y * 19) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
 		
 		for(int i = 0; i < achievementBoxes.length; i++) {
@@ -90,9 +93,6 @@ public class HighScore extends JPanel {
 		g.fillRect(achievementListSpace.x, achievementListSpace.y, achievementListSpace.width, achievementListSpace.height);
 		g.fillRect(highScoreListSpace.x, highScoreListSpace.y, highScoreListSpace.width, highScoreListSpace.height);
 		
-		g.setColor(Color.GREEN);
-		g.fillRect(imgBox.x, imgBox.y, imgBox.width, imgBox.height);
-		
 		g.setColor(Color.MAGENTA);
 		g.fillRect(backButton.x, backButton.y, backButton.width, backButton.height);
 		
@@ -129,6 +129,10 @@ public class HighScore extends JPanel {
 			g.drawString(Integer.toString(k + 1) + ".", highScoreBoxes[k].x + highScoreListSpace.width / 10, highScoreBoxes[k].y + (highScoreListSpace.height / 10));
 			g.drawString(highScoreNames[k], highScoreBoxes[k].x + highScoreListSpace.width * 3 / 10, highScoreBoxes[k].y + (highScoreListSpace.height / 10));
 			g.drawString(Integer.toString(highScores[k]), highScoreBoxes[k].x + highScoreListSpace.width / 2, highScoreBoxes[k].y + (highScoreListSpace.height / 10));
+		}
+		
+		for(int l = 0; l < achievementBoxes.length; l++) {
+			g.drawString(achievementNames[l], achievementBoxes[l].x + achievementListSpace.width / 7, achievementBoxes[l].y + (achievementListSpace.height / 13));
 		}
 		
 		if(backButton.contains(Opening.mse)) {
