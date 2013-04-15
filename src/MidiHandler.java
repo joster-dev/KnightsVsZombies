@@ -13,23 +13,22 @@ public class MidiHandler {
 		audioHandler = a;
 		try {
 			midiPlayer = MidiSystem.getSequencer();
-//			midiPlayer.open();
 		} catch (MidiUnavailableException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void startMidi(String midiFileName) {
+		if(audioHandler.musicIsMuted())
+			return;
 		closeMidi();
 		currentFileName = midiFileName;
 		try {
 			File midiFile = new File(midiFileName);
 			Sequence song = MidiSystem.getSequence(midiFile);
-//			midiPlayer = MidiSystem.getSequencer();
 			midiPlayer.open();
 			midiPlayer.setSequence(song);
 			midiPlayer.setLoopCount(Sequencer.LOOP_CONTINUOUSLY); // infinite loop until interrupted
-//			setVolume(1);
 			midiPlayer.start();
 		} catch (MidiUnavailableException e) {
 			e.printStackTrace();
@@ -42,7 +41,14 @@ public class MidiHandler {
 
 
 	public void restartMidi() {
-		midiPlayer.start();
+		if(audioHandler.musicIsMuted())
+				return;
+		if(audioHandler.myFrame.settings.isVisible() && !(getFileName().equals("res/Sounds/opening.mid")))
+			startMidi("res/Sounds/opening.mid");
+		else if((!audioHandler.myFrame.settings.isVisible()) && !(getAppropriateSong(audioHandler.myFrame.gameScreen.level).equals(getFileName())))
+			startMidi(getAppropriateSong(audioHandler.myFrame.gameScreen.level));			// figure this out!!!!*****
+		else
+			midiPlayer.start();
 	}
 
 
@@ -77,18 +83,29 @@ public class MidiHandler {
 	public String getFileName() {
 		return currentFileName;
 	}
-	
-	// currently does not work... need a way
-	// to set the volume to a desired value...
-/*	public void setVolume(int volume) {
-	    try {
-	    	ShortMessage volumeMessage = new ShortMessage();
-	    	for (int i = 0; i < 16; i++) {
-	    		volumeMessage.setMessage(ShortMessage.CONTROL_CHANGE, i, 7, volume);
-	    		MidiSystem.getReceiver().send(volumeMessage, -1);
-	    	}
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    }
-	}	*/
+
+
+	public String getAppropriateSong(int level) {
+
+		String fileName = "";
+
+		switch(level) 
+		{
+		case 1:	fileName = "res/Sounds/zelda.mid";		// need to change...
+				break;
+		case 2: fileName = "res/Sounds/2_swamp.mid";
+				break;
+		case 3: fileName = "res/Sounds/3_forest.mid";
+				break;
+		case 4: fileName = "res/Sounds/4_steampunk.mid";
+				break;
+		case 5: fileName = "res/Sounds/zelda.mid";		// need to change...
+				break;
+		case 6: fileName = "res/Sounds/zelda.mid";		// for infinite mode...
+				break;
+		default:fileName = "res/Sounds/opening.mid";	// for the opening screen...
+				break;
+		}
+		return fileName;
+	}
 }

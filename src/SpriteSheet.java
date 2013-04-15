@@ -52,6 +52,14 @@ public class SpriteSheet{
 	
 	// The background used by all the main menus
 	public static Image openingBackground = new ImageIcon("res/Graphics/opening_screen.png").getImage();
+
+	// other images used in various menus
+	public static Image scroll = new ImageIcon("res/Graphics/scroll.png").getImage();
+	public static Image back_button = new ImageIcon("res/Graphics/back_button.png").getImage();
+	public static Image music_button = new ImageIcon("res/Graphics/music_note.png").getImage();
+	public static Image sound_button = new ImageIcon("res/Graphics/sound.png").getImage();
+	public static Image cancel = new ImageIcon("res/Graphics/stop_icon.png").getImage();
+	public static Image main_menu = new ImageIcon("res/Graphics/main_menu.png").getImage();
 	
 	/**
 	 * spriteSheet()

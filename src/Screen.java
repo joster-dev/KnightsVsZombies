@@ -17,6 +17,7 @@ public class Screen extends JPanel implements Runnable {
 	boolean[] newWave;
 	
 	public boolean isViewed = false;						//Only runs the gameLoop thread after the Screen was painted.
+	public boolean initiateInfinite = false;				// boolean used to continue streaming music in infinite mode
 	
 	public boolean questFailed;
 	public boolean questClear;
@@ -38,6 +39,7 @@ public class Screen extends JPanel implements Runnable {
 	public boolean loadGame = false;
 	public boolean infiniteGame = false;
 	//*//
+	public static int infiniteResetCounter = 0;
 	
 	public Frame myFrame;
 
@@ -119,7 +121,10 @@ public class Screen extends JPanel implements Runnable {
 		}
 		else if(loadGame) {
 			save.loadSave(new File("Save/SavedGame"));
-			if(level == 6) myWaves = 0;
+			if(level == 6) {
+				myWaves = 0;
+				initiateInfinite = true;
+			}
 			loadGame = false;
 		}
 		else {
@@ -131,7 +136,7 @@ public class Screen extends JPanel implements Runnable {
 		}
 		for(int i = 0; i < levelEnemyList.size(); i++) {
 			for(int j = 0; j < levelEnemyList.get(i).length; j ++) {
-				levelEnemyList.get(i)[j] = new Enemy();
+				levelEnemyList.get(i)[j] = new Enemy(myFrame);
 			}
 		}
 		newWave = new boolean[levelEnemyList.size()];
@@ -151,22 +156,23 @@ public class Screen extends JPanel implements Runnable {
 				}
 				break;
 		case 3: if( !myFrame.openingScreen.isVisible() ) {
-					audioHandler.midiHandler.startMidi("res/Sounds/opening.mid");
+					audioHandler.midiHandler.startMidi("res/Sounds/3_forest.mid");
 				}
 				break;
 		case 4: if( !myFrame.openingScreen.isVisible() ) {
 					// I will replace this with level 4 music soon...
-					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+					audioHandler.midiHandler.startMidi("res/Sounds/4_steampunk.mid");
 				}
 				break;
 		case 5: if( !myFrame.openingScreen.isVisible() ) {
 					// I will replace this with level 5 music soon...
-					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");
 				}
 				break;
-		default:if( !myFrame.openingScreen.isVisible() ) {
+		default:if( !myFrame.openingScreen.isVisible() && initiateInfinite) {
 					// I will replace this with infinite music soon...
-					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");
+					initiateInfinite = false;
 				}
 				break;
 		}
@@ -247,13 +253,14 @@ public class Screen extends JPanel implements Runnable {
 				
 				myFrame.updateFrame();
 				Frame.highScores.unlockAchievement(level - 1);		//Unlock achievement for beating level 5.
+
 				numEnemiesDead = 0;
 				questChainClear = false;
 			}
 			else {
 				for(int i = 0; i < levelEnemyType.size(); i++) {
 					for(int j = 0; j < levelEnemyType.get(i).length; j++) {
-						levelEnemyList.get(i)[j] = new Enemy();
+						levelEnemyList.get(i)[j] = new Enemy(myFrame);
 						if(ScreenPanel.isFastForward) {
 							levelEnemyList.get(i)[j].walkSpeed = levelEnemyList.get(i)[j].walkSpeed / 2;
 						}

@@ -58,10 +58,7 @@ public class GameMode extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
-		
-		//g.setColor(Color.ORANGE);
-		//g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
-		
+
 		g.drawImage(SpriteSheet.openingBackground, 0, 0, Opening.myWidth, Opening.myHeight, null);
 		
 		for(int i = 0; i < choose.length; i++) {

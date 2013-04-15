@@ -1,5 +1,7 @@
 public class AudioHandler {
 
+	public Frame myFrame;
+
 	public SoundHandler soundHandler;
 	public MidiHandler midiHandler;
 	
@@ -7,7 +9,11 @@ public class AudioHandler {
 	public boolean musicMuted = false;
 	public boolean allMuted = false;
 
-	public AudioHandler() {
+
+	public AudioHandler(Frame f) {
+
+		myFrame = f;
+
 		soundHandler = new SoundHandler(this);
 		midiHandler = new MidiHandler(this);
 	}
@@ -37,14 +43,18 @@ public class AudioHandler {
 	}
 
 	public boolean allIsMuted() {
-		return allMuted;
+		return musicMuted && soundMuted;
 	}
 
 	public void muteAll() {
+		musicMuted = true;
+		soundMuted = true;
 		allMuted = true;
 	}
 	
 	public void unmuteAll() {
+		musicMuted = false;
+		soundMuted = false;
 		allMuted = false;
 	}
 }

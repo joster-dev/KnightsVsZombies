@@ -26,7 +26,7 @@ public class Frame extends JFrame {
 		setLocationRelativeTo(null);										//Center the game window in the middle of the monitor.
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		audioHandler = new AudioHandler();
+		audioHandler = new AudioHandler(this);
 		init();
 	}
 	
@@ -94,6 +94,9 @@ public class Frame extends JFrame {
 				chooseGame.setVisible(false);
 				
 				gameScreen.infiniteGame = true;
+				gameScreen.level = 6;
+				gameScreen.initiateInfinite = true;
+
 				gameScreen.define();
 				add(gameScreen);
 				gameScreen.setVisible(true);

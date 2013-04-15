@@ -3,7 +3,8 @@ import javax.sound.sampled.*;
 
 public class Enemy extends Rectangle {
 
-	public AudioHandler audioHandler = new AudioHandler();
+	public Frame myFrame;
+	public AudioHandler audioHandler;
 	
 	public HealthBar healthBar;
 
@@ -41,7 +42,13 @@ public class Enemy extends Rectangle {
 	public static final int animationBase = 0;	// The index of the base animation frame
 	public int animationWalkStart;				// The index of the first frame of the walking animation
 	public int animationWalkEnd;				// The index of the last frame of the walking animation
-	
+
+	public Enemy(Frame f) {
+		myFrame = f;
+		audioHandler = myFrame.audioHandler;
+	}
+
+
 	public void spawnEnemy(int enemyId) {
 
 		for(int y = 0; y < Room.block.length; y++) {
