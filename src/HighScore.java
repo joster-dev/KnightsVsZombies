@@ -93,13 +93,11 @@ public class HighScore extends JPanel {
 		g.fillRect(achievementListSpace.x, achievementListSpace.y, achievementListSpace.width, achievementListSpace.height);
 		g.fillRect(highScoreListSpace.x, highScoreListSpace.y, highScoreListSpace.width, highScoreListSpace.height);
 		
-		g.setColor(Color.MAGENTA);
-		g.fillRect(backButton.x, backButton.y, backButton.width, backButton.height);
+		g.drawImage(SpriteSheet.back_button, backButton.x, backButton.y, backButton.width, backButton.height, null);
 		
 		g.setColor(Color.BLACK);
 		g.drawRect(achievementListSpace.x, achievementListSpace.y, achievementListSpace.width, achievementListSpace.height);
 		g.drawRect(highScoreListSpace.x, highScoreListSpace.y, highScoreListSpace.width, highScoreListSpace.height);
-		g.drawRect(backButton.x, backButton.y, backButton.width, backButton.height);
 		
 		for(int i = 0; i < achievementBoxes.length; i++) {
 			if(!achievementState[i]) {			//*Sets the opacity to a dark color if the achievement is not unlocked.*//
@@ -138,7 +136,7 @@ public class HighScore extends JPanel {
 		if(backButton.contains(Opening.mse)) {
 			
 			g.setColor(new Color(255, 255, 255, 100));
-			g.fillRect(backButton.x, backButton.y, backButton.width, backButton.height);
+			g.fillOval(backButton.x, backButton.y, backButton.width, backButton.height);
 		}
 		
 		repaint();

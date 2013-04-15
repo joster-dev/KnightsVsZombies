@@ -83,16 +83,12 @@ public class GameMode extends JPanel {
 			}
 		}
 		
-		g.setColor(Color.MAGENTA);
-		g.fillRect(backButton.x, backButton.y, backButton.width, backButton.height);
-		
-		g.setColor(Color.BLACK);
-		g.drawRect(backButton.x, backButton.y, backButton.width, backButton.height);
+		g.drawImage(SpriteSheet.back_button, backButton.x, backButton.y, backButton.width, backButton.height, null);
 		
 		if(backButton.contains(Opening.mse)) {
 			
 			g.setColor(new Color(255, 255, 255, 100));
-			g.fillRect(backButton.x, backButton.y, backButton.width, backButton.height);
+			g.fillOval(backButton.x, backButton.y, backButton.width, backButton.height);
 		}
 		
 		repaint();
