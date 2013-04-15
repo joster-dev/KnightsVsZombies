@@ -49,7 +49,7 @@ public class ScreenPanel {
 	
 	public static SpriteSheet sprites = new SpriteSheet();	
 	
-	public ScreenPanel() {
+	public ScreenPanel() {				//Creation of all Screen Panel components.
 		for(int i = 0; i < shop.length; i++) {
 			shop[i] = new Rectangle( ((Opening.myWidth) / 2) - ((shopWidth * (shopButtonSize+shopCellSpace)) / 2) + ((shopButtonSize+shopCellSpace) * i) + (shopCellSpace / 2), (4 * (Opening.myHeight / 5)) + shopCellSpace, shopButtonSize, shopButtonSize); //(Room.block[Room.worldHeight-1][0].y)
 		}
@@ -78,7 +78,8 @@ public class ScreenPanel {
 		}
 	}
 	
-	public void click(int mouseClick) {
+	//Handles mouse events.
+	public void click(int mouseClick) {				
 		if(mouseClick == 1) {										//Left click.
 			for(int i = 0; i < shop.length; i++) {
 				if(shop[i].contains(Opening.mse)) {
@@ -162,7 +163,8 @@ public class ScreenPanel {
 		}
 	}
 	
-	public static void fastForward(boolean state) {
+	//Function for increasing speed, when fast forward is selected.
+	public static void fastForward(boolean state) {				
 		if(state) {
 			isFastForward = false;
 			Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime * 2);
@@ -199,7 +201,8 @@ public class ScreenPanel {
 	
 	static int towerCellX;
 	static int towerCellY;
-	  
+	 
+	//Function for getting information about which tower to show information for.
 	public static void displayTowerInfo(int blockY, int blockX) {
 		if(showEnemyInfo == true) showEnemyInfo = false;
 		showTowerInfo = true;
@@ -210,8 +213,9 @@ public class ScreenPanel {
 	  
 	static int enemyWave;
 	static int enemyIndex;
-	  
-	public static void displayEnemyInfo(int wave, int enemy) {
+	
+	//Function for getting information about which enemy to show information for.
+	public static void displayEnemyInfo(int wave, int enemy) {						
 	    if(showTowerInfo == true) showTowerInfo = false;
 	    showEnemyInfo = true;
 	    

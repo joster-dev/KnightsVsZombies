@@ -257,7 +257,7 @@ public class Screen extends JPanel implements Runnable {
 				numEnemiesDead = 0;
 				questChainClear = false;
 			}
-			else {
+			else {													//Handles level progression in infinite mode.
 				for(int i = 0; i < levelEnemyType.size(); i++) {
 					for(int j = 0; j < levelEnemyType.get(i).length; j++) {
 						levelEnemyList.get(i)[j] = new Enemy(myFrame);
@@ -266,7 +266,7 @@ public class Screen extends JPanel implements Runnable {
 						}
 					}
 				}
-				for (int k = 0; k < levelEnemyType.size(); k++) {
+				for (int k = 0; k < levelEnemyType.size(); k++) {					//Make 3 enemies from each wave stronger.
 					int indexToIncrease = (int)(Math.random() * levelEnemyType.get(k).length);
 					if(levelEnemyType.get(k)[indexToIncrease] < Value.level5boss) {
 						levelEnemyType.get(k)[indexToIncrease] += 1;
@@ -280,16 +280,16 @@ public class Screen extends JPanel implements Runnable {
 						levelEnemyType.get(k)[indexToIncrease] += 1;
 					}
 				}
-				for(int l = 0; l < newWave.length; l++) {
+				for(int l = 0; l < newWave.length; l++) {							//Make sure we can spawn more enemies.
 					newWave[l] = false;
 				}
 				numEnemiesDead = 0;
 			}
 		} 
-		else {
-			myHealth = 100;
+		else {															//This case handles losing a level.
+			myHealth = 100;												//Reset health and gold.
 			myGold = 100;
-			ScreenPanel.holdItem = false;
+			ScreenPanel.holdItem = false;								//Reset the level variables.
 			ScreenPanel.showEnemyInfo = false;
 			ScreenPanel.enemyWave = 0;
 			ScreenPanel.enemyIndex = 0;
@@ -302,36 +302,36 @@ public class Screen extends JPanel implements Runnable {
 			
 			numEnemiesDead = 0;
 			
-			if(level > 5) {
+			if(level > 5) {												//If they lose infite mode, see if they got a high score.
 				Frame.highScores.newHighScore("You", totalEnemiesDead);
 				infiniteGame = true;
 			}
 
-			define();
+			define();												//Reset the level.
 		}
 	}
 	
 	public void run() {
 		while(true) {
-			if(isViewed) {
-				enemySpawner();
-				room.physic();
+			if(isViewed) {										//Only run the thread if the Screen is visible.
+				enemySpawner();									//Spawn some enemies.
+				room.physic();									//Handles logic for the map.
 				for(int i = 0; i < levelEnemyList.size(); i++) {
 					for(int j = 0; j < levelEnemyList.get(i).length; j++) {
 						if(levelEnemyList.get(i)[j].inGame && !levelEnemyList.get(i)[j].isDead) {
-							levelEnemyList.get(i)[j].physic();
+							levelEnemyList.get(i)[j].physic();			//Move enemies around if they are alive.
 							if(levelEnemyList.get(i)[j].contains(Opening.mse)) {
-								ScreenPanel.displayEnemyInfo(i, j);
+								ScreenPanel.displayEnemyInfo(i, j);		//If enemy is moused over, show its stats.
 							}
 						}
 						if(levelEnemyList.get(ScreenPanel.enemyWave)[ScreenPanel.enemyIndex].isDead) {
-							ScreenPanel.showEnemyInfo = false;
+							ScreenPanel.showEnemyInfo = false;			//If the enemy dies, dont show its info.
 						}
 					}
 				}
 			}
 			
-			if(myHealth <= 0) {
+			if(myHealth <= 0) {											//Handles losing a level.
 				questFailed = true;
 				try {
 					audioHandler.midiHandler.stopMidi();
@@ -344,7 +344,7 @@ public class Screen extends JPanel implements Runnable {
 				levelClear(false);
 			}
 			
-			if(numEnemiesDead >= numEnemies) {
+			if(numEnemiesDead >= numEnemies) {							//Handles winning a level.
 				if(level == 5) {
 					questChainClear = true;
 					repaint();
