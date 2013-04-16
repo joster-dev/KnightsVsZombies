@@ -90,14 +90,14 @@ public class Pause extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.setColor(new Color(255, 255, 255, 1));
 		g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
-		
+
 
 		g.drawImage(SpriteSheet.main_menu, backOpening.x, backOpening.y, backOpening.width, backOpening.height, null);
 		g.drawImage(SpriteSheet.back_button, backGame.x, backGame.y, backGame.width, backGame.height, null);
 		
-		g.setFont(new Font("Arial", Font.BOLD, 40));
-		
-		g.drawString("Game is Paused...", (Frame.x * 5) / 27, (Frame.y * 7) / 27);
+		g.setFont(new Font("Arial", Font.BOLD, 80));
+		g.setColor(Color.BLACK);
+		g.drawString("Game is Paused...", (Frame.x * 3) / 27, (Frame.y * 7) / 27);
 
 
 		g.setColor(new Color(0, 0, 255, 1));
@@ -116,7 +116,7 @@ public class Pause extends JPanel {
 		// been disabled when the mute buttons are clicked
 		if(myFrame.audioHandler.allIsMuted()) {
 			g.drawImage(SpriteSheet.cancel, muteAllButton.x, muteAllButton.y,
-						muteAllButton.width, muteAllButton.height, null);
+					muteAllButton.width, muteAllButton.height, null);
 			g.drawImage(SpriteSheet.cancel, muteMusicButton.x, muteMusicButton.y,
 					muteMusicButton.width, muteMusicButton.height, null);
 			g.drawImage(SpriteSheet.cancel, muteSoundButton.x, muteSoundButton.y,

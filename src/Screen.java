@@ -33,7 +33,7 @@ public class Screen extends JPanel implements Runnable {
 	public static Room room;
 	public static ScreenPanel gamePanel;
 	public static Save save;
-	
+
 	public int level = 1;
 	//*For Loading*//
 	public boolean loadGame = false;
@@ -66,7 +66,7 @@ public class Screen extends JPanel implements Runnable {
 				}
 			}
 		}
-		
+
 		g.drawImage(ScreenPanel.sprites.hudFrame ,0, 0, Opening.myWidth, Opening.myHeight, null);
 		gamePanel.draw(g);
 		
@@ -148,7 +148,7 @@ public class Screen extends JPanel implements Runnable {
 		{
 		case 1:	if( !myFrame.openingScreen.isVisible() ) {
 					// I will replace this with level 1 music soon...
-					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");	// WAS ("res/Sounds/flourish.mid");
+					audioHandler.midiHandler.startMidi("res/Sounds/zelda.mid");
 				}
 				break;
 		case 2: if( !myFrame.openingScreen.isVisible() ) {
@@ -225,7 +225,7 @@ public class Screen extends JPanel implements Runnable {
 				spawnTime = 1750;
 				spawnFrame = -9000;
 				nextWaveWaitTime = -10000;
-				
+
 				Frame.highScores.unlockAchievement(level - 1);		//Unlock achievement for beating a level.
 				level += 1;
 				questClear = false;
@@ -250,7 +250,7 @@ public class Screen extends JPanel implements Runnable {
 
 				levelEnemyType = new ArrayList<int[]>();
 				levelEnemyList = new ArrayList<Enemy[]>();
-				
+
 				myFrame.updateFrame();
 				Frame.highScores.unlockAchievement(level - 1);		//Unlock achievement for beating level 5.
 

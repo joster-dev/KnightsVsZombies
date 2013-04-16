@@ -53,7 +53,7 @@ public class Frame extends JFrame {
 		
 		setVisible(true);
 	}
-	
+
 	//Called to switch JPanel objects.
 	public void updateFrame() {
 		if(splashScreen.done) {

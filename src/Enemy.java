@@ -243,7 +243,7 @@ public class Enemy extends Rectangle {
 		
 		// Repeat the walking this.animation
 		else if (this.animationId == this.animationWalkEnd)
-			return this.animationWalkStart;;
+			return this.animationWalkStart;
 		
 		// If all else fails, return the base sprite
 		return 0;

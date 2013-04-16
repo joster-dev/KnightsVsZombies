@@ -159,7 +159,7 @@ public class Block extends Rectangle {
 			//g.drawRect(towerHitBox.x, towerHitBox.y, towerHitBox.width, towerHitBox.height);
 			g.drawOval((int)towerHitBox.x, (int)towerHitBox.y, (int)towerHitBox.width, (int)towerHitBox.height);
 		}
-		
+
 		else if(this.contains(Opening.mse) && ScreenPanel.holdItem){
 			Ellipse2D.Float tempRange = new Ellipse2D.Float(x - (width * Value.getTowerStats("range", ScreenPanel.holdItemId)), y - (width * Value.getTowerStats("range", ScreenPanel.holdItemId)), width + (width * (2 * Value.getTowerStats("range", ScreenPanel.holdItemId))), width + (width * (2 * Value.getTowerStats("range", ScreenPanel.holdItemId))));
 			g.drawOval((int)tempRange.x, (int)tempRange.y, (int)tempRange.width, (int)tempRange.height);

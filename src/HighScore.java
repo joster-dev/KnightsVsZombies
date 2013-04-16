@@ -28,7 +28,7 @@ public class HighScore extends JPanel {
 	public Rectangle[] highScoreBoxes = new Rectangle[5];
 	public String[] highScoreNames = new String[]{"Ted", "Steve", "Jim", "Tyrone", "Sam"};
 	public int[] highScores = new int[]{50, 45, 40, 35, 32};
-	
+
 	public Rectangle backButton;
 	
 	public Frame myFrame;
@@ -38,8 +38,8 @@ public class HighScore extends JPanel {
 		
 		achievementListSpace = new Rectangle(Frame.x / 9, Frame.y / 4, Frame.x / 3, (Frame.y * 5) / 8);
 		highScoreListSpace = new Rectangle((Frame.x * 5) / 9, Frame.y / 4, Frame.x / 3, (Frame.y * 10) / 27);
-		backButton = new Rectangle((Frame.x * 20) / 27, (Frame.y * 19) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
-		
+		backButton = new Rectangle((Frame.x * 21) / 27, (Frame.y * 19) / 27, (Frame.x * 4) / 27, (Frame.y * 5) / 27);
+
 		for(int i = 0; i < achievementBoxes.length; i++) {
 			achievementBoxes[i] = new Rectangle(achievementListSpace.x + (achievementListSpace.width / 10), achievementListSpace.y + (achievementListSpace.height * 4 / 23) + (achievementListSpace.height * 3 / 23) * i, achievementListSpace.width * 4 / 5, achievementListSpace.height * 3 / 23);
 			achievementStateBoxes[i] = new Rectangle(achievementBoxes[i].x + achievementBoxes[i].width - (achievementBoxes[i].height * 14 / 15), achievementBoxes[i].y + (achievementBoxes[i].height / 15), achievementBoxes[i].height * 13 / 15, achievementBoxes[i].height * 13 / 15);
@@ -84,20 +84,12 @@ public class HighScore extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
-		//g.setColor(Color.YELLOW);
-		//g.fillRect(0, 0, Opening.myWidth, Opening.myHeight);
-		
+
 		g.drawImage(SpriteSheet.openingBackground, 0, 0, Opening.myWidth, Opening.myHeight, null);
 		
-		g.setColor(Color.WHITE);
-		g.fillRect(achievementListSpace.x, achievementListSpace.y, achievementListSpace.width, achievementListSpace.height);
-		g.fillRect(highScoreListSpace.x, highScoreListSpace.y, highScoreListSpace.width, highScoreListSpace.height);
-		
-		g.drawImage(SpriteSheet.back_button, backButton.x, backButton.y, backButton.width, backButton.height, null);
-		
-		g.setColor(Color.BLACK);
-		g.drawRect(achievementListSpace.x, achievementListSpace.y, achievementListSpace.width, achievementListSpace.height);
-		g.drawRect(highScoreListSpace.x, highScoreListSpace.y, highScoreListSpace.width, highScoreListSpace.height);
+		g.drawImage(SpriteSheet.scroll, achievementListSpace.x-30, achievementListSpace.y-40, achievementListSpace.width+120, achievementListSpace.height+140, null);
+		g.drawImage(SpriteSheet.scroll, highScoreListSpace.x-30, highScoreListSpace.y-30, highScoreListSpace.width+120, highScoreListSpace.height+110, null);
+		g.drawImage(SpriteSheet.back_button, backButton.x, backButton.y, backButton.width, backButton.height, null);		
 		
 		for(int i = 0; i < achievementBoxes.length; i++) {
 			if(!achievementState[i]) {			//*Sets the opacity to a dark color if the achievement is not unlocked.*//
@@ -128,7 +120,7 @@ public class HighScore extends JPanel {
 			g.drawString(highScoreNames[k], highScoreBoxes[k].x + highScoreListSpace.width * 3 / 10, highScoreBoxes[k].y + (highScoreListSpace.height / 10));
 			g.drawString(Integer.toString(highScores[k]), highScoreBoxes[k].x + highScoreListSpace.width / 2, highScoreBoxes[k].y + (highScoreListSpace.height / 10));
 		}
-		
+
 		for(int l = 0; l < achievementBoxes.length; l++) {
 			g.drawString(achievementNames[l], achievementBoxes[l].x + achievementListSpace.width / 7, achievementBoxes[l].y + (achievementListSpace.height / 13));
 		}
@@ -136,7 +128,7 @@ public class HighScore extends JPanel {
 		if(backButton.contains(Opening.mse)) {
 			
 			g.setColor(new Color(255, 255, 255, 100));
-			g.fillOval(backButton.x, backButton.y, backButton.width, backButton.height);
+			g.fillOval(backButton.x-2, backButton.y-2, backButton.width+4, backButton.height+4);
 		}
 		
 		repaint();

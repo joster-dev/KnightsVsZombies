@@ -51,7 +51,7 @@ public class HealthBar extends Rectangle {
 			healthWidth = 2;
 		if(healthWidth > width)
 			healthWidth = width;
-		
+
 		if(enemy.y <= 16)
 			yOffset = 72;
 		else {

@@ -60,20 +60,20 @@ public class GameMode extends JPanel {
 	public void paintComponent(Graphics g) {
 
 		g.drawImage(SpriteSheet.openingBackground, 0, 0, Opening.myWidth, Opening.myHeight, null);
-		
+
 		for(int i = 0; i < choose.length; i++) {
 			
 			g.setColor(Color.LIGHT_GRAY);
 			g.fillRect(choose[i].x, choose[i].y, choose[i].width, choose[i].height);
-			g.setColor(Color.BLACK);								// DEBUG!!!	//\/temporary 'til add pictures here,\/
-			g.setFont(new Font("Arial", Font.BOLD, 30));			// DEBUG!!!
+			g.setColor(Color.BLACK);
+			g.setFont(new Font("Arial", Font.BOLD, 30));
 			String temp;
-			// until we add pictures to the buttons, these are temporary...
+
 			if(i == 0)
 				temp = "Story Mode";
 			else
 				temp = "Infinite Mode";
-			g.drawString(temp, (choose[i].x)+32, (choose[i].y)+42);	// DEBUG!!!^^^^^^^^^^^^TEMP UNTIL PICTURES^^^^^
+			g.drawString(temp, (choose[i].x)+32, (choose[i].y)+42);
 			g.drawRect(choose[i].x, choose[i].y, choose[i].width, choose[i].height);
 			
 			if(choose[i].contains(Opening.mse)) {
@@ -82,13 +82,14 @@ public class GameMode extends JPanel {
 				g.fillRect(choose[i].x, choose[i].y, choose[i].width, choose[i].height);
 			}
 		}
-		
+
+
 		g.drawImage(SpriteSheet.back_button, backButton.x, backButton.y, backButton.width, backButton.height, null);
 		
 		if(backButton.contains(Opening.mse)) {
 			
 			g.setColor(new Color(255, 255, 255, 100));
-			g.fillOval(backButton.x, backButton.y, backButton.width, backButton.height);
+			g.fillOval(backButton.x-2, backButton.y-2, backButton.width+4, backButton.height+4);
 		}
 		
 		repaint();

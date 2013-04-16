@@ -77,9 +77,9 @@ public class ScreenPanel {
 			infoIcon[l] = new Rectangle( ((Opening.myWidth) / 2) + ((shopWidth*(shopButtonSize+shopCellSpace)) / 2) + (cellSpaceFromRoom * 3) + (shopCellSpace / 2) + menuButtonSizeX + infoIconCellSpace, ((4 * (Opening.myHeight / 5)) + cellSpaceFromRoom) + ((infoIconSize + infoIconBetweenSpace) * l) + infoIconCellSpace, infoIconSize, infoIconSize);
 		}
 	}
-	
+
 	//Handles mouse events.
-	public void click(int mouseClick) {				
+	public void click(int mouseClick) {
 		if(mouseClick == 1) {										//Left click.
 			for(int i = 0; i < shop.length; i++) {
 				if(shop[i].contains(Opening.mse)) {
@@ -162,9 +162,9 @@ public class ScreenPanel {
 			holdItem = false;
 		}
 	}
-	
+
 	//Function for increasing speed, when fast forward is selected.
-	public static void fastForward(boolean state) {				
+	public static void fastForward(boolean state) {
 		if(state) {
 			isFastForward = false;
 			Frame.gameScreen.spawnTime = (Frame.gameScreen.spawnTime * 2);
